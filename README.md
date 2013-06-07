@@ -26,7 +26,9 @@ A documentação de cada método da API determina o caminho e o verbo a ser util
 
 # Autenticação
 
-O protocolo HTTP é um protocolo _stateless_, o que significa que o protocolo não oferece armazenamento do estado entre as requisições, conhecido como **sessão**. Aplicações Web geralmente utilizam _cookies_ para fazer o controle de sessão, porém isto pode trazer complicações no uso de uma API REST entre servidores, por esse motivo foi definido que não haverá abertura de sessão nem utilização de cookies. Portanto **os parâmetros de autenticação devem ser enviados a cada requisição** feita pelo cliente.
+O protocolo HTTP é um protocolo _stateless_, o que significa que o protocolo não oferece armazenamento do estado entre as requisições, conhecido como **sessão**. Aplicações Web geralmente utilizam _cookies_ para fazer o controle de sessão, porém isto pode trazer complicações no uso de uma API REST entre servidores, por esse motivo foi definido que não haverá abertura de sessão nem utilização de cookies, ao invés disso, a autenticação será feita por parâmetros no _path_.
+
+**Atenção:** os parâmetros de autenticação devem ser enviados a cada requisição feita pelo cliente.
 
 A autenticação é feita através de 2 parâmentros: **api_key** e **api_token**.
 
