@@ -199,7 +199,7 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
     "signers": [
       { "email": "foo@example.com", "action": "sign", "signed": "approved", "signed_at": "2013-05-07T14:34:36.447Z" },
       { "email": "bar@example.com", "action": "sign_as_witness", "signed": "waiting", "signed_at": null }
-    ],
+    ]
   }
   ```
 
