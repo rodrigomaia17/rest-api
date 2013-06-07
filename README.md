@@ -78,7 +78,14 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
     },
    ]
   ```
+
+
+## Resposta 4XX
+
+Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem erro.
+
 * **Cabeçalhos**:
+  - **Content-Type:** application/json
   - **Content-Type:** application/json
 * **Corpo:**
   ```json
