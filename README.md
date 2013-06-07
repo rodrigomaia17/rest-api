@@ -38,41 +38,57 @@ A autenticação é feita através de 2 parâmentros: **api_key** e **api_token*
 
 Retorna os documentos. Podem ser aplicados três tipos de filtros simultaneamente: data de criação antes de determinada data, data de criação após determinada data, estado do documento. Os dados dos documentos serão retornados em _JSON_ sendo o elemento _root_ um `Array`.
 
-1. Requisição:
-  * **Método:** GET
-  * **Caminho:** /documents
-  * **Parâmetros opcionais**
-    - **status:** open, locked, running, closed
-    - **before:** _data_
-    - **after:** _data_
-  * **Cabeçalhos:**
-    - **Accept**: application/json
-  * **Corpo:** _vazio_
+## Requisição
 
-* Resposta:
-  1. Código 200:
-    - **Corpo**
-      ```json
-      [
-        {
-          "document_id": "4d3ed089fb60ab534684b7e9",
-          "created_at": "2013-04-11T13:04:32.542Z",
-          "status": "running",
-        },
+* **Método:** GET
+* **Caminho:** /documents
+* **Parâmetros opcionais**
+  - **status:** open, locked, running, closed
+  - **before:** _data_
+  - **after:** _data_
+* **Cabeçalhos:**
+  - **Accept**: application/json
+* **Corpo:** _vazio_
 
-        {
-          "document_id": "4baa56f1230048567300485c",
-          "created_at": "2013-04-22T09:01:18.312Z",
-          "status": "running",
-        },
+## Resposta 200
 
-        {
-          "document_id": "51b1d97e25dc552297f95b97",
-          "created_at": "2013-04-20T11:04:32.072Z",
-          "status": "open",
-        },
-       ]
-      ```
+Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JSON_ contendo os documentos que atendem os critérios dos filtros.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+  ```json
+  [
+    {
+      "document_id": "4d3ed089fb60ab534684b7e9",
+      "created_at": "2013-04-11T13:04:32.542Z",
+      "status": "running",
+    },
+
+    {
+      "document_id": "4baa56f1230048567300485c",
+      "created_at": "2013-04-22T09:01:18.312Z",
+      "status": "running",
+    },
+
+    {
+      "document_id": "51b1d97e25dc552297f95b97",
+      "created_at": "2013-04-20T11:04:32.072Z",
+      "status": "open",
+    },
+   ]
+  ```
+
+## Resposta 4XX
+
+Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo**:
+  ```json
+    { "message": "Parâmetros inválidos." }
+  ```
 
 # Super envio
 
