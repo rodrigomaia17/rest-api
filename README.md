@@ -7,7 +7,7 @@
 - [Listagem de documentos](#listagem-de-documentos)
 - [Dados de um documento](#dados-de-um-documento)
 - [Download de um documento](#download-de-um-documento)
-- [Super envio](#super-envio)
+- [Envio integrado](#envio-integrado)
 
 # Introdução
 
