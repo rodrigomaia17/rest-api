@@ -1,4 +1,4 @@
-# Clicksign API REST
+# Índice
 
 - [Introdução](#introduo)
 - [Funcionamento geral](#funcionamento-geral)
@@ -15,7 +15,7 @@ A Clicksign é uma solução online para enviar, guardar e assinar documentos, c
 
 A Clicksign pode ser acessada em www.clicksign.com. 
 
-O propósito desta **API REST** é prover meios para que nossos clientes adequem a Clicksign aos seus processos e sistemas p.ex. automatizar tarefas, desenhar fluxos de assinatura, e definir _workflow_. 
+O propósito desta **REST API** é prover meios para que nossos clientes adequem a Clicksign aos seus processos e sistemas p.ex. automatizar tarefas, desenhar fluxos de assinatura, e definir _workflow_. 
 
 Qualquer linguagem de programação compativel com requisições **HTTP / JSON** cumpre os requisitos necessários para consumir os serviços desta API. Assim, com pouco esforço de programação é possível integrar desde scripts shell até sistemas de ERP.
 
@@ -23,31 +23,30 @@ Os exemplos contidos nessa documentação utilizam **bash** e **curl**, bem como
 
 # Funcionamento geral
 
-Uma API REST é composta, basicamente, por dois elementos: um **cliente** e um **servidor**. O cliente sempre inicia a comunicação mediante requisição HTTP. O servidor sempre finaliza a comunicação respondendo a requisição.
+Uma _REST API_ é composta, basicamente, por dois elementos: um **cliente** e um **servidor**. O cliente sempre inicia a comunicação mediante requisição HTTP. O servidor sempre finaliza a comunicação respondendo a requisição.
 
-As mensagens HTTP são compostas por uma linha inicial, um conjunto de cabeçalhos e um corpo. A requisição, na linha inicial, indica o **caminho**, o **verbo**, e a versão do protocolo. O caminho e o verbo são essenciais em uma API REST uma vez que ambos indicam a ação a ser executada no servidor. 
-
+As mensagens HTTP são compostas por uma linha inicial, um conjunto de cabeçalhos e um corpo. A requisição, na linha inicial, indica o **method**, o **path**, e a versão do protocolo. O _method_ e o _path_ são essenciais em uma _REST API_ uma vez que ambos indicam a ação a ser executada no servidor. 
 
 A resposta, em sua linha inicial, indica a versão do protocolo, o **código de status**, e contém uma mensagem informativa. O código de status da resposta é essencial para o cliente saber se a ação foi devidamente executada no servidor.
 
 ![requisição/resposta HTTP](https://raw.github.com/clicksign/rest-api/master/images/request_response.png)
 
-A documentação de cada método da API determina o caminho e o verbo a ser utilizado, e o significado de cada código de status da resposta.
+A documentação de cada função da API determina o _method_ e o _path_ e a ser utilizado, e o significado de cada código de status da resposta.
 
 
 # Autenticação
 
-A autenticação é feita através de 2 parâmetros: **api_key** e **api_token**. O parâmetro `api_key` define qual cliente está fazendo a requisição. O parâmetro `api_token` define o token que será utilizado na verificação de acesso à API. Ambos os parâmetros devem ser enviados no caminho da requisição. Portanto, toda requisição deverá conter no caminho `?api_key=valor-da-key&api_token=valor-do-token`.
+A autenticação é feita através de 2 parâmetros: **api_key** e **api_token**. O parâmetro `api_key` define qual cliente está fazendo a requisição. O parâmetro `api_token` define o token que será utilizado na verificação de acesso à API. Ambos os parâmetros devem ser enviados no _path_ da requisição. Portanto, toda requisição deverá conter no _path_ `?api_key=valor-da-key&api_token=valor-do-token`.
 
-**Atenção:** Os parâmetros de autenticação devem ser enviados a cada requisição feita pelo cliente. Como esses parâmetros são comuns a todos os métodos da API, eles serão omitidos das documentações.
+**Atenção:** Os parâmetros de autenticação devem ser enviados a cada requisição feita pelo cliente. Como esses parâmetros são comuns a todos as funções da API, eles serão omitidos das documentações.
 
 
 # Upload de documento
 
 O processo de envio de um documento para o servidor contempla (i) a criação de uma cópia do documento, "carimbada" com um **número de série**, e (ii) a geração de um **log** contendo informações de _upload_, usuário, etc. Ao final do processo haverá 3 arquivos nos servidores da Clicksign: documento original, cópia carimbada do documento, e arquivo de log. A requisição *não fica bloqueada* enquanto o documento é processado. O _status_ do documento será _working_ enquanto o processo ocorre. Após concluído, o _status_ será _open_.
 
-* **Método:** POST
-* **Caminho:** /documents
+* **Method:** POST
+* **Path:** /documents
   - **Content-Type:** multipart/mixed; boundary=frontier
   - **Accept**: application/json
 * **Corpo:**
@@ -106,8 +105,8 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 
 Podem ser aplicados, simultaneamente, três tipos de filtros à listagem de documentos: data de criação antes de determinada data; data de criação após determinada data; estado do documento.
 
-* **Método:** GET
-* **Caminho:** /documents
+* **Method:** GET
+* **Path:** /documents
 * **Parâmetros opcionais**
   - **status:** working, open, locked, running, closed
   - **before:** _data_
@@ -175,8 +174,8 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 
 Informações detalhadas sobre um documento. O `document_id` é necessário no _path_ da requisição.
 
-* **Método:** GET
-* **Caminho:** /documents/:id
+* **Method:** GET
+* **Path:** /documents/:id
 * **Cabeçalhos:**
   - **Accept**: application/json
 * **Corpo:** _vazio_
@@ -232,10 +231,10 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 
 Retorna um arquivo _ZIP_ contendo os 3 arquivos resultantes do processamento: arquivo original, cópia carimbada do arquivo e log.
 
-**Atenção**: A única diferença entre este método e obter os [dados de um documento](#dados-de-um-documento) é o cabeçalho **Accept**, que neste caso é _application/zip_.
+**Atenção**: A única diferença entre esta função e função [dados de um documento](#dados-de-um-documento) é o cabeçalho **Accept**, que neste caso é _application/zip_.
 
-* **Método:** GET
-* **Caminho:** /documents/:id
+* **Method:** GET
+* **Path:** /documents/:id
 * **Cabeçalhos:**
   - **Accept**: application/zip
 * **Corpo:** _vazio_
