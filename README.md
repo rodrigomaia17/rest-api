@@ -38,8 +38,7 @@ A autenticação é feita através de 2 parâmentros: **api_key** e **api_token*
 
 Retorna os documentos. Podem ser aplicados três tipos de filtros simultaneamente: data de criação antes de determinada data, data de criação após determinada data, estado do documento. Os dados dos documentos serão retornados em _JSON_ sendo o elemento _root_ um `Array`.
 
-## Requisição
-
+Requisição:
 * **Método:** GET
 * **Caminho:** /documents
 * **Parâmetros opcionais**
@@ -50,14 +49,14 @@ Retorna os documentos. Podem ser aplicados três tipos de filtros simultaneament
   - **Accept**: application/json
 * **Corpo:** _vazio_
 
-## Resposta
-
+Resposta:
 **Código**:
 - **200:** Sucesso. O corpo será um JSON com os documentos.
 - **4XX:** Falha no cliente. O corpo será uma descrição do erro.
 - **5XX:** Falha no servidor. O corpo será uma descrição do erro.
 
 ```json
+// Corpo para código 200
 [
   {
     "document_id": "4d3ed089fb60ab534684b7e9",
