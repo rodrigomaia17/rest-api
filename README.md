@@ -174,6 +174,60 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 
 # Dados de um documento
 
+Retorna os dados de um documento. Deve ser adicionado o `document\_id` ao _path_ da requisição.
+
+* **Método:** GET
+* **Caminho:** /documents/:id
+* **Cabeçalhos:**
+  - **Accept**: application/json
+* **Corpo:** _vazio_
+
+## Resposta 200
+
+Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JSON_ contendo as informações do documento, incluindo dados da sua lista de assinatura.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+  ```json
+  {
+    "document_id": "4d3ed089fb60ab534684b7e9",
+    "created_at": "2013-05-02T14:24:38.447Z",
+    "user_id": "51b1efd1438ef026f91758b2",
+    "status": "running",
+
+    "signers": [
+      { "email": "foo@example.com", "action": "sign", "signed": "approved", "signed_at": "2013-05-07T14:34:36.447Z" },
+      { "email": "bar@example.com", "action": "sign_as_witness", "signed": "waiting", "signed_at": null }
+    ],
+  }
+  ```
+
+## Resposta 4XX
+
+Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+  ```json
+  { "message": "Parâmetros inválidos." }
+  ```
+
+## Resposta 5XX
+
+Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+  ```json
+  { "message": "Ocorreu um erro no servidor" }
+  ```
+
 # Download de um documento
 
 # Super envio
@@ -243,7 +297,7 @@ Accept: application/json
 
   "signers": [
     { "email": "foo@example.com", "action": "sign" },
-    { "email": "bar@example.com", "action": "sign_as_witness" },
+    { "email": "bar@example.com", "action": "sign_as_witness" }
   ],
 
   "message": {
