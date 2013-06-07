@@ -3,7 +3,10 @@
 - [Introdução](#introduo)
 - [Funcionamento geral](#funcionamento-geral)
 - [Autenticação](#autenticao)
+- [Upload de documento](#upload-de-documentos)
 - [Listagem de documentos](#listagem-de-documentos)
+- [Dados de um documento](#dados-de-um-documento)
+- [Download de um documento](#download-de-um-documento)
 - [Super envio](#super-envio)
 
 # Introdução
@@ -41,11 +44,11 @@ A autenticação é feita através de 2 parâmentros: **api_key** e **api_token*
 
 **Atenção:** Como esses parâmetros são comuns a todos os métodos da API, eles serão omitidos de suas documentações.
 
+# Upload de documento
+
 # Listagem de documentos
 
-Retorna os documentos. Podem ser aplicados três tipos de filtros simultaneamente: data de criação antes de determinada data, data de criação após determinada data, estado do documento. Os dados dos documentos serão retornados em _JSON_ sendo o elemento _root_ um `Array`.
-
-## Requisição
+Retorna os documentos. Podem ser aplicados três tipos de filtros simultaneamente: data de criação antes de determinada data, data de criação após determinada data, estado do documento.
 
 * **Método:** GET
 * **Caminho:** /documents
@@ -59,7 +62,7 @@ Retorna os documentos. Podem ser aplicados três tipos de filtros simultaneament
 
 ## Resposta 200
 
-Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JSON_ contendo os documentos que atendem os critérios dos filtros.
+Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JSON_ contendo os documentos que atendem os critérios dos filtros. Os dados dos documentos serão retornados em _JSON_ sendo o elemento _root_ um `Array`.
 
 * **Cabeçalhos**:
   - **Content-Type:** application/json
@@ -87,10 +90,9 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
    ]
   ```
 
-
 ## Resposta 4XX
 
-Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem erro.
+Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
 
 * **Cabeçalhos**:
   - **Content-Type:** application/json
@@ -98,10 +100,27 @@ Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSO
 
   ```json
   {
-    "message": "Parametros invalidos."
+    "message": "Parâmetros inválidos."
   }
   ```
 
+## Resposta 5XX
+
+Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+  ```json
+  {
+    "message": "Ocorreu um erro no servidor"
+  }
+  ```
+
+# Dados de um documento
+
+# Download de um documento
 
 # Super envio
 
