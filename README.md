@@ -142,7 +142,7 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
       "document_id": "51b1d97e25dc552297f95b97",
       "created_at": "2013-04-20T11:04:32.072Z",
       "status": "open"
-    },
+    }
   ]
   ```
 
@@ -325,7 +325,7 @@ O campo `body` especifica o corpo da mensagem, é opcional e caso presente deve 
 {
   "message": {
     "recipients": [ "foo@example.com", "bar@example.com" ],
-    "body": "Hi guys, please sign this documents."
+    "body": "Hi guys, please sign this document."
   }
 }
 ```
@@ -349,7 +349,7 @@ Accept: application/json
 
   "message": {
     "recipients": [ "foo@example.com", "bar@example.com" ],
-    "body": "Hi guys, please sign this documents."
+    "body": "Hi guys, please sign this document."
   }
 }
 ```
