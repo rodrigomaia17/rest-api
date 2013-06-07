@@ -38,46 +38,41 @@ A autenticação é feita através de 2 parâmentros: **api_key** e **api_token*
 
 Retorna os documentos. Podem ser aplicados três tipos de filtros simultaneamente: data de criação antes de determinada data, data de criação após determinada data, estado do documento. Os dados dos documentos serão retornados em _JSON_ sendo o elemento _root_ um `Array`.
 
-Requisição:
-* **Método:** GET
-* **Caminho:** /documents
-* **Parâmetros opcionais**
-  - **status:** open, locked, running, closed
-  - **before:** _data_
-  - **after:** _data_
-* **Cabeçalhos:**
-  - **Accept**: application/json
-* **Corpo:** _vazio_
+1. Requisição:
+  * **Método:** GET
+  * **Caminho:** /documents
+  * **Parâmetros opcionais**
+    - **status:** open, locked, running, closed
+    - **before:** _data_
+    - **after:** _data_
+  * **Cabeçalhos:**
+    - **Accept**: application/json
+  * **Corpo:** _vazio_
 
-Resposta:
-**Código**:
-- **200:** Sucesso. O corpo será um JSON com os documentos.
-- **4XX:** Falha no cliente. O corpo será uma descrição do erro.
-- **5XX:** Falha no servidor. O corpo será uma descrição do erro.
+* Resposta:
+  1. Código 200:
+    - **Corpo**
+      ```json
+      [
+        {
+          "document_id": "4d3ed089fb60ab534684b7e9",
+          "created_at": "2013-04-11T13:04:32.542Z",
+          "status": "running",
+        },
 
-```json
-// Corpo para código 200
-[
-  {
-    "document_id": "4d3ed089fb60ab534684b7e9",
-    "created_at": "2013-04-11T13:04:32.542Z",
-    "status": "running",
-  },
+        {
+          "document_id": "4baa56f1230048567300485c",
+          "created_at": "2013-04-22T09:01:18.312Z",
+          "status": "running",
+        },
 
-  {
-    "document_id": "4baa56f1230048567300485c",
-    "created_at": "2013-04-22T09:01:18.312Z",
-    "status": "running",
-  },
-
-  {
-    "document_id": "51b1d97e25dc552297f95b97",
-    "created_at": "2013-04-20T11:04:32.072Z",
-    "status": "open",
-  },
- ]
-```
-
+        {
+          "document_id": "51b1d97e25dc552297f95b97",
+          "created_at": "2013-04-20T11:04:32.072Z",
+          "status": "open",
+        },
+       ]
+      ```
 
 # Super envio
 
