@@ -2,9 +2,9 @@
 
 A Clicksign é uma solução online para enviar, guardar e assinar documentos, com validade jurídica. Foi criada para facilitar, reduzir custo e aumentar a segurança e compliance do processo de assinatura e workflow de documentos. Os documentos podem ser carregados, enviados e assinados pelo nosso site www.clicksign.com.
 
-Apesar disso, sabemos que muitos de nossos clientes possuem fluxos próprios de assinatura e/ou desejam automatizar determinadas tarefas. A Clicksign possui uma API REST, o que significa que qualquer linguagem de programação que possa realizar requisições HTTP cumpre os requisitos necessários para consumir os serviços da API. Desde aplicações scripts shell até sistemas de ERP podem integrar com esforço mínimo de programação.
+Apesar disso, sabemos que muitos de nossos clientes possuem fluxos próprios de assinatura e/ou desejam automatizar determinadas tarefas. A Clicksign possui uma **API REST**, o que significa que qualquer linguagem de programação que possa realizar requisições HTTP cumpre os requisitos necessários para consumir os serviços da API. Desde aplicações scripts shell até sistemas de ERP podem integrar com esforço mínimo de programação.
 
-Os exemplos construídos nessa documentação utilizam curl. O programa curl é uma aplicação amplamente disponível em ambientes Unix e sua principal utilidade é realizar requisições HTTP. Os exemplos que envolvem programação utilizam a linguagem Javascript pelo fato de ser amplamente conhecida, além de ilustrar a versatilidade da API.
+Os exemplos construídos nessa documentação utilizam **curl**. O programa curl é amplamente disponível em ambientes **Unix** e sua principal utilidade é realizar requisições HTTP. Os exemplos que envolvem programação utilizam a linguagem **Javascript** pelo fato de ser amplamente conhecida, além de ilustrar a versatilidade da API.
 
 É possível criar uma lista de assinatura e envia-la a outros pessoas em uma única ação. Para isso, é necessário que estejam presentes os seguintes campos que especificam o documento, os signatários e a mensagem.
 
