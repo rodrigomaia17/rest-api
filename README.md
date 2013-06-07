@@ -6,6 +6,20 @@ Apesar disso, sabemos que muitos de nossos clientes possuem fluxos próprios de 
 
 Os exemplos construídos nessa documentação utilizam **curl**. O programa curl é amplamente disponível em ambientes **Unix** e sua principal utilidade é realizar requisições HTTP. Os exemplos que envolvem programação utilizam a linguagem **Javascript** pelo fato de ser amplamente conhecida, além de ilustrar a versatilidade da API.
 
+# Funcionamento geral
+
+Uma API REST é elementarmente composta de dois elementos: um **cliente** e um **servidor**. O cliente **sempre** inicializa a comunicação através de uma requisição HTTP e o servidor sempre a finaliza respondendo.
+
+Há dois tipos de mensagens HTTP: requisições e respostas, que estarão associadas respectivamente ao cliente e ao servidor. As mensagens HTTP são compostas de uma linha inicial, um conjunto de cabeçalhos e um corpo. As requisições, em sua linha inicial, indicam o **verbo** HTTP, o **caminho** e a versão do protocolo. O verbo e o caminho são essenciais em uma API REST, pois o conjunto dos dois é que indicará a ação a ser executada no servidor. As respostas, em sua linha inicial, indicam a versão do protocolo, o **código de status** e uma mensagem informativa. O código de status da resposta é essencial para o cliente saber se a ação foi devidamente executada no servidor.
+
+A documentação de cada método da API determina o caminho e o verbo a ser utilizado, assim como, o que significa cada código de status da resposta. É interessante notar que algumas requisições podem contar parâmetros codificados no caminho da requisição ou estarem presentes no corpo da requisição, o que estará especificado na documentação de cada método.
+
+# Autenticação
+
+# Listagem de documentos
+
+# Super envio
+
 É possível criar uma lista de assinatura e envia-la a outros pessoas em uma única ação. Para isso, é necessário que estejam presentes os seguintes campos que especificam o documento, os signatários e a mensagem.
 
 ## Documento
