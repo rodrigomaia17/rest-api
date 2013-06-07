@@ -44,7 +44,7 @@ A autenticação é feita através de 2 parâmentros: **api_key** e **api_token*
 
 # Upload de documento
 
-Envia um documento para o servidor. É feita uma cópia do documento e adicionada um **número de série** à cópia. Um **log** é gerado contendo as informações de data de _upload_, usuário e outras informações. Ao final do processo haverá 3 arquivos nos servidores da Clicksign: documento original, cópia do documento e arquivo de log. A requisição *não fica bloqueada* enquanto o documento é processado. O documento apenas estará com _status working_ enquanto o processo ocorre. Após concluído, o _status_ será _open_.
+Envia um documento para o servidor. É feita uma cópia do documento e adicionada um **número de série** à cópia. Um **log** é gerado contendo as informações de data de _upload_, usuário e outras informações. Ao final do processo haverá 3 arquivos nos servidores da Clicksign: documento original, cópia do documento e arquivo de log. A requisição *não fica bloqueada* enquanto o documento é processado. O _status_ do documento será _working_ enquanto o processo ocorre. Após concluído, o _status_ será _open_.
 
 * **Método:** POST
 * **Caminho:** /documents
