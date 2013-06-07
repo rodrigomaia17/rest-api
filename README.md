@@ -34,11 +34,13 @@ DANIEL PAREI AQUI: A resposta, em sua linha inicial, indicam a versão do protoc
 
 A documentação de cada método da API determina o caminho e o verbo a ser utilizado, assim como, o que significa cada código de status da resposta. É interessante notar que algumas requisições podem contar com parâmetros codificados no caminho da requisição ou estarem presentes no corpo da requisição, o que estará especificado na documentação de cada método.
 
+
 # Autenticação
 
 A autenticação é feita através de 2 parâmentros: **api_key** e **api_token**. O parâmetro `api_key` define qual cliente está fazendo a requisição e o parâmetro `api_token` define o token que será utilizado na verificação de acesso à API. Ambos os parâmetros devem ser enviados no caminho da requisição. Portanto toda requisição deverá conter no caminho `?api_key=valor-da-key&api_token=valor-do-token`.
 
-**Atenção:** Como esses parâmetros são comuns a todos os métodos da API, eles serão omitidos de suas documentações.
+**Atenção:** os parâmetros de autenticação devem ser enviados a cada requisição feita pelo cliente. Como esses parâmetros são comuns a todos os métodos da API, eles serão omitidos de suas documentações.
+
 
 # Upload de documento
 
@@ -168,6 +170,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
   { "message": "Ocorreu um erro no servidor" }
   ```
 
+
 # Dados de um documento
 
 Retorna os dados de um documento. Deve ser adicionado o `document\_id` ao _path_ da requisição.
@@ -224,7 +227,57 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
   { "message": "Ocorreu um erro no servidor" }
   ```
 
+
 # Download de um documento
+
+Retorna um arquivo _ZIP_ contendo os 3 arquivos resultantes do processamento: arquivo original, cópia do arquivo e log.
+
+**Atenção**: A única diferença entre este método e obter os [dados de um documento](#dados-de-um-documento) é o cabeçalho **Accept**, que neste caso é _application/zip_.
+
+* **Método:** GET
+* **Caminho:** /documents/:id
+* **Cabeçalhos:**
+  - **Accept**: application/zip
+* **Corpo:** _vazio_
+
+## Resposta 200
+
+Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JSON_ contendo as informações do documento, incluindo dados da sua lista de assinatura.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/zip
+* **Corpo:**
+
+  ```
+   PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
+   ...
+   Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
+  ```
+
+## Resposta 4XX
+
+Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+  ```json
+  { "message": "Parâmetros inválidos." }
+  ```
+
+## Resposta 5XX
+
+Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+  ```json
+  { "message": "Ocorreu um erro no servidor" }
+  ```
+
 
 # Super envio
 
@@ -262,7 +315,6 @@ Os possíveis campos de `action` são:
 }
 ```
 
-
 ## Mensagem
 
 Para especificar a mensagem a ser enviada são necessários dois campos: `recipients` e `body`.
@@ -280,7 +332,8 @@ O campo `body` especifica o corpo da mensagem, é opcional e caso presente deve 
 }
 ```
 
-## Exemplos
+
+# Exemplos
 
 ```HTTP
 POST /foo HTTP/1.1
