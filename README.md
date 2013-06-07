@@ -11,40 +11,40 @@
 
 # Introdução
 
-A Clicksign é uma solução online para enviar, guardar e assinar documentos, com validade jurídica. Foi criada para facilitar, reduzir custo e aumentar a segurança e compliance do processo de assinatura e workflow de documentos. 
+A Clicksign é uma solução online para enviar, guardar e assinar documentos, com validade jurídica. Foi criada para facilitar, reduzir custo e aumentar a segurança e compliance do processo de assinatura e _workflow_ de documentos. 
 
 A Clicksign pode ser acessada em www.clicksign.com. 
 
-O propósito desta **API REST** é prover meios para que nossos clientes adequem a Clicksign aos seus processos e sistemas p.ex. automatizar determinadas tarefas, desenhar fluxos de assinatura, e definir workflow. 
+O propósito desta **API REST** é prover meios para que nossos clientes adequem a Clicksign aos seus processos e sistemas p.ex. automatizar tarefas, desenhar fluxos de assinatura, e definir _workflow_. 
 
-Qualquer linguagem de programação compativel com requisições **HTTP / JSON** cumpre os requisitos necessários para consumir os serviços desta API. Assim, com pouco esforço de programação é possível integrar desde aplicações scripts shell até sistemas de ERP.
+Qualquer linguagem de programação compativel com requisições **HTTP / JSON** cumpre os requisitos necessários para consumir os serviços desta API. Assim, com pouco esforço de programação é possível integrar desde scripts shell até sistemas de ERP.
 
-Os exemplos contidos nessa documentação utilizam **bash** e **curl**, bem como **Javascript**. O `bash` é o _shell_ padrão de grande maioria das distribuições _Linux_. O programa `curl` é amplamente disponível em ambientes _Unix_ e sua principal utilidade é realizar requisições HTTP. A linguagem **Javascript** é utilizada nos exemplos que envolvem programação.
+Os exemplos contidos nessa documentação utilizam **bash** e **curl**, bem como **Javascript**. O `bash` é o _shell_ padrão da maioria das distribuições _Linux_. O programa `curl` está amplamente disponível em ambientes _Unix_. Sua principal utilidade é realizar requisições HTTP. A linguagem **Javascript** é utilizada nos exemplos que envolvem programação.
 
 # Funcionamento geral
 
-Uma API REST é composta, basicamente, por dois elementos: um **cliente** e um **servidor**. O cliente sempre inicia a comunicação mediante uma requisição HTTP. O servidor sempre a finaliza a comunicação respondendo a requisição.
+Uma API REST é composta, basicamente, por dois elementos: um **cliente** e um **servidor**. O cliente sempre inicia a comunicação mediante requisição HTTP. O servidor sempre finaliza a comunicação respondendo a requisição.
 
-As mensagens HTTP são compostas por uma linha inicial, um conjunto de cabeçalhos e um corpo. A requisições, na linha inicial, indica o **caminho**, o **verbo**, e a versão do protocolo. O caminho e o verbo são essenciais em uma API REST uma vez que ambos indicam a ação a ser executada no servidor. 
+As mensagens HTTP são compostas por uma linha inicial, um conjunto de cabeçalhos e um corpo. A requisição, na linha inicial, indica o **caminho**, o **verbo**, e a versão do protocolo. O caminho e o verbo são essenciais em uma API REST uma vez que ambos indicam a ação a ser executada no servidor. 
 
 
-DANIEL PAREI AQUI: A resposta, em sua linha inicial, indicam a versão do protocolo, o **código de status** e uma mensagem informativa. O código de status da resposta é essencial para o cliente saber se a ação foi devidamente executada no servidor.
+A resposta, em sua linha inicial, indica a versão do protocolo, o **código de status**, e contém uma mensagem informativa. O código de status da resposta é essencial para o cliente saber se a ação foi devidamente executada no servidor.
 
 ![requisição/resposta HTTP](https://raw.github.com/clicksign/rest-api/master/images/request_response.png)
 
-A documentação de cada método da API determina o caminho e o verbo a ser utilizado, assim como, o que significa cada código de status da resposta. É interessante notar que algumas requisições podem contar com parâmetros codificados no caminho da requisição ou estarem presentes no corpo da requisição, o que estará especificado na documentação de cada método.
+A documentação de cada método da API determina o caminho e o verbo a ser utilizado, e o significado de cada código de status da resposta.
 
 
 # Autenticação
 
-A autenticação é feita através de 2 parâmentros: **api_key** e **api_token**. O parâmetro `api_key` define qual cliente está fazendo a requisição e o parâmetro `api_token` define o token que será utilizado na verificação de acesso à API. Ambos os parâmetros devem ser enviados no caminho da requisição. Portanto toda requisição deverá conter no caminho `?api_key=valor-da-key&api_token=valor-do-token`.
+A autenticação é feita através de 2 parâmetros: **api_key** e **api_token**. O parâmetro `api_key` define qual cliente está fazendo a requisição. O parâmetro `api_token` define o token que será utilizado na verificação de acesso à API. Ambos os parâmetros devem ser enviados no caminho da requisição. Portanto, toda requisição deverá conter no caminho `?api_key=valor-da-key&api_token=valor-do-token`.
 
-**Atenção:** Os parâmetros de autenticação devem ser enviados a cada requisição feita pelo cliente. Como esses parâmetros são comuns a todos os métodos da API, eles serão omitidos de suas documentações.
+**Atenção:** Os parâmetros de autenticação devem ser enviados a cada requisição feita pelo cliente. Como esses parâmetros são comuns a todos os métodos da API, eles serão omitidos das documentações.
 
 
 # Upload de documento
 
-Envia um documento para o servidor. É feita uma cópia do documento e adicionada um **número de série** à cópia. Um **log** é gerado contendo as informações de data de _upload_, usuário e outras informações. Ao final do processo haverá 3 arquivos nos servidores da Clicksign: documento original, cópia do documento e arquivo de log. A requisição *não fica bloqueada* enquanto o documento é processado. O _status_ do documento será _working_ enquanto o processo ocorre. Após concluído, o _status_ será _open_.
+O processo de envio de um documento para o servidor contempla (i) a criação de uma cópia de tal documento, "carimbada" com um **número de série**, e (ii) a geração de um **log** contendo informações de _upload_, usuário, etc. Ao final do processo haverá 3 arquivos nos servidores da Clicksign: documento original, cópia do documento carimbada, e arquivo de log. A requisição *não fica bloqueada* enquanto o documento é processado. O _status_ do documento será _working_ enquanto o processo ocorre. Após concluído, o _status_ será _open_.
 
 * **Método:** POST
 * **Caminho:** /documents
@@ -104,7 +104,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 
 # Listagem de documentos
 
-Retorna os documentos. Podem ser aplicados três tipos de filtros simultaneamente: data de criação antes de determinada data, data de criação após determinada data, estado do documento.
+Podem ser aplicados, simultaneamente, três tipos de filtros à listagem de documentos: data de criação antes de determinada data; data de criação após determinada data; estado do documento.
 
 * **Método:** GET
 * **Caminho:** /documents
@@ -173,7 +173,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 
 # Dados de um documento
 
-Retorna os dados de um documento. Deve ser adicionado o `document\_id` ao _path_ da requisição.
+Informações detalhadas sobre um documento. O `document_id` é necessário no _path_ da requisição.
 
 * **Método:** GET
 * **Caminho:** /documents/:id
@@ -293,9 +293,9 @@ O documento a ser enviado é determinado pelo campo `document_id`. Cabe ressalta
 
 ## Signatários
 
-Caso seja deseje-se criar uma lista de assinatura, adicionar signatários ao documento e iniciar o processo de assinatura automaticamente, deve-se adicionar um campo `signers` ao JSON. Caso não haja o campo `signers` ou ele seja `null`, o documento não possuirá lista de assinatura definida.
+Para criar uma lista de assinatura, adicionar signatários ao documento e iniciar o processo de assinatura automaticamente, deve-se adicionar um campo `signers` ao JSON. Caso não haja o campo `signers` ou ele seja `null`, o documento não possuirá lista de assinatura definida.
 
-O campo `signers` que deverá ser um `Array` contendo os signatários. Cada signatário é especificados através de e-mail e ação, sendo os respectivos campos `email` e `action`.
+O campo `signers` que deverá ser um `Array` contendo os signatários. Cada signatário é especificado através de e-mail e ação, sendo os respectivos campos `email` e `action`.
 
 Os possíveis campos de `action` são:
 - sign
