@@ -30,7 +30,7 @@ O protocolo HTTP é um protocolo _stateless_, o que significa que o protocolo n�
 
 A autenticação é feita através de 2 parâmentros: **api_key** e **api_token**.
 
-O parâmetro `api_key` define qual o cliente que está fazendo a requisição e o parâmetro `api_token` define o token que será utilizado na verificação de acesso à API. **Ambos parâmetros devem ser enviados no caminho da requisição.** Portanto, todo caminho deverá conter `?api_key=valor-da-key&api_token=valor-do-token`. Como esses parâmetros são comuns a todos os métodos da API, eles serão omitidos de suas documentações.
+> O parâmetro `api_key` define qual o cliente que está fazendo a requisição e o parâmetro `api_token` define o token que será utilizado na verificação de acesso à API. Ambos parâmetros devem ser enviados no caminho da requisição. Portanto toda requisição deverá conter no caminho `?api_key=valor-da-key&api_token=valor-do-token`. Como esses parâmetros são comuns a todos os métodos da API, eles serão omitidos de suas documentações.
 
 # Listagem de documentos
 
