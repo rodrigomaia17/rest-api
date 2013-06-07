@@ -125,25 +125,25 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```json
-  [
-    {
-      "document_id": "4d3ed089fb60ab534684b7e9",
-      "created_at": "2013-04-11T13:04:32.542Z",
-      "status": "running"
-    },
+    [
+      {
+        "document_id": "4d3ed089fb60ab534684b7e9",
+        "created_at": "2013-04-11T13:04:32.542Z",
+        "status": "running"
+      },
 
-    {
-      "document_id": "4baa56f1230048567300485c",
-      "created_at": "2013-04-22T09:01:18.312Z",
-      "status": "running"
-    },
+      {
+        "document_id": "4baa56f1230048567300485c",
+        "created_at": "2013-04-22T09:01:18.312Z",
+        "status": "running"
+      },
 
-    {
-      "document_id": "51b1d97e25dc552297f95b97",
-      "created_at": "2013-04-20T11:04:32.072Z",
-      "status": "open"
-    }
-  ]
+      {
+        "document_id": "51b1d97e25dc552297f95b97",
+        "created_at": "2013-04-20T11:04:32.072Z",
+        "status": "open"
+      }
+    ]
   ```
 
 ## Resposta 4XX
