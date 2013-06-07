@@ -1,12 +1,19 @@
 # Clicksign API REST
 
+- [Introdução](#introduction)
+- [Funcionamento geral](#general)
+- [Autenticação](#authentication)
+
+
+<h1 id='introducion'>Introdução</h1>
+
 A Clicksign é uma solução online para enviar, guardar e assinar documentos, com validade jurídica. Foi criada para facilitar, reduzir custo e aumentar a segurança e compliance do processo de assinatura e workflow de documentos. Os documentos podem ser carregados, enviados e assinados pelo nosso site www.clicksign.com.
 
 Apesar disso, sabemos que muitos de nossos clientes possuem fluxos próprios de assinatura e/ou desejam automatizar determinadas tarefas. A Clicksign possui uma **API REST**, o que significa que qualquer linguagem de programação que possa realizar requisições HTTP cumpre os requisitos necessários para consumir os serviços da API. Desde aplicações scripts shell até sistemas de ERP podem integrar com esforço mínimo de programação.
 
 Os exemplos construídos nessa documentação utilizam **curl**. O programa curl é amplamente disponível em ambientes **Unix** e sua principal utilidade é realizar requisições HTTP. Os exemplos que envolvem programação utilizam a linguagem **Javascript** pelo fato de ser amplamente conhecida, além de ilustrar a versatilidade da API.
 
-# Funcionamento geral
+<h1 id='general'>Funcionamento geral</h1>
 
 Uma API REST é elementarmente composta de dois elementos: um **cliente** e um **servidor**. O cliente **sempre** inicializa a comunicação através de uma requisição HTTP e o servidor sempre a finaliza respondendo.
 
@@ -14,15 +21,15 @@ Há dois tipos de mensagens HTTP: requisições e respostas, que estarão associ
 
 ![requisição/resposta HTTP](https://raw.github.com/clicksign/rest-api/master/images/request_response.png)
 
-A documentação de cada método da API determina o caminho e o verbo a ser utilizado, assim como, o que significa cada código de status da resposta. É interessante notar que algumas requisições podem contar parâmetros codificados no caminho da requisição ou estarem presentes no corpo da requisição, o que estará especificado na documentação de cada método.
+A documentação de cada método da API determina o caminho e o verbo a ser utilizado, assim como, o que significa cada código de status da resposta. É interessante notar que algumas requisições podem contar com parâmetros codificados no caminho da requisição ou estarem presentes no corpo da requisição, o que estará especificado na documentação de cada método.
 
-# Autenticação
+<h1 id='authentication'>Autenticação</h1>
 
 O protocolo HTTP é um protocolo _stateless_, o que significa que o protocolo não oferece armazenamento do estado entre as requisições, conhecido como **sessão**. Aplicações Web geralmente utilizam _cookies_ para fazer o controle de sessão, porém isto pode trazer complicações no uso de uma API REST entre servidores, por esse motivo foi definido que não haverá abertura de sessão nem utilização de cookies. Portanto **os parâmetros de autenticação devem ser enviados a cada requisição** feita pelo cliente.
 
 A autenticação é feita através de 2 parâmentros: **api_key** e **api_token**.
 
-O parâmetro api\_key define qual o cliente que está fazendo a requisição e o parâmetro api\_token define o token que será utilizado na verificação de acesso à API. **Ambos parâmetros devem ser enviados no caminho da requisição.** Portanto, todo caminho deverá conter _?api\_key=valor-da-key&api\_token=valor-do-token. Como esses parâmetros são comuns a todos os métodos da API, eles serão omitidos de suas documentações.
+O parâmetro `api_key` define qual o cliente que está fazendo a requisição e o parâmetro `api_token` define o token que será utilizado na verificação de acesso à API. **Ambos parâmetros devem ser enviados no caminho da requisição.** Portanto, todo caminho deverá conter `?api_key=valor-da-key&api_token=valor-do-token`. Como esses parâmetros são comuns a todos os métodos da API, eles serão omitidos de suas documentações.
 
 # Listagem de documentos
 
