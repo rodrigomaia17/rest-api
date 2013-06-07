@@ -2,7 +2,7 @@
 
 - [Introdução](#introduo)
 - [Funcionamento geral](#funcionamento-geral)
-- [Autenticação](#autenticação)
+- [Autenticação](#autenticao)
 - [Listagem de documentos](#listagem-de-documentos)
 
 # Introdução
