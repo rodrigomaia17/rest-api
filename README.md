@@ -44,7 +44,7 @@ A autenticação é feita através de 2 parâmetros: **api_key** e **api_token**
 
 # Upload de documento
 
-O processo de envio de um documento para o servidor contempla (i) a criação de uma cópia de tal documento, "carimbada" com um **número de série**, e (ii) a geração de um **log** contendo informações de _upload_, usuário, etc. Ao final do processo haverá 3 arquivos nos servidores da Clicksign: documento original, cópia do documento carimbada, e arquivo de log. A requisição *não fica bloqueada* enquanto o documento é processado. O _status_ do documento será _working_ enquanto o processo ocorre. Após concluído, o _status_ será _open_.
+O processo de envio de um documento para o servidor contempla (i) a criação de uma cópia do documento, "carimbada" com um **número de série**, e (ii) a geração de um **log** contendo informações de _upload_, usuário, etc. Ao final do processo haverá 3 arquivos nos servidores da Clicksign: documento original, cópia carimbada do documento, e arquivo de log. A requisição *não fica bloqueada* enquanto o documento é processado. O _status_ do documento será _working_ enquanto o processo ocorre. Após concluído, o _status_ será _open_.
 
 * **Método:** POST
 * **Caminho:** /documents
@@ -230,7 +230,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 
 # Download de um documento
 
-Retorna um arquivo _ZIP_ contendo os 3 arquivos resultantes do processamento: arquivo original, cópia do arquivo e log.
+Retorna um arquivo _ZIP_ contendo os 3 arquivos resultantes do processamento: arquivo original, cópia carimbada do arquivo e log.
 
 **Atenção**: A única diferença entre este método e obter os [dados de um documento](#dados-de-um-documento) é o cabeçalho **Accept**, que neste caso é _application/zip_.
 
