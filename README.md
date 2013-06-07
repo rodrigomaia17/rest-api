@@ -57,6 +57,7 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
 * **Cabeçalhos**:
   - **Content-Type:** application/json
 * **Corpo:**
+
   ```json
   [
     {
@@ -86,13 +87,13 @@ Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSO
 
 * **Cabeçalhos**:
   - **Content-Type:** application/json
-* **Corpo:** Foo
+* **Corpo:**
 
-```json
-{
-  "message": "Parametros invalidos."
-}
-```
+  ```json
+  {
+    "message": "Parametros invalidos."
+  }
+  ```
 
 
 # Super envio
