@@ -11,11 +11,11 @@ A Clicksign é uma solução online para enviar, guardar e assinar documentos, c
 
 Apesar disso, sabemos que muitos de nossos clientes possuem fluxos próprios de assinatura e/ou desejam automatizar determinadas tarefas. A Clicksign possui uma **API REST**, o que significa que qualquer linguagem de programação que possa realizar requisições HTTP cumpre os requisitos necessários para consumir os serviços da API. Desde aplicações scripts shell até sistemas de ERP podem integrar com esforço mínimo de programação.
 
-Os exemplos construídos nessa documentação utilizam **curl**. O programa curl é amplamente disponível em ambientes **Unix** e sua principal utilidade é realizar requisições HTTP. Os exemplos que envolvem programação utilizam a linguagem **Javascript** pelo fato de ser amplamente conhecida, além de ilustrar a versatilidade da API.
+Os exemplos construídos nessa documentação utilizam **bash** e **curl**. O `bash` é o _shell_ padrão da grande maioria das distribuições _Linux_. O programa `curl` é amplamente disponível em ambientes _Unix_ e sua principal utilidade é realizar requisições HTTP. Os exemplos que envolvem programação utilizam a linguagem **Javascript** pelo fato de ser amplamente conhecida, além de ilustrar a versatilidade da API.
 
 # Funcionamento geral
 
-Uma API REST é elementarmente composta de dois elementos: um **cliente** e um **servidor**. O cliente **sempre** inicializa a comunicação através de uma requisição HTTP e o servidor sempre a finaliza respondendo.
+Uma API REST é elementarmente composta de dois elementos: um **cliente** e um **servidor**. O cliente sempre inicializa a comunicação através de uma requisição HTTP e o servidor sempre a finaliza respondendo.
 
 Há dois tipos de mensagens HTTP: requisições e respostas, que estarão associadas respectivamente ao cliente e ao servidor. As mensagens HTTP são compostas de uma linha inicial, um conjunto de cabeçalhos e um corpo. As requisições, em sua linha inicial, indicam o **verbo** HTTP, o **caminho** e a versão do protocolo. O verbo e o caminho são essenciais em uma API REST, pois o conjunto dos dois é que indicará a ação a ser executada no servidor. As respostas, em sua linha inicial, indicam a versão do protocolo, o **código de status** e uma mensagem informativa. O código de status da resposta é essencial para o cliente saber se a ação foi devidamente executada no servidor.
 
