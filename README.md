@@ -7,7 +7,7 @@
 - [Listagem de documentos](#listagem-de-documentos)
 - [Dados de um documento](#dados-de-um-documento)
 - [Download de um documento](#download-de-um-documento)
-- [Envio integrado](#envio-integrado)
+- [Criação de lista de assinatura](#criao-de-lista-de-assinatura)
 
 # Introdução
 
@@ -278,9 +278,31 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
   ```
 
 
-# Envio integrado
+# Criação de lista de assinatura
 
 É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação. Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, e a mensagem.
+
+* **Method:** POST
+* **Path:** /documents/:id/signature_list
+* **Cabeçalhos:**
+  - **Content-Type:** application/json
+  - **Accept**: application/json
+* **Corpo:**
+  ```json
+    {
+      "document_id": "4d3ed089fb60ab534684b7e9",
+
+      "signers": [
+        { "email": "foo@example.com", "action": "sign" },
+        { "email": "bar@example.com", "action": "sign_as_witness" }
+      ],
+
+      "message": {
+        "recipients": [ "foo@example.com", "bar@example.com" ],
+        "body": "Hi guys, please sign this document."
+      }
+    }
+  ```
 
 ## Documento
 
@@ -327,28 +349,4 @@ O campo `body` especifica o corpo da mensagem, é opcional e caso presente deve 
       "body": "Hi guys, please sign this document."
     }
   }
-```
-
-
-# Exemplos
-
-```HTTP
-POST /foo HTTP/1.1
-Host: api.clicksign.com
-Content-Type: application/json
-Accept: application/json
-
-{
-  "document_id": "4d3ed089fb60ab534684b7e9",
-
-  "signers": [
-    { "email": "foo@example.com", "action": "sign" },
-    { "email": "bar@example.com", "action": "sign_as_witness" }
-  ],
-
-  "message": {
-    "recipients": [ "foo@example.com", "bar@example.com" ],
-    "body": "Hi guys, please sign this document."
-  }
-}
 ```
