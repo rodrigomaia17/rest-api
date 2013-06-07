@@ -70,11 +70,11 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```json
-  {
-    "document_id": "51b1eceb438ef026f91758b1",
-    "created_at": "2013-04-11T13:04:32.542Z",
-    "status": "working"
-  }
+    {
+      "document_id": "51b1eceb438ef026f91758b1",
+      "created_at": "2013-04-11T13:04:32.542Z",
+      "status": "working"
+    }
   ```
 
 ## Resposta 4XX
@@ -86,7 +86,7 @@ Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSO
 * **Corpo:**
 
   ```json
-  { "message": "Invalid parameters." }
+    { "message": "Invalid parameters." }
   ```
 
 ## Resposta 5XX
@@ -98,7 +98,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```json
-  { "message": "Server error." }
+    { "message": "Server error." }
   ```
 
 
@@ -155,7 +155,7 @@ Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSO
 * **Corpo:**
 
   ```json
-  { "message": "Invalid parameters." }
+    { "message": "Invalid parameters." }
   ```
 
 ## Resposta 5XX
@@ -167,7 +167,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```json
-  { "message": "Server error." }
+    { "message": "Server error." }
   ```
 
 
@@ -190,17 +190,17 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```json
-  {
-    "document_id": "4d3ed089fb60ab534684b7e9",
-    "created_at": "2013-05-02T14:24:38.447Z",
-    "user_id": "51b1efd1438ef026f91758b2",
-    "status": "running",
+    {
+      "document_id": "4d3ed089fb60ab534684b7e9",
+      "created_at": "2013-05-02T14:24:38.447Z",
+      "user_id": "51b1efd1438ef026f91758b2",
+      "status": "running",
 
-    "signers": [
-      { "email": "foo@example.com", "action": "sign", "signed": "approved", "signed_at": "2013-05-07T14:34:36.447Z" },
-      { "email": "bar@example.com", "action": "sign_as_witness", "signed": "waiting", "signed_at": null }
-    ]
-  }
+      "signers": [
+        { "email": "foo@example.com", "action": "sign", "signed": "approved", "signed_at": "2013-05-07T14:34:36.447Z" },
+        { "email": "bar@example.com", "action": "sign_as_witness", "signed": "waiting", "signed_at": null }
+      ]
+    }
   ```
 
 ## Resposta 4XX
@@ -212,7 +212,7 @@ Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSO
 * **Corpo:**
 
   ```json
-  { "message": "Invalid parameters." }
+    { "message": "Invalid parameters." }
   ```
 
 ## Resposta 5XX
@@ -224,7 +224,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```json
-  { "message": "Server error." }
+    { "message": "Server error." }
   ```
 
 
@@ -263,7 +263,7 @@ Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSO
 * **Corpo:**
 
   ```json
-  { "message": "Parâmetros inválidos." }
+    { "message": "Parâmetros inválidos." }
   ```
 
 ## Resposta 5XX
@@ -275,7 +275,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```json
-  { "message": "Server error." }
+    { "message": "Server error." }
   ```
 
 
@@ -288,7 +288,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 O documento a ser enviado é determinado pelo campo `document_id`. Cabe ressaltar que o `document_id` é diferente para cada usuário que possui uma cópia do arquivo, portanto um mesmo arquivo possui múltiplos `document_id`, sendo um para cada usuário que tem acesso a ele.
 
 ```json
-{ "document_id": "4d3ed089fb60ab534684b7e9" }
+  { "document_id": "4d3ed089fb60ab534684b7e9" }
 ```
 
 ## Signatários
@@ -305,12 +305,12 @@ Os possíveis campos de `action` são:
 - sign_as_intervenient
 
 ```json
-{
-  "signers": [
-    { "email": "foo@example.com", "action": "sign" },
-    { "email": "bar@example.com", "action": "sign_as_witness" }
-  ]
-}
+  {
+    "signers": [
+      { "email": "foo@example.com", "action": "sign" },
+      { "email": "bar@example.com", "action": "sign_as_witness" }
+    ]
+  }
 ```
 
 ## Mensagem
@@ -322,12 +322,12 @@ O campo `recipients` é um `Array` obrigatório com tamanho mínimo de `1`. Nenh
 O campo `body` especifica o corpo da mensagem, é opcional e caso presente deve ser do tipo `String`.
 
 ```json
-{
-  "message": {
-    "recipients": [ "foo@example.com", "bar@example.com" ],
-    "body": "Hi guys, please sign this document."
+  {
+    "message": {
+      "recipients": [ "foo@example.com", "bar@example.com" ],
+      "body": "Hi guys, please sign this document."
+    }
   }
-}
 ```
 
 
