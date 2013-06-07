@@ -86,7 +86,7 @@ Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSO
 * **Corpo:**
 
   ```json
-  { "message": "Parâmetros inválidos." }
+  { "message": "Invalid parameters." }
   ```
 
 ## Resposta 5XX
@@ -98,7 +98,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```json
-  { "message": "Ocorreu um erro no servidor" }
+  { "message": "Server error." }
   ```
 
 
@@ -143,7 +143,7 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
       "created_at": "2013-04-20T11:04:32.072Z",
       "status": "open"
     },
-   ]
+  ]
   ```
 
 ## Resposta 4XX
@@ -155,7 +155,7 @@ Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSO
 * **Corpo:**
 
   ```json
-  { "message": "Parâmetros inválidos." }
+  { "message": "Invalid parameters." }
   ```
 
 ## Resposta 5XX
@@ -167,7 +167,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```json
-  { "message": "Ocorreu um erro no servidor" }
+  { "message": "Server error." }
   ```
 
 
@@ -212,7 +212,7 @@ Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSO
 * **Corpo:**
 
   ```json
-  { "message": "Parâmetros inválidos." }
+  { "message": "Invalid parameters." }
   ```
 
 ## Resposta 5XX
@@ -224,7 +224,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```json
-  { "message": "Ocorreu um erro no servidor" }
+  { "message": "Server error." }
   ```
 
 
@@ -275,7 +275,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```json
-  { "message": "Ocorreu um erro no servidor" }
+  { "message": "Server error." }
   ```
 
 
@@ -285,12 +285,10 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 
 ## Documento
 
-O documento a ser enviado é determinado pelo campo `document\_id`. Cabe ressaltar que o `document\_id` é diferente para cada usuário que possui uma cópia do arquivo, portanto um mesmo arquivo possui múltiplos `document\_id`, sendo um para cada usuário que tem acesso a ele.
+O documento a ser enviado é determinado pelo campo `document_id`. Cabe ressaltar que o `document_id` é diferente para cada usuário que possui uma cópia do arquivo, portanto um mesmo arquivo possui múltiplos `document_id`, sendo um para cada usuário que tem acesso a ele.
 
 ```json
-{
-  "document_id": "4d3ed089fb60ab534684b7e9"
-}
+{ "document_id": "4d3ed089fb60ab534684b7e9" }
 ```
 
 ## Signatários
