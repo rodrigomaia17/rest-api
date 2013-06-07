@@ -19,8 +19,6 @@ O propósito desta **REST API** é prover meios para que nossos clientes adequem
 
 Qualquer linguagem de programação compativel com requisições **HTTP / JSON** cumpre os requisitos necessários para consumir os serviços desta API. Assim, com pouco esforço de programação é possível integrar desde scripts shell até sistemas de ERP.
 
-Os exemplos contidos nessa documentação utilizam **bash** e **curl**, bem como **Javascript**. O `bash` é o _shell_ padrão da maioria das distribuições _Linux_. O programa `curl` está amplamente disponível em ambientes _Unix_. Sua principal utilidade é realizar requisições HTTP. A linguagem **Javascript** é utilizada nos exemplos que envolvem programação.
-
 # Funcionamento geral
 
 Uma _REST API_ é composta, basicamente, por dois elementos: um **cliente** e um **servidor**. O cliente sempre inicia a comunicação mediante requisição HTTP. O servidor sempre finaliza a comunicação respondendo a requisição.
