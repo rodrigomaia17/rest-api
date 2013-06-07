@@ -66,7 +66,7 @@ O campo `body` especifica o corpo da mensagem, é opcional e caso presente deve 
 
 ## Exemplos
 
-```
+```HTTP
 POST /foo HTTP/1.1
 Host: api.clicksign.com
 Content-Type: application/json
