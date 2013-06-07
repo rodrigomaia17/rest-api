@@ -99,9 +99,7 @@ Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSO
 * **Corpo:**
 
   ```json
-  {
-    "message": "Parâmetros inválidos."
-  }
+  { "message": "Parâmetros inválidos." }
   ```
 
 ## Resposta 5XX
@@ -113,9 +111,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```json
-  {
-    "message": "Ocorreu um erro no servidor"
-  }
+  { "message": "Ocorreu um erro no servidor" }
   ```
 
 # Dados de um documento
