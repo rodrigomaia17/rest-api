@@ -8,17 +8,24 @@
 
 # Introdução
 
-A Clicksign é uma solução online para enviar, guardar e assinar documentos, com validade jurídica. Foi criada para facilitar, reduzir custo e aumentar a segurança e compliance do processo de assinatura e workflow de documentos. Os documentos podem ser carregados, enviados e assinados pelo nosso site www.clicksign.com.
+A Clicksign é uma solução online para enviar, guardar e assinar documentos, com validade jurídica. Foi criada para facilitar, reduzir custo e aumentar a segurança e compliance do processo de assinatura e workflow de documentos. 
 
-Apesar disso, sabemos que muitos de nossos clientes possuem fluxos próprios de assinatura e/ou desejam automatizar determinadas tarefas. A Clicksign possui uma **API REST**, o que significa que qualquer linguagem de programação que possa realizar requisições HTTP cumpre os requisitos necessários para consumir os serviços da API. Desde aplicações scripts shell até sistemas de ERP podem integrar com esforço mínimo de programação.
+A Clicksign pode ser acessada em www.clicksign.com. 
 
-Os exemplos construídos nessa documentação utilizam **bash** e **curl**. O `bash` é o _shell_ padrão da grande maioria das distribuições _Linux_. O programa `curl` é amplamente disponível em ambientes _Unix_ e sua principal utilidade é realizar requisições HTTP. Os exemplos que envolvem programação utilizam a linguagem **Javascript** pelo fato de ser amplamente conhecida, além de ilustrar a versatilidade da API.
+O propósito desta **API REST** é prover meios para que nossos clientes adequem a Clicksign aos seus processos e sistemas p.ex. automatizar determinadas tarefas, desenhar fluxos de assinatura, e definir workflow. 
+
+Qualquer linguagem de programação compativel com requisições **HTTP / JSON** cumpre os requisitos necessários para consumir os serviços desta API. Assim, com pouco esforço de programação é possível integrar desde aplicações scripts shell até sistemas de ERP.
+
+Os exemplos contidos nessa documentação utilizam **bash** e **curl**, bem como **Javascript**. O `bash` é o _shell_ padrão de grande maioria das distribuições _Linux_. O programa `curl` é amplamente disponível em ambientes _Unix_ e sua principal utilidade é realizar requisições HTTP. A linguagem **Javascript** é utilizada nos exemplos que envolvem programação.
 
 # Funcionamento geral
 
-Uma API REST é elementarmente composta de dois elementos: um **cliente** e um **servidor**. O cliente sempre inicializa a comunicação através de uma requisição HTTP e o servidor sempre a finaliza respondendo.
+Uma API REST é composta, basicamente, por dois elementos: um **cliente** e um **servidor**. O cliente sempre inicia a comunicação mediante uma requisição HTTP. O servidor sempre a finaliza a comunicação respondendo a requisição.
 
-Há dois tipos de mensagens HTTP: requisições e respostas, que estarão associadas respectivamente ao cliente e ao servidor. As mensagens HTTP são compostas de uma linha inicial, um conjunto de cabeçalhos e um corpo. As requisições, em sua linha inicial, indicam o **verbo**, o **caminho** e a versão do protocolo. O verbo e o caminho são essenciais em uma API REST, pois o conjunto dos dois é que indicará a ação a ser executada no servidor. As respostas, em sua linha inicial, indicam a versão do protocolo, o **código de status** e uma mensagem informativa. O código de status da resposta é essencial para o cliente saber se a ação foi devidamente executada no servidor.
+As mensagens HTTP são compostas por uma linha inicial, um conjunto de cabeçalhos e um corpo. A requisições, na linha inicial, indica o **caminho**, o **verbo**, e a versão do protocolo. O caminho e o verbo são essenciais em uma API REST uma vez que ambos indicam a ação a ser executada no servidor. 
+
+
+DANIEL PAREI AQUI: A resposta, em sua linha inicial, indicam a versão do protocolo, o **código de status** e uma mensagem informativa. O código de status da resposta é essencial para o cliente saber se a ação foi devidamente executada no servidor.
 
 ![requisição/resposta HTTP](https://raw.github.com/clicksign/rest-api/master/images/request_response.png)
 
