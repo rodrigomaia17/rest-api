@@ -78,12 +78,6 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
     },
    ]
   ```
-
-
-## Resposta 4XX
-
-Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem erro.
-
 * **Cabeçalhos**:
   - **Content-Type:** application/json
 * **Corpo:**
@@ -99,7 +93,7 @@ Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSO
 
 ## Documento
 
-O documento a ser enviado é determinado pelo campo `document_id`. Cabe ressaltar que o `document_id` é diferente para cada usuário que possui uma cópia do arquivo, portanto um mesmo arquivo possui múltiplos `document_id`, sendo um para cada usuário que tem acesso a ele.
+O documento a ser enviado é determinado pelo campo `document\_id`. Cabe ressaltar que o `document\_id` é diferente para cada usuário que possui uma cópia do arquivo, portanto um mesmo arquivo possui múltiplos `document\_id`, sendo um para cada usuário que tem acesso a ele.
 
 ```json
 {
