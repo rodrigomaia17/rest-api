@@ -290,8 +290,6 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 * **Corpo:**
   ```json
     {
-      "document_id": "4d3ed089fb60ab534684b7e9",
-
       "signers": [
         { "email": "foo@example.com", "action": "sign" },
         { "email": "bar@example.com", "action": "sign_as_witness" }
