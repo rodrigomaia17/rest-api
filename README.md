@@ -86,13 +86,13 @@ Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSO
 
 * **Cabeçalhos**:
   - **Content-Type:** application/json
-* **Corpo**:
+* **Corpo:**
   ```json
   {
-    "message": "Parametros invalidos.",
-    "foo": "bar"
+    "message": "Parametros invalidos."
   }
   ```
+
 
 # Super envio
 
