@@ -4,6 +4,7 @@
 - [Funcionamento geral](#funcionamento-geral)
 - [Autenticação](#autenticao)
 - [Listagem de documentos](#listagem-de-documentos)
+- [Super envio](#super-envio)
 
 # Introdução
 
@@ -41,8 +42,6 @@ O parâmetro `api_key` define qual o cliente que está fazendo a requisição e 
 
 O documento a ser enviado é determinado pelo campo `document_id`. Cabe ressaltar que o `document_id` é diferente para cada usuário que possui uma cópia do arquivo, portanto um mesmo arquivo possui múltiplos `document_id`, sendo um para cada usuário que tem acesso a ele.
 
-### Exemplo
-
 ```json
 {
   "document_id": "4d3ed089fb60ab534684b7e9"
@@ -62,8 +61,6 @@ Os possíveis campos de `action` são:
 - sign_as_witness
 - sign_as_intervenient
 
-### Exemplo
-
 ```json
 {
   "signers": [
@@ -81,8 +78,6 @@ Para especificar a mensagem a ser enviada são necessários dois campos: `recipi
 O campo `recipients` é um `Array` obrigatório com tamanho mínimo de `1`. Nenhuma mensagem será enviada caso o campo `recipients` não exista, seja `null` ou tenha tamanho igual a `0`.
 
 O campo `body` especifica o corpo da mensagem, é opcional e caso presente deve ser do tipo `String`.
-
-## Exemplo
 
 ```json
 {
