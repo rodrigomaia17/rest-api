@@ -46,6 +46,64 @@ A autenticação é feita através de 2 parâmentros: **api_key** e **api_token*
 
 # Upload de documento
 
+Envia um documento para o servidor. É feita uma cópia do documento e adicionada um **número de série** à cópia. Um **log** é gerado contendo as informações de data de _upload_, usuário e outras informações. Ao final do processo haverá 3 arquivos nos servidores da Clicksign: documento original, cópia do documento e arquivo de log. A requisição *não fica bloqueada* enquanto o documento é processado. O documento apenas estará com _status working_ enquanto o processo ocorre. Após concluído, o _status_ será _open_.
+
+* **Método:** POST
+* **Caminho:** /documents
+  - **Content-Type:** multipart/mixed; boundary=frontier
+  - **Accept**: application/json
+* **Corpo:**
+  - **Content-Type:** application/octet-stream
+  - **Content-Transfer-Encoding:** base64
+
+   ```
+   --frontier--
+   PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
+    Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
+   --frontier--
+   ```
+
+## Resposta 200
+
+Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JSON_ contendo os documentos que atendem os critérios dos filtros. Os dados dos documentos serão retornados em _JSON_ sendo o elemento _root_ um `Array`.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+  ```json
+  {
+    "document_id": "4d3ed089fb60ab534684b7e9",
+    "created_at": "2013-04-11T13:04:32.542Z",
+    "status": "working"
+  }
+  ```
+
+## Resposta 4XX
+
+Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+  ```json
+  { "message": "Parâmetros inválidos." }
+  ```
+
+## Resposta 5XX
+
+Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+  ```json
+  { "message": "Ocorreu um erro no servidor" }
+  ```
+
+
 # Listagem de documentos
 
 Retorna os documentos. Podem ser aplicados três tipos de filtros simultaneamente: data de criação antes de determinada data, data de criação após determinada data, estado do documento.
@@ -53,7 +111,7 @@ Retorna os documentos. Podem ser aplicados três tipos de filtros simultaneament
 * **Método:** GET
 * **Caminho:** /documents
 * **Parâmetros opcionais**
-  - **status:** open, locked, running, closed
+  - **status:** working, open, locked, running, closed
   - **before:** _data_
   - **after:** _data_
 * **Cabeçalhos:**
@@ -73,19 +131,19 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
     {
       "document_id": "4d3ed089fb60ab534684b7e9",
       "created_at": "2013-04-11T13:04:32.542Z",
-      "status": "running",
+      "status": "running"
     },
 
     {
       "document_id": "4baa56f1230048567300485c",
       "created_at": "2013-04-22T09:01:18.312Z",
-      "status": "running",
+      "status": "running"
     },
 
     {
       "document_id": "51b1d97e25dc552297f95b97",
       "created_at": "2013-04-20T11:04:32.072Z",
-      "status": "open",
+      "status": "open"
     },
    ]
   ```
