@@ -430,12 +430,12 @@ O campo `person.phone.country` é obrigatório
 O campo `person.phone.number` é obrigatório
 
 O campo `person.documentation.value` é uma `String` contendo o valor do CPF a ser cadastrado. O CPF deve atender
-os seguintes formatos:
+algum dos seguintes formatos:
 
 - Com pontos e traço: `"999.999.999-99"`
 - Somente digítos: `"99999999999"`
 
-Em ambos os casos será um _CPF__ terá um formato válido.
+Em ambos os casos o valor conterá um CPF válido.
 
 O campo `person.phone.number` é uma `String` com seu formato seguindo o seguinte padrão: _ddd_ _número celular_.
 `número` um valor entre 8 e 9 digítos. Além disso o valor da string pode conter ou não traços. Os seguintes exemplos são validos:
