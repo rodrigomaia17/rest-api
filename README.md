@@ -29,13 +29,7 @@ A requisição, em sua linha inicial, indica o **método**, o **caminho**, e a *
 
 A resposta, em sua linha inicial, indica a **versão do protocolo**, o **status**, e contém uma **mensagem informativa**. O código de status é essencial para o cliente saber se a ação foi devidamente executada no servidor.
 
-Exemplo de requisição:
-
-- Método: GET
-- Caminho: /documents
-- Versão: 1.1
-- Cabeçalhos: Host, Accept
-- Corpo: vazio
+## Exemplo de requisição:
 
 ```http
 GET /documents HTTP/1.1
@@ -43,13 +37,13 @@ Host: desk.clicksign.com
 Accept: application/json
 ```
 
-Exemplo de resposta:
-
+- Método: GET
+- Caminho: /documents
 - Versão: 1.1
-- Status: 200
-- Mensagem: OK
-- Cabeçalhos: Content-Type, Connection
-- Corpo: <!DOCTYPE html>...
+- Cabeçalhos: Host, Accept
+- Corpo: vazio
+
+## Exemplo de resposta
 
 ```http
 HTTP/1.1 200 OK
@@ -61,6 +55,12 @@ Connection: Keep-Alive
   <head>
 ...
 ```
+
+- Versão: 1.1
+- Status: 200
+- Mensagem: OK
+- Cabeçalhos: Content-Type, Connection
+- Corpo: <!DOCTYPE html>...
 
 A documentação de cada função da API determina o _method_ e o _path_ e a ser utilizado, e o significado de cada código de status da resposta.
 
