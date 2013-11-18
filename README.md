@@ -29,7 +29,9 @@ A requisição, em sua linha inicial, indica o **método**, o **caminho**, e a *
 
 A resposta, em sua linha inicial, indica a **versão do protocolo**, o **status**, e contém uma **mensagem informativa**. O código de status é essencial para o cliente saber se a ação foi devidamente executada no servidor.
 
-## Exemplo de requisição:
+A documentação de cada função da API determina o método e o caminho a ser utilizado, e o significado do corpo e de cada status da resposta.
+
+## Exemplo de requisição
 
 ```http
 GET /documents HTTP/1.1
@@ -61,9 +63,6 @@ Connection: Keep-Alive
 - Mensagem: OK
 - Cabeçalhos: Content-Type, Connection
 - Corpo: <!DOCTYPE html>...
-
-A documentação de cada função da API determina o _method_ e o _path_ e a ser utilizado, e o significado de cada código de status da resposta.
-
 
 # Autenticação
 
