@@ -416,13 +416,17 @@ Para especificar o pré-cadastro de um usuário a requisição json deve seguir 
 Alguns campos merecem informações extras
 
 O campo `person.name.given_name` é obrigatório
+
 O campo `person.name.family_name` é obrigatório
 
 O campo `person.documentation.country` é obrigatório
+
 O campo `person.documentation.kind` é obrigatório
+
 O campo `person.documentation.value` é obrigatório
 
 O campo `person.phone.country` é obrigatório
+
 O campo `person.phone.number` é obrigatório
 
 O campo `person.documentation.value` é uma `String` contendo o valor do CPF a ser cadastrado. O CPF deve atender
