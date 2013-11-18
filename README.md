@@ -29,12 +29,14 @@ A requisição, em sua linha inicial, indica o **método**, o **caminho**, e a *
 
 A resposta, em sua linha inicial, indica a **versão do protocolo**, o **código de status**, e contém uma mensagem informativa. O código de status é essencial para o cliente saber se a ação foi devidamente executada no servidor.
 
+Exemplo de requisição
 ```http
 GET /documents HTTP/1.1
 Host: desk.clicksign.com
 Accept: application/json
 ```
 
+Exemplo de resposta
 ```http
 HTTP/1.1 200 OK
 Content-Type:application/json
