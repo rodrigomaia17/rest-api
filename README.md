@@ -66,7 +66,7 @@ Connection: Keep-Alive
 
 # Autenticação
 
-A autenticação é feita através de 2 parâmetros: **api_key** e **api_token**. O parâmetro `api_key` define qual cliente está fazendo a requisição. O parâmetro `api_token` define o token que será utilizado na verificação de acesso à API. Ambos os parâmetros devem ser enviados no _path_ da requisição. Portanto, toda requisição deverá conter no _path_ `?api_key=valor-da-key&api_token=valor-do-token`.
+A autenticação é feita através de 2 parâmetros: **api_key** e **api_secret**. O parâmetro `api_key` define qual cliente está fazendo a requisição. O parâmetro `api_secret` define o senha que será utilizada na verificação de acesso à API. Ambos os parâmetros devem ser enviados no **caminho** da requisição. Portanto, toda requisição deverá conter no _path_ `?api_key=string-da-key&api_secret=string-do-secret`.
 
 **Atenção:** Os parâmetros de autenticação devem ser enviados a cada requisição feita pelo cliente. Como esses parâmetros são comuns a todos as funções da API, eles serão omitidos das documentações.
 
