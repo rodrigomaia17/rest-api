@@ -378,3 +378,65 @@ O campo `body` especifica o corpo da mensagem, é opcional e caso presente deve 
     }
   }
 ```
+
+
+# Criação de pré-cadastro
+
+* **Method:** POST
+* **Path:** /registration
+* **Cabeçalhos:**
+  - **Content-Type:** application/json
+  - **Accept**: application/json
+* **Corpo:**
+  ```json
+    {
+      "person": {
+        "name": {
+          "given_name": "John",
+          "additional_name": "August",
+          "family_name": "Doe",
+          "honorific_suffix": "III"
+        },
+
+        "documentation": {
+          "country": "br",
+          "kind": "cpf",
+          "value": "999.999.999-99"
+        },
+
+        "phone": {
+          "country": "br",
+          "number": "99-9-9999-9999"
+        }
+      }
+    }
+  ```
+
+Para especificar o pré-cadastro de um usuário a requisição json deve seguir o formato especificado acima.
+Alguns campos merecem informações extras
+
+O campo `person.name.given_name` é obrigatório
+O campo `person.name.family_name` é obrigatório
+
+O campo `person.documentation.country` é obrigatório
+O campo `person.documentation.kind` é obrigatório
+O campo `person.documentation.value` é obrigatório
+
+O campo `person.phone.country` é obrigatório
+O campo `person.phone.number` é obrigatório
+
+O campo `person.documentation.value` é uma `String` contendo o valor do CPF a ser cadastrado. O CPF deve atender
+os seguintes formatos:
+
+- Com pontos e traço: `"999.999.999-99"`
+- Somente digítos: `"99999999999"`
+
+Em ambos os casos será um _CPF__ terá um formato válido.
+
+O campo `person.phone.number` é uma `String` com seu formato seguindo o seguinte padrão: _ddd_ _número celular_.
+`número` um valor entre 8 e 9 digítos. Além disso o valor da string pode conter ou não traços. Os seguintes exemplos são validos:
+
+- Com traços: `"99-9-9999-9999"`
+- Somente digítos: `"99999999999"`
+
+
