@@ -13,21 +13,38 @@
 
 A Clicksign é uma solução online para enviar, guardar e assinar documentos, com validade jurídica. Foi criada para facilitar, reduzir custo e aumentar a segurança e compliance do processo de assinatura e _workflow_ de documentos. 
 
-A Clicksign pode ser acessada em www.clicksign.com. 
+A Clicksign pode ser acessada em desk.clicksign.com. 
 
-O propósito desta **REST API** é prover meios para que nossos clientes adequem a Clicksign aos seus processos e sistemas p.ex. automatizar tarefas, desenhar fluxos de assinatura, e definir _workflow_. 
+O propósito desta **REST API** é prover meios para que nossos clientes adequem a Clicksign aos seus processos e sistemas p. ex. automatizar tarefas, desenhar fluxos de assinatura, e definir _workflow_. 
 
 Qualquer linguagem de programação compativel com requisições **HTTP / JSON** cumpre os requisitos necessários para consumir os serviços desta API. Assim, com pouco esforço de programação é possível integrar desde scripts shell até sistemas de ERP.
 
 # Funcionamento geral
 
-Uma _REST API_ é composta, basicamente, por dois elementos: um **cliente** e um **servidor**. O cliente sempre inicia a comunicação mediante requisição HTTP. O servidor sempre finaliza a comunicação respondendo a requisição.
+Uma _REST API_ é composta, basicamente, por dois elementos: um **cliente** e um **servidor**. O cliente sempre inicia a comunicação mediante requisição HTTP. O servidor sempre finaliza a comunicação respondendo à requisição.
 
-As mensagens HTTP são compostas por uma linha inicial, um conjunto de cabeçalhos e um corpo. A requisição, na linha inicial, indica o **method**, o **path**, e a versão do protocolo. O _method_ e o _path_ são essenciais em uma _REST API_ uma vez que ambos indicam a ação a ser executada no servidor. 
+As mensagens HTTP são compostas por uma linha inicial, um conjunto de cabeçalhos e um corpo. A linha inicial difere nas requisições e nas respostas, o cabeçalho compartilha parâmetros em comum e parâmetros específicos, e o corpo é completamente dependente de cada mensagem, podendo até ser nulo.
 
-A resposta, em sua linha inicial, indica a versão do protocolo, o **código de status**, e contém uma mensagem informativa. O código de status da resposta é essencial para o cliente saber se a ação foi devidamente executada no servidor.
+A requisição, em sua linha inicial, indica o **método**, o **caminho**, e a **versão do protocolo**. O método e o caminho são essenciais em uma _REST API_ uma vez que ambos indicam a ação a ser executada no servidor.
 
-![requisição/resposta HTTP](https://raw.github.com/clicksign/rest-api/master/images/request_response.png)
+A resposta, em sua linha inicial, indica a **versão do protocolo**, o **código de status**, e contém uma mensagem informativa. O código de status é essencial para o cliente saber se a ação foi devidamente executada no servidor.
+
+```http
+GET /documents HTTP/1.1
+Host: desk.clicksign.com
+Accept: application/json
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type:application/json
+Connection: Keep-Alive
+
+<!DOCTYPE html>
+<html>
+  <head>
+...
+```
 
 A documentação de cada função da API determina o _method_ e o _path_ e a ser utilizado, e o significado de cada código de status da resposta.
 
