@@ -27,16 +27,30 @@ As mensagens HTTP são compostas por uma linha inicial, um conjunto de cabeçalh
 
 A requisição, em sua linha inicial, indica o **método**, o **caminho**, e a **versão do protocolo**. O método e o caminho são essenciais em uma _REST API_ uma vez que ambos indicam a ação a ser executada no servidor.
 
-A resposta, em sua linha inicial, indica a **versão do protocolo**, o **código de status**, e contém uma mensagem informativa. O código de status é essencial para o cliente saber se a ação foi devidamente executada no servidor.
+A resposta, em sua linha inicial, indica a **versão do protocolo**, o **status**, e contém uma **mensagem informativa**. O código de status é essencial para o cliente saber se a ação foi devidamente executada no servidor.
 
-Exemplo de requisição
+Exemplo de requisição:
+
+- Método: GET
+- Caminho: /documents
+- Versão: 1.1
+- Cabeçalhos: Host, Accept
+- Corpo: vazio
+
 ```http
 GET /documents HTTP/1.1
 Host: desk.clicksign.com
 Accept: application/json
 ```
 
-Exemplo de resposta
+Exemplo de resposta:
+
+- Versão: 1.1
+- Status: 200
+- Mensagem: OK
+- Cabeçalhos: Content-Type, Connection
+- Corpo: <!DOCTYPE html>...
+
 ```http
 HTTP/1.1 200 OK
 Content-Type:application/json
