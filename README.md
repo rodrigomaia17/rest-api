@@ -28,7 +28,7 @@ A resposta, em sua linha inicial, indica a **versão do protocolo**, o **status*
 
 A documentação de cada função da API determina o método e o caminho a ser utilizado, e o significado do corpo e de cada status da resposta.
 
-**Atenção:** Toda a comunição cliente/servidor é feita através de HTTP sobre SSL/TLS (HTTPS). Requisições em HTTP simples resultam em redirecionamentos (304) para o protocolo HTTPS.
+**Atenção:** Toda a comunição cliente/servidor é feita através de HTTP sobre SSL/TLS (HTTPS). Requisições em HTTP simples resultam em redirecionamentos (304) para o protocolo HTTPS. Por questão de simplicidade, os exemplos foram construídos utilizando o protocolo HTTP.
 
 ## Exemplo de requisição
 
