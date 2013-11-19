@@ -20,7 +20,7 @@ Qualquer linguagem de programação compativel com requisições **HTTP / JSON**
 
 Uma _REST API_ é composta, basicamente, por dois elementos: um **cliente** e um **servidor**. O cliente sempre inicia a comunicação mediante requisição HTTP. O servidor sempre finaliza a comunicação respondendo à requisição.
 
-![Cliente/Servidor](https://raw.github.com/clicksign/rest-api-v2/master/images/client-server.png)
+->![Cliente/Servidor](https://raw.github.com/clicksign/rest-api-v2/master/images/client-server.png)<-
 
 As mensagens HTTP são compostas por uma linha inicial, um conjunto de cabeçalhos e um corpo. A linha inicial difere nas requisições e nas respostas, o cabeçalho compartilha parâmetros em comum e parâmetros específicos, e o corpo é completamente dependente de cada mensagem, podendo até ser nulo.
 
