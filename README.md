@@ -10,7 +10,7 @@
 
 A Clicksign é uma solução online para enviar, guardar e assinar documentos, com validade jurídica. Foi criada para facilitar, reduzir custo e aumentar a segurança e compliance do processo de assinatura e _workflow_ de documentos. 
 
-A Clicksign pode ser acessada em desk.clicksign.com. 
+A Clicksign pode ser acessada em https://desk.clicksign.com. 
 
 O propósito desta **REST API** é prover meios para que nossos clientes adequem a Clicksign aos seus processos e sistemas p. ex. automatizar tarefas, desenhar fluxos de assinatura, e definir _workflow_. 
 
@@ -238,7 +238,7 @@ Retorna um arquivo _ZIP_ contendo os 2 arquivos resultantes do processamento: ar
 
 ## Resposta 200
 
-Caso não ocorra nenhuma falha na requisição, o corpo da resposta será o arquivo _ZIP_.
+Caso não ocorra nenhuma falha na requisição, o corpo da resposta será o arquivo _ZIP_.t 
 
 * **Cabeçalhos**:
   - **Content-Type:** application/zip
