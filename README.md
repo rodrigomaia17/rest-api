@@ -297,8 +297,8 @@ Para isso, a Clicksign dispõe de um sistema de **hooks** que realizam chamadas 
 
 Os parâmetros possíveis são:
 
-- URL: caminho completo, incluíndo protocolo
-- Método: GET, POST, PUT, DELETE, PATCH
-- Content-Type: application/json
+- **URL**: caminho completo, incluíndo protocolo
+- **Método**: GET, POST, PUT, DELETE, PATCH
+- **Content-Type**: application/json
 
 É anexado ao corpo da requisição uma representação em _JSON_ do evento que a disparou, p. ex., em evento de documento completamente assinado é anexado um _JSON_ do documento, da lista de assinatura e das assinaturas do documento.
