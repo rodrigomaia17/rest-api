@@ -302,3 +302,48 @@ Os parâmetros possíveis são:
 - **Content-Type**: application/json
 
 É anexado ao corpo da requisição uma representação em _JSON_ do evento que a disparou, p. ex., em evento de documento completamente assinado é anexado um _JSON_ do documento, da lista de assinatura e das assinaturas do documento.
+
+Os tipos de _hooks_ implementados até o momento são:
+
+- documento pendente de assinatura
+- documento completamente assinado
+
+## Configuração de hooks
+
+Cadastra um _hook_ para um determinado usuário.
+
+* **Method:** POST
+* **Path:** /users/:id/hooks
+* **Corpo:** _vazio_
+
+## Resposta 200
+
+Caso não ocorra nenhuma falha na requisição, a resposta será apenas o status 200 e seu corpo será vazio.
+
+## Resposta 4XX
+
+Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+  ```json
+  {
+    "message": "Parâmetros inválidos."
+  }
+  ```
+
+## Resposta 5XX
+
+Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+  ```json
+  {
+    "message": "Server error."
+  }
+  ```
