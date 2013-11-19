@@ -89,27 +89,27 @@ O segundo fator da autenticação é realizado automaticamente pelo servidor da 
   - **Accept**: application/json
 * **Corpo:**
   ```json
-    {
-      "person": {
-        "name": {
-          "given_name": "John",
-          "additional_name": "August",
-          "family_name": "Doe",
-          "honorific_suffix": "III"
-        },
+  {
+    "person": {
+      "name": {
+        "given_name": "John",
+        "additional_name": "August",
+        "family_name": "Doe",
+        "honorific_suffix": "III"
+      },
 
-        "documentation": {
-          "country": "br",
-          "kind": "cpf",
-          "value": "999.999.999-99"
-        },
+      "documentation": {
+        "country": "br",
+        "kind": "cpf",
+        "value": "999.999.999-99"
+      },
 
-        "phone": {
-          "country": "br",
-          "number": "99-9-9999-9999"
-        }
+      "phone": {
+        "country": "br",
+        "number": "99-9-9999-9999"
       }
     }
+  }
   ```
 
 Para especificar a criação de um usuário corporativo a requisição json deve seguir o formato especificado acima.
@@ -178,9 +178,9 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```
-   PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
-   ...
-   Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
+  PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
+  ...
+  Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
   ```
 
 ## Resposta 4XX
@@ -192,7 +192,9 @@ Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSO
 * **Corpo:**
 
   ```json
-    { "message": "Parâmetros inválidos." }
+  {
+    "message": "Parâmetros inválidos."
+  }
   ```
 
 ## Resposta 5XX
@@ -204,7 +206,9 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```json
-    { "message": "Server error." }
+  {
+    "message": "Server error."
+  }
   ```
 
 
@@ -229,9 +233,9 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```
-   PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
-   ...
-   Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
+  PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
+  ...
+  Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
   ```
 
 ## Resposta 4XX
@@ -243,7 +247,9 @@ Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSO
 * **Corpo:**
 
   ```json
-    { "message": "Parâmetros inválidos." }
+  {
+    "message": "Parâmetros inválidos."
+  }
   ```
 
 ## Resposta 5XX
@@ -255,5 +261,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 * **Corpo:**
 
   ```json
-    { "message": "Server error." }
+  {
+    "message": "Server error."
+  }
   ```
