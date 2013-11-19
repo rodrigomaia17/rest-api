@@ -3,6 +3,6 @@ digraph G {
 
   node [shape=box];
 
-  cliente -> servidor [label="Requisição"];
-  servidor -> cliente [label="Resposta"];
+  cliente -> servidor [ label = "Requisição" ];
+  servidor -> cliente [ label = "Resposta" ];
 }
