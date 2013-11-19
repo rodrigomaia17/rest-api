@@ -415,6 +415,41 @@ O campo `body` especifica o corpo da mensagem, é opcional e caso presente deve 
 Para especificar o pré-cadastro de um usuário a requisição json deve seguir o formato especificado acima.
 Alguns campos merecem informações extras
 
+<table>
+  <thead>
+    <tr>
+      <th>Campo</th>
+      <th>Tipo</th>
+      <th>Obrigatório</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>person.name.given_name</td>
+      <td>string</td>
+      <td>x</td>
+    </tr>
+
+    <tr>
+      <td>person.name.family_name</td>
+      <td>string</td>
+      <td>x</td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
 O campo `person.name.given_name` é obrigatório
 
 O campo `person.name.family_name` é obrigatório
