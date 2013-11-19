@@ -5,7 +5,7 @@
 - [Autenticação](#autenticacao)
 - [Criação de usuários corporativos](#criacao-de-usuarios-corporativos)
 - [Download de um documento](#download-de-um-documento)
-- [Webhook](#webhook)
+- [Hooks](#hooks)
 
 # <a name="introducao"></a>Introdução
 
@@ -288,4 +288,17 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
   }
   ```
 
-# <a name="download-de-um-documento"></a>Webhook
+
+# <a name="hooks"></a>Hooks
+
+É possível que a Clicksign notifique outras aplições à respeito de determinados eventos, p. ex., documento completamente assinado.
+
+Para isso, a Clicksign dispõe de um sistema de **hooks** que realizam chamadas HTTP para outras aplicações. As _hooks_ são definidas por usuário, portanto cada usuário deve configurar as _hooks_ com os parâmetros que deseja.
+
+Os parâmetros possíveis são:
+
+- URL: caminho completo, incluíndo protocolo
+- Método: GET, POST, PUT, DELETE, PATCH
+- Content-Type: application/json
+
+É anexado ao corpo da requisição uma representação em _JSON_ do evento que a disparou, p. ex., em evento de documento completamente assinado é anexado um _JSON_ do documento, da lista de assinatura e das assinaturas do documento.
