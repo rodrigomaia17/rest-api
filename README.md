@@ -190,13 +190,14 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
 * **Cabeçalhos**:
   - **Content-Type:** application/json
 * **Corpo:**
+
   ```json
-    {
-      "registration": {
-        "url": "https://desk.clicksign.com/registration?uuid=....",
-        "uid": "..."
-      }
+  {
+    "registration": {
+      "url": "https://desk.clicksign.com/registration?uuid=....",
+      "uid": "..."
     }
+  }
   ```
 
 ## Resposta 4XX
