@@ -116,7 +116,6 @@ O segundo fator da autenticação é realizado automaticamente pelo servidor da 
   ```
 
 Para especificar a criação de um usuário corporativo a requisição json deve seguir o formato especificado acima.
-Informações sobre os campos obrigatórios:
 
 <table>
   <thead>
@@ -129,14 +128,26 @@ Informações sobre os campos obrigatórios:
   <tbody>
     <tr>
       <td>person.name.given_name</td>
-      <td>string</td>
+      <td>String com até 50 caracteres</td>
       <td>x</td>
     </tr>
 
     <tr>
+      <td>person.name.additional_name</td>
+      <td>String com até 50 caracteres</td>
+      <td></td>
+    </tr>
+
+    <tr>
       <td>person.name.family_name</td>
-      <td>string</td>
+      <td>String com até 50 caracteres. A quantidade total de sobrenomes (additional_name + family_name + honorific_suffix, separados por espaço) não deve ultrapassar a quantidade de **6 nomes**</td>
       <td>x</td>
+    </tr>
+
+    <tr>
+      <td>person.name.honorific_suffix</td>
+      <td>String com até 50 caracteres</td>
+      <td></td>
     </tr>
 
     <tr>
