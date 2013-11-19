@@ -316,14 +316,16 @@ Cadastra um _hook_ para um determinado usuário.
 * **Path:** /users/:id/hooks
 * **Corpo:**
   ```json
-  "pending": {
-    "url": "https://example.com/signed/123",
-    "method": "POST"
-  },
+  {
+    "pending": {
+      "url": "https://example.com/signed/123",
+      "method": "POST"
+    },
 
-  "completed": {
-    "url": "https://example.com/completed/123",
-    "method": "POST"
+    "completed": {
+      "url": "https://example.com/completed/123",
+      "method": "POST"
+    }
   }
   ```
 
