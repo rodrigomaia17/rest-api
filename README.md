@@ -31,6 +31,8 @@ A resposta, em sua linha inicial, indica a **versão do protocolo**, o **status*
 
 A documentação de cada função da API determina o método e o caminho a ser utilizado, e o significado do corpo e de cada status da resposta.
 
+**Atenção:** Toda a comunição cliente/servidor é feita através de HTTP sobre SSL/TLS (HTTPS). Requisições em HTTP simples resultam em redirecionamentos (304) para o protocolo HTTPS.
+
 ## Exemplo de requisição
 
 ```http
@@ -66,9 +68,16 @@ Connection: Keep-Alive
 
 # Autenticação
 
-A autenticação é feita através de 2 parâmetros: **api_key** e **api_secret**. O parâmetro `api_key` define qual cliente está fazendo a requisição. O parâmetro `api_secret` define o senha que será utilizada na verificação de acesso à API. Ambos os parâmetros devem ser enviados no **caminho** da requisição. Portanto, toda requisição deverá conter no _path_ `?api_key=string-da-key&api_secret=string-do-secret`.
+A Clicksign utiliza duplo fator de autenticação para aumentar a segurança de suas transações. Autenticações que utilizam duplo fator geralmente são baseadas em algo que o parte cliente _conhece_ e algo que a parte cliente _possui_. No caso da API os fatores são:
+
+1. Conhecer um par **identificação** e **segredo**
+1. Possuir um endereço **IP** específico
+
+O primeior fator da autenticação é feito através de 2 parâmetros: **api_id** e **api_secret**. O parâmetro `api_id` define qual cliente está fazendo a requisição. O parâmetro `api_secret` define o senha que será utilizada na verificação de acesso à API. Ambos os parâmetros devem ser enviados no **caminho** da requisição. Portanto, toda requisição deverá conter no _path_ `?api_id=string-da-key&api_secret=string-do-secret`.
 
 **Atenção:** Os parâmetros de autenticação devem ser enviados a cada requisição feita pelo cliente. Como esses parâmetros são comuns a todos as funções da API, eles serão omitidos das documentações.
+
+O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o **IP** de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente.
 
 
 # Criação de usuários corporativos
