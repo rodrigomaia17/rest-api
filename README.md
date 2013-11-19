@@ -257,3 +257,163 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
   ```json
     { "message": "Server error." }
   ```
+
+# Criação de lista de assinatura
+
+É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação. Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, e a mensagem.
+
+* **Method:** POST
+* **Path:** /documents/:id/signature_list
+* **Cabeçalhos:**
+  - **Content-Type:** application/json
+  - **Accept**: application/json
+* **Corpo:**
+  ```json
+    {
+      "signers": [
+        { "email": "foo@example.com", "action": "sign" },
+        { "email": "bar@example.com", "action": "sign_as_witness" }
+      ],
+
+      "message": {
+        "recipients": [ "foo@example.com", "bar@example.com" ],
+        "body": "Hi guys, please sign this document."
+      }
+    }
+  ```
+
+## Documento
+
+O documento a ser enviado é determinado pelo campo `document_id`. Cabe ressaltar que o `document_id` é diferente para cada usuário que possui uma cópia do arquivo, portanto um mesmo arquivo possui múltiplos `document_id`, sendo um para cada usuário que tem acesso.
+
+```json
+  { "document_id": "4d3ed089fb60ab534684b7e9" }
+```
+
+## Signatários
+
+Para criar uma lista de assinatura, adicionar signatários ao documento e iniciar o processo de assinatura automaticamente, deve-se adicionar um campo `signers` ao JSON. Caso não haja o campo `signers` ou ele seja `null`, o documento não possuirá lista de assinatura definida.
+
+O campo `signers` deverá ser um `Array` contendo os signatários. Cada signatário é especificado através de e-mail e ação, sendo os respectivos campos `email` e `action`.
+
+Os possíveis campos de `action` são:
+- sign
+- approve
+- sign_as_party
+- sign_as_witness
+- sign_as_intervenient
+
+```json
+  {
+    "signers": [
+      { "email": "foo@example.com", "action": "sign" },
+      { "email": "bar@example.com", "action": "sign_as_witness" }
+    ]
+  }
+```
+
+## Mensagem
+
+Para especificar a mensagem a ser enviada são necessários dois campos: `recipients` e `body`.
+
+O campo `recipients` é um `Array` obrigatório com tamanho mínimo de `1`. Nenhuma mensagem será enviada caso o campo `recipients` não exista, seja `null` ou tenha tamanho igual a `0`.
+
+O campo `body` especifica o corpo da mensagem, é opcional e caso presente deve ser do tipo `String`.
+
+```json
+  {
+    "message": {
+      "recipients": [ "foo@example.com", "bar@example.com" ],
+      "body": "Hi guys, please sign this document."
+    }
+  }
+```
+
+
+# Criação de pré-cadastro
+
+* **Method:** POST
+* **Path:** /registration
+* **Cabeçalhos:**
+  - **Content-Type:** application/json
+  - **Accept**: application/json
+* **Corpo:**
+  ```json
+    {
+      "person": {
+        "name": {
+          "given_name": "John",
+          "additional_name": "August",
+          "family_name": "Doe",
+          "honorific_suffix": "III"
+        },
+
+        "documentation": {
+          "country": "br",
+          "kind": "cpf",
+          "value": "999.999.999-99"
+        },
+
+        "phone": {
+          "country": "br",
+          "number": "99-9-9999-9999"
+        }
+      }
+    }
+  ```
+
+Para especificar o pré-cadastro de um usuário a requisição json deve seguir o formato especificado acima.
+Alguns campos merecem informações extras
+
+<table>
+  <thead>
+    <tr>
+      <th>Campo</th>
+      <th>Tipo</th>
+      <th>Obrigatório</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>person.name.given_name</td>
+      <td>string</td>
+      <td>x</td>
+    </tr>
+
+    <tr>
+      <td>person.name.family_name</td>
+      <td>string</td>
+      <td>x</td>
+    </tr>
+
+    <tr>
+      <td>person.documentation.country</td>
+      <td>"br"</td>
+      <td>x</td>
+    </tr>
+
+    <tr>
+      <td>person.documentation.kind</td>
+      <td>"cpf"</td>
+      <td>x</td>
+    </tr>
+
+    <tr>
+      <td>person.documentation.value</td>
+      <td>String com 11 digítos com ou sem pontuação, exemplos válidos: "99999999999", "999.999.999-99"</td>
+      <td>x</td>
+    </tr>
+
+    <tr>
+      <td>person.phone.country</td>
+      <td>"br"</td>
+      <td>x</td>
+    </tr>
+
+    <tr>
+      <td>person.phone.number</td>
+      <td>String com 10 ou 11 digítos com ou sem pontuação, onde os dois primeiros representam o **ddd** e os últimos 8 ou 9 digítos representam ou número celular</td, exemplos válidos: "99-9999-9999", "99-9-9999-9999", "99999999999", "9999999999"</td>
+      <td>x</td>
+    </tr>
+  </tbody>
+</table>
