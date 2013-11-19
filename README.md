@@ -314,7 +314,18 @@ Cadastra um _hook_ para um determinado usuário.
 
 * **Method:** POST
 * **Path:** /users/:id/hooks
-* **Corpo:** _vazio_
+* **Corpo:**
+  ```json
+  "pending": {
+    "url": "https://example.com/signed/123",
+    "method": "POST"
+  },
+
+  "completed": {
+    "url": "https://example.com/completed/123",
+    "method": "POST"
+  }
+  ```
 
 ## Resposta 200
 
