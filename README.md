@@ -228,9 +228,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 
 # <a name="download-de-um-documento"></a>Download de um documento
 
-Retorna um arquivo _ZIP_ contendo os 3 arquivos resultantes do processamento: arquivo original, cópia carimbada do arquivo e log.
-
-**Atenção**: A única diferença entre esta função e função [dados de um documento](#dados-de-um-documento) é o cabeçalho **Accept**, que neste caso é _application/zip_.
+Retorna um arquivo _ZIP_ contendo os 2 arquivos resultantes do processamento: arquivo original, log concatenado a uma cópia carimbada do arquivo.
 
 * **Method:** GET
 * **Path:** /documents/:id
@@ -240,7 +238,7 @@ Retorna um arquivo _ZIP_ contendo os 3 arquivos resultantes do processamento: ar
 
 ## Resposta 200
 
-Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JSON_ contendo as informações do documento, incluindo dados da sua lista de assinatura.
+Caso não ocorra nenhuma falha na requisição, o corpo da resposta será o arquivo _ZIP_.
 
 * **Cabeçalhos**:
   - **Content-Type:** application/zip
