@@ -50,18 +50,24 @@ Accept: application/json
 HTTP/1.1 200 OK
 Content-Type:application/json
 Connection: Keep-Alive
+```
 
-<!DOCTYPE html>
-<html>
-  <head>
-...
+```json
+[
+  {
+    "id": "abcd..."
+  },
+
+  {
+    "id": "..."
+  }
 ```
 
 - Versão: 1.1
 - Status: 200
 - Mensagem: OK
 - Cabeçalhos: Content-Type, Connection
-- Corpo: <!DOCTYPE html>...
+- Corpo: [{...
 
 # <a name="autenticacao"></a>Autenticação
 
