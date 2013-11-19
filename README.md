@@ -33,14 +33,14 @@ A resposta, em sua linha inicial, indica a **versão do protocolo**, o **status*
 
 A documentação de cada função da API determina o método e o caminho a ser utilizado, e o significado do corpo e de cada status da resposta.
 
-**Atenção:** Toda a comunição cliente/servidor é feita através de HTTP sobre SSL/TLS (HTTPS). Requisições em HTTP simples resultam em redirecionamentos (304) para o protocolo HTTPS. Por questão de simplicidade, os exemplos foram construídos utilizando o protocolo HTTP.
+**Atenção:** Toda a comunição cliente/servidor é feita através de HTTP sobre SSL/TLS (HTTPS). Requisições em HTTP simples resultam em redirecionamentos (304) para o protocolo HTTPS.
 
 Todas as requisições da _REST API_ são feitas para `api.clicksign.com`.
 
 ## Exemplo de requisição
 
 ```http
-GET /documents HTTP/1.1
+GET /documents HTTPS/1.1
 Host: api.clicksign.com
 Accept: application/json
 ```
@@ -79,7 +79,7 @@ Connection: Keep-Alive
 
 # <a name="autenticacao"></a>Autenticação
 
-A Clicksign utiliza duplo fator de autenticação para aumentar a segurança de suas transações. Autenticações que utilizam duplo fator geralmente são baseadas em algo que o parte cliente _conhece_ e algo que a parte cliente _possui_. No caso da API os fatores são:
+A Clicksign utiliza duplo fator de autenticação para aumentar a segurança de suas transações. Autenticações que utilizam duplo fator geralmente são baseadas em algo que o cliente _conhece_ e algo que o cliente _possui_. No caso da API os fatores são:
 
 1. Conhecer um par **identificação** e **segredo**
 1. Possuir um endereço **IP** específico
