@@ -1,15 +1,12 @@
 # Índice
 
-- [Introdução](#introduo)
+- [Introdução](#introducao)
 - [Funcionamento geral](#funcionamento-geral)
-- [Autenticação](#autenticao)
-- [Upload de documento](#upload-de-documento)
-- [Listagem de documentos](#listagem-de-documentos)
-- [Dados de um documento](#dados-de-um-documento)
+- [Autenticação](#autenticacao)
+- [Criação de usuários corporativos](#criacao-de-usuarios-corporativos)
 - [Download de um documento](#download-de-um-documento)
-- [Criação de lista de assinatura](#criao-de-lista-de-assinatura)
 
-# Introdução
+# <a name="introducao"></a>Introdução
 
 A Clicksign é uma solução online para enviar, guardar e assinar documentos, com validade jurídica. Foi criada para facilitar, reduzir custo e aumentar a segurança e compliance do processo de assinatura e _workflow_ de documentos. 
 
@@ -19,7 +16,7 @@ O propósito desta **REST API** é prover meios para que nossos clientes adequem
 
 Qualquer linguagem de programação compativel com requisições **HTTP / JSON** cumpre os requisitos necessários para consumir os serviços desta API. Assim, com pouco esforço de programação é possível integrar desde scripts shell até sistemas de ERP.
 
-# Funcionamento geral
+# <a name="funcionamento-geral"></a>Funcionamento geral
 
 Uma _REST API_ é composta, basicamente, por dois elementos: um **cliente** e um **servidor**. O cliente sempre inicia a comunicação mediante requisição HTTP. O servidor sempre finaliza a comunicação respondendo à requisição.
 
@@ -66,7 +63,7 @@ Connection: Keep-Alive
 - Cabeçalhos: Content-Type, Connection
 - Corpo: <!DOCTYPE html>...
 
-# Autenticação
+# <a name="autenticacao"></a>Autenticação
 
 A Clicksign utiliza duplo fator de autenticação para aumentar a segurança de suas transações. Autenticações que utilizam duplo fator geralmente são baseadas em algo que o parte cliente _conhece_ e algo que a parte cliente _possui_. No caso da API os fatores são:
 
@@ -80,7 +77,7 @@ O primeior fator da autenticação é feito através de 2 parâmetros: **api_id*
 O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o **IP** de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente.
 
 
-# Criação de usuários corporativos
+# <a name="criacao-de-usuarios-corporativos"></a>Criação de usuários corporativos
 
 * **Method:** POST
 * **Path:** /registration
@@ -212,7 +209,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
   ```
 
 
-# Download de um documento
+# <a name="download-de-um-documento"></a>Download de um documento
 
 Retorna um arquivo _ZIP_ contendo os 3 arquivos resultantes do processamento: arquivo original, cópia carimbada do arquivo e log.
 
