@@ -140,7 +140,7 @@ Para especificar a criação de um usuário corporativo a requisição json deve
 
     <tr>
       <td>person.name.family_name</td>
-      <td>String com até 50 caracteres. A quantidade total de sobrenomes (additional_name + family_name + honorific_suffix, separados por espaço) não deve ultrapassar a quantidade de **6 nomes**</td>
+      <td>String com até 50 caracteres. A quantidade total de sobrenomes (additional_name + family_name + honorific_suffix, separados por espaço) não deve ultrapassar a quantidade de <b>6 nomes</b></td>
       <td>x</td>
     </tr>
 
@@ -185,16 +185,18 @@ Para especificar a criação de um usuário corporativo a requisição json deve
 
 ## Resposta 200
 
-Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JSON_ contendo as informações do documento, incluindo dados da sua lista de assinatura.
+Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JSON_ contendo as informações do cadastro de um usuário corporativo.
 
 * **Cabeçalhos**:
-  - **Content-Type:** application/zip
+  - **Content-Type:** application/json
 * **Corpo:**
-
-  ```
-  PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
-  ...
-  Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
+  ```json
+    {
+      "registration": {
+        "url": "https://desk.clicksign.com/registration?uuid=....",
+        "uid": "..."
+      }
+    }
   ```
 
 ## Resposta 4XX
