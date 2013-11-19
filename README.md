@@ -112,8 +112,8 @@ O segundo fator da autenticação é realizado automaticamente pelo servidor da 
     }
   ```
 
-Para especificar o pré-cadastro de um usuário a requisição json deve seguir o formato especificado acima.
-Alguns campos merecem informações extras
+Para especificar a criação de um usuário corporativo a requisição json deve seguir o formato especificado acima.
+Informações sobre os campos obrigatórios:
 
 <table>
   <thead>
@@ -137,46 +137,37 @@ Alguns campos merecem informações extras
     </tr>
 
     <tr>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>person.documentation.country</td>
+      <td>"br"</td>
+      <td>x</td>
     </tr>
 
     <tr>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>person.documentation.kind</td>
+      <td>"cpf"</td>
+      <td>x</td>
+    </tr>
+
+    <tr>
+      <td>person.documentation.value</td>
+      <td>String com 11 digítos com ou sem pontuação, exemplos válidos: "99999999999", "999.999.999-99"</td>
+      <td>x</td>
+    </tr>
+
+    <tr>
+      <td>person.phone.country</td>
+      <td>"br"</td>
+      <td>x</td>
+    </tr>
+
+    <tr>
+      <td>person.phone.number</td>
+      <td>String com 10 ou 11 digítos com ou sem pontuação, onde os dois primeiros representam o **ddd** e os últimos 8 ou 9 digítos representam ou número celular</td, exemplos válidos: "99-9999-9999", "99-9-9999-9999", "99999999999", "9999999999"</td>
+      <td>x</td>
     </tr>
   </tbody>
 </table>
 
-O campo `person.name.given_name` é obrigatório
-
-O campo `person.name.family_name` é obrigatório
-
-O campo `person.documentation.country` é obrigatório
-
-O campo `person.documentation.kind` é obrigatório
-
-O campo `person.documentation.value` é obrigatório
-
-O campo `person.phone.country` é obrigatório
-
-O campo `person.phone.number` é obrigatório
-
-O campo `person.documentation.value` é uma `String` contendo o valor do CPF a ser cadastrado. O CPF deve atender
-algum dos seguintes formatos:
-
-- Com pontos e traço: `"999.999.999-99"`
-- Somente digítos: `"99999999999"`
-
-Em ambos os casos o valor conterá um CPF válido.
-
-O campo `person.phone.number` é uma `String` com seu formato seguindo o seguinte padrão: _ddd_ _número celular_.
-`número` um valor entre 8 e 9 digítos. Além disso o valor da string pode conter ou não traços. Os seguintes exemplos são validos:
-
-- Com traços: `"99-9-9999-9999"`
-- Somente digítos: `"99999999999"`
 
 ## Resposta 200
 
@@ -337,92 +328,3 @@ O campo `body` especifica o corpo da mensagem, é opcional e caso presente deve 
     }
   }
 ```
-
-
-# Criação de pré-cadastro
-
-* **Method:** POST
-* **Path:** /registration
-* **Cabeçalhos:**
-  - **Content-Type:** application/json
-  - **Accept**: application/json
-* **Corpo:**
-  ```json
-    {
-      "person": {
-        "name": {
-          "given_name": "John",
-          "additional_name": "August",
-          "family_name": "Doe",
-          "honorific_suffix": "III"
-        },
-
-        "documentation": {
-          "country": "br",
-          "kind": "cpf",
-          "value": "999.999.999-99"
-        },
-
-        "phone": {
-          "country": "br",
-          "number": "99-9-9999-9999"
-        }
-      }
-    }
-  ```
-
-Para especificar o pré-cadastro de um usuário a requisição json deve seguir o formato especificado acima.
-Alguns campos merecem informações extras
-
-<table>
-  <thead>
-    <tr>
-      <th>Campo</th>
-      <th>Tipo</th>
-      <th>Obrigatório</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>person.name.given_name</td>
-      <td>string</td>
-      <td>x</td>
-    </tr>
-
-    <tr>
-      <td>person.name.family_name</td>
-      <td>string</td>
-      <td>x</td>
-    </tr>
-
-    <tr>
-      <td>person.documentation.country</td>
-      <td>"br"</td>
-      <td>x</td>
-    </tr>
-
-    <tr>
-      <td>person.documentation.kind</td>
-      <td>"cpf"</td>
-      <td>x</td>
-    </tr>
-
-    <tr>
-      <td>person.documentation.value</td>
-      <td>String com 11 digítos com ou sem pontuação, exemplos válidos: "99999999999", "999.999.999-99"</td>
-      <td>x</td>
-    </tr>
-
-    <tr>
-      <td>person.phone.country</td>
-      <td>"br"</td>
-      <td>x</td>
-    </tr>
-
-    <tr>
-      <td>person.phone.number</td>
-      <td>String com 10 ou 11 digítos com ou sem pontuação, onde os dois primeiros representam o **ddd** e os últimos 8 ou 9 digítos representam ou número celular</td, exemplos válidos: "99-9999-9999", "99-9-9999-9999", "99999999999", "9999999999"</td>
-      <td>x</td>
-    </tr>
-  </tbody>
-</table>
