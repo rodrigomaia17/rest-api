@@ -68,6 +68,7 @@ Connection: Keep-Alive
   {
     "id": "..."
   }
+]
 ```
 
 - Versão: 1.1
