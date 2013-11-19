@@ -130,62 +130,52 @@ Para especificar a criação de um usuário corporativo a requisição json deve
     <tr>
       <th>Campo</th>
       <th>Tipo</th>
-      <th>Obrigatório</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>person.name.given_name</td>
       <td>String com até 50 caracteres</td>
-      <td>x</td>
     </tr>
 
     <tr>
       <td>person.name.additional_name</td>
       <td>String com até 50 caracteres</td>
-      <td></td>
     </tr>
 
     <tr>
       <td>person.name.family_name</td>
       <td>String com até 50 caracteres. A quantidade total de sobrenomes (additional_name + family_name + honorific_suffix, separados por espaço) não deve ultrapassar a quantidade de <b>6 nomes</b></td>
-      <td>x</td>
     </tr>
 
     <tr>
       <td>person.name.honorific_suffix</td>
       <td>String com até 50 caracteres</td>
-      <td></td>
     </tr>
 
     <tr>
       <td>person.documentation.country</td>
       <td>"br"</td>
-      <td>x</td>
     </tr>
 
     <tr>
       <td>person.documentation.kind</td>
       <td>"cpf"</td>
-      <td>x</td>
     </tr>
 
     <tr>
       <td>person.documentation.value</td>
       <td>String com 11 digítos com ou sem pontuação, exemplos válidos: "99999999999", "999.999.999-99"</td>
-      <td>x</td>
     </tr>
 
     <tr>
       <td>person.phone.country</td>
       <td>"br"</td>
-      <td>x</td>
     </tr>
 
     <tr>
       <td>person.phone.number</td>
       <td>String com 10 ou 11 digítos com ou sem pontuação, onde os dois primeiros representam o **ddd** e os últimos 8 ou 9 digítos representam ou número celular</td, exemplos válidos: "99-9999-9999", "99-9-9999-9999", "99999999999", "9999999999"</td>
-      <td>x</td>
     </tr>
   </tbody>
 </table>
@@ -202,8 +192,7 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
   ```json
   {
     "registration": {
-      "url": "https://desk.clicksign.com/registration?uuid=....",
-      "uid": "..."
+      "url": "https://desk.clicksign.com/registration?uuid=...."
     }
   }
   ```
