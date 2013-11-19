@@ -1,0 +1,4 @@
+digraph G {
+  client -> server;
+  server -> client;
+}
