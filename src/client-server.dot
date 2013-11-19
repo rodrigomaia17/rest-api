@@ -1,4 +1,9 @@
 digraph G {
-  client -> server;
-  server -> client;
+  rankdir=LR;
+
+  cliente [shape=box];
+  servidor [shape=box];
+
+  cliente -> servidor [label="Requisição"];
+  servidor -> cliente [label="Resposta"];
 }
