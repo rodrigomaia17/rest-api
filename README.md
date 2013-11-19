@@ -5,6 +5,7 @@
 - [Autenticação](#autenticacao)
 - [Criação de usuários corporativos](#criacao-de-usuarios-corporativos)
 - [Download de um documento](#download-de-um-documento)
+- [Webhook](#webhook)
 
 # <a name="introducao"></a>Introdução
 
@@ -286,3 +287,5 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
     "message": "Server error."
   }
   ```
+
+# <a name="download-de-um-documento"></a>Webhook
