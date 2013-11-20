@@ -1,0 +1,480 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Rest API V2 by clicksign</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Rest API V2</h1>
+        <p class="header">Rest API V2</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/clicksign/rest-api-v2/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/clicksign/rest-api-v2/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/clicksign/rest-api-v2">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/clicksign">clicksign</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a name="%C3%8Dndice" class="anchor" href="#%C3%8Dndice"><span class="octicon octicon-link"></span></a>Índice</h1>
+
+<ul>
+<li><a href="#introducao">Introdução</a></li>
+<li><a href="#funcionamento-geral">Funcionamento geral</a></li>
+<li><a href="#autenticacao">Autenticação</a></li>
+<li><a href="#criacao-de-usuarios-corporativos">Criação de usuários corporativos</a></li>
+<li><a href="#download-de-um-documento">Download de um documento</a></li>
+<li><a href="#hooks">Hooks</a></li>
+</ul><h1>
+<a name="introdu%C3%A7%C3%A3o" class="anchor" href="#introdu%C3%A7%C3%A3o"><span class="octicon octicon-link"></span></a><a name="introducao"></a>Introdução</h1>
+
+<p>A Clicksign é uma solução online para enviar, guardar e assinar documentos, com validade jurídica. Foi criada para facilitar, reduzir custo e aumentar a segurança e compliance do processo de assinatura e <em>workflow</em> de documentos. </p>
+
+<p>A Clicksign pode ser acessada em <a href="https://desk.clicksign.com">https://desk.clicksign.com</a>. </p>
+
+<p>O propósito desta <strong>REST API</strong> é prover meios para que nossos clientes adequem a Clicksign aos seus processos e sistemas p. ex. automatizar tarefas, desenhar fluxos de assinatura, e definir <em>workflow</em>. </p>
+
+<p>Qualquer linguagem de programação compativel com requisições <strong>HTTP / JSON</strong> cumpre os requisitos necessários para consumir os serviços desta API. Assim, com pouco esforço de programação é possível integrar desde scripts shell até sistemas de ERP.</p>
+
+<h1>
+<a name="funcionamento-geral" class="anchor" href="#funcionamento-geral"><span class="octicon octicon-link"></span></a><a name="funcionamento-geral"></a>Funcionamento geral</h1>
+
+<p>Uma <em>REST API</em> é composta, basicamente, por dois elementos: um <strong>cliente</strong> e um <strong>servidor</strong>. O cliente sempre inicia a comunicação mediante requisição HTTP. O servidor sempre finaliza a comunicação respondendo à requisição.</p>
+
+<p align="center">
+  <img src="https://raw.github.com/clicksign/rest-api-v2/master/images/client-server.png"></p>
+
+<p>As mensagens HTTP são compostas por uma linha inicial, um conjunto de cabeçalhos e um corpo. A linha inicial difere nas requisições e nas respostas, o cabeçalho compartilha parâmetros em comum e parâmetros específicos, e o corpo é completamente dependente de cada mensagem, podendo até ser nulo.</p>
+
+<p>A requisição, em sua linha inicial, indica o <strong>método</strong>, o <strong>caminho</strong>, e a <strong>versão do protocolo</strong>. O método e o caminho são essenciais em uma <em>REST API</em> uma vez que ambos indicam a ação a ser executada no servidor.</p>
+
+<p>A resposta, em sua linha inicial, indica a <strong>versão do protocolo</strong>, o <strong>status</strong>, e contém uma <strong>mensagem informativa</strong>. O código de status é essencial para o cliente saber se a ação foi devidamente executada no servidor.</p>
+
+<p>A documentação de cada função da API determina o método e o caminho a ser utilizado, e o significado do corpo e de cada status da resposta.</p>
+
+<p><strong>Atenção:</strong> Toda a comunição cliente/servidor é feita através de HTTP sobre SSL/TLS (HTTPS). Requisições em HTTP simples resultam em redirecionamentos (304) para o protocolo HTTPS.</p>
+
+<p>Todas as requisições da <em>REST API</em> são feitas para <code>api.clicksign.com</code>.</p>
+
+<h2>
+<a name="exemplo-de-requisi%C3%A7%C3%A3o" class="anchor" href="#exemplo-de-requisi%C3%A7%C3%A3o"><span class="octicon octicon-link"></span></a>Exemplo de requisição</h2>
+
+<div class="highlight highlight-http"><pre><span class="nf">GET</span> <span class="nn">/documents</span> <span class="kr">HTTPS</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">api.clicksign.com</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+<ul>
+<li>Método: GET</li>
+<li>Caminho: /documents</li>
+<li>Versão: 1.1</li>
+<li>Cabeçalhos: Host, Accept</li>
+<li>Corpo: vazio</li>
+</ul><h2>
+<a name="exemplo-de-resposta" class="anchor" href="#exemplo-de-resposta"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
+
+<div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span><span class="l">application/json</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">Keep-Alive</span>
+</pre></div>
+
+<div class="highlight highlight-json"><pre><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"abcd..."</span>
+  <span class="p">},</span>
+
+  <span class="p">{</span>
+    <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"..."</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+
+<ul>
+<li>Versão: 1.1</li>
+<li>Status: 200</li>
+<li>Mensagem: OK</li>
+<li>Cabeçalhos: Content-Type, Connection</li>
+<li>Corpo: [{...</li>
+</ul><h1>
+<a name="autentica%C3%A7%C3%A3o" class="anchor" href="#autentica%C3%A7%C3%A3o"><span class="octicon octicon-link"></span></a><a name="autenticacao"></a>Autenticação</h1>
+
+<p>A Clicksign utiliza duplo fator de autenticação para aumentar a segurança de suas transações. Autenticações que utilizam duplo fator geralmente são baseadas em algo que o cliente <em>conhece</em> e algo que o cliente <em>possui</em>. No caso da API os fatores são:</p>
+
+<ol>
+<li>Conhecer um par <strong>identificação</strong> e <strong>segredo</strong>
+</li>
+<li>Possuir um endereço <strong>IP</strong> específico</li>
+</ol><p>O primeior fator da autenticação é feito através de 2 parâmetros: <strong>api_id</strong> e <strong>api_secret</strong>. O parâmetro <code>api_id</code> define qual cliente está fazendo a requisição. O parâmetro <code>api_secret</code> define o senha que será utilizada na verificação de acesso à API. Ambos os parâmetros devem ser enviados no <strong>caminho</strong> da requisição. Portanto, toda requisição deverá conter no <em>path</em> <code>?api_id=string-da-key&amp;api_secret=string-do-secret</code>.</p>
+
+<p><strong>Atenção:</strong> Os parâmetros de autenticação devem ser enviados a cada requisição feita pelo cliente. Como esses parâmetros são comuns a todos as funções da API, eles serão omitidos das documentações.</p>
+
+<p>O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o <strong>IP</strong> de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente.</p>
+
+<h1>
+<a name="cria%C3%A7%C3%A3o-de-usu%C3%A1rios-corporativos" class="anchor" href="#cria%C3%A7%C3%A3o-de-usu%C3%A1rios-corporativos"><span class="octicon octicon-link"></span></a><a name="criacao-de-usuarios-corporativos"></a>Criação de usuários corporativos</h1>
+
+<ul>
+<li>
+<strong>Method:</strong> POST</li>
+<li>
+<strong>Path:</strong> /registration</li>
+<li>
+<strong>Cabeçalhos:</strong>
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+<li>
+<strong>Accept</strong>: application/json</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"person"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"name"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"given_name"</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">,</span>
+      <span class="nt">"additional_name"</span><span class="p">:</span> <span class="s2">"August"</span><span class="p">,</span>
+      <span class="nt">"family_name"</span><span class="p">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
+      <span class="nt">"honorific_suffix"</span><span class="p">:</span> <span class="s2">"III"</span>
+    <span class="p">},</span>
+
+    <span class="nt">"documentation"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"country"</span><span class="p">:</span> <span class="s2">"br"</span><span class="p">,</span>
+      <span class="nt">"kind"</span><span class="p">:</span> <span class="s2">"cpf"</span><span class="p">,</span>
+      <span class="nt">"value"</span><span class="p">:</span> <span class="s2">"999.999.999-99"</span>
+    <span class="p">},</span>
+
+    <span class="nt">"phone"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"country"</span><span class="p">:</span> <span class="s2">"br"</span><span class="p">,</span>
+      <span class="nt">"number"</span><span class="p">:</span> <span class="s2">"99-9-9999-9999"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</li>
+</ul><p>Para especificar a criação de um usuário corporativo a requisição json deve seguir o formato especificado acima.</p>
+
+<table>
+<thead><tr>
+<th>Campo</th>
+      <th>Tipo</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td>person.name.given_name</td>
+      <td>String com até 50 caracteres</td>
+    </tr>
+<tr>
+<td>person.name.additional_name</td>
+      <td>String com até 50 caracteres</td>
+    </tr>
+<tr>
+<td>person.name.family_name</td>
+      <td>String com até 50 caracteres. A quantidade total de sobrenomes (additional_name + family_name + honorific_suffix, separados por espaço) não deve ultrapassar a quantidade de <b>6 nomes</b>
+</td>
+    </tr>
+<tr>
+<td>person.name.honorific_suffix</td>
+      <td>String com até 50 caracteres</td>
+    </tr>
+<tr>
+<td>person.documentation.country</td>
+      <td>"br"</td>
+    </tr>
+<tr>
+<td>person.documentation.kind</td>
+      <td>"cpf"</td>
+    </tr>
+<tr>
+<td>person.documentation.value</td>
+      <td>String com 11 digítos com ou sem pontuação, exemplos válidos: "99999999999", "999.999.999-99"</td>
+    </tr>
+<tr>
+<td>person.phone.country</td>
+      <td>"br"</td>
+    </tr>
+<tr>
+<td>person.phone.number</td>
+      <td>String com 10 ou 11 digítos com ou sem pontuação, onde os dois primeiros representam o **ddd** e os últimos 8 ou 9 digítos representam ou número celular</td>
+    </tr>
+</tbody>
+</table><h2>
+<a name="resposta-200" class="anchor" href="#resposta-200"><span class="octicon octicon-link"></span></a>Resposta 200</h2>
+
+<p>Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um <em>JSON</em> contendo as informações do cadastro de um usuário corporativo.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"registration"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"url"</span><span class="p">:</span> <span class="s2">"https://desk.clicksign.com/registration?uuid=...."</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</li>
+</ul><h2>
+<a name="resposta-4xx" class="anchor" href="#resposta-4xx"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+
+<p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Parâmetros inválidos."</span>
+<span class="p">}</span>
+</pre></div>
+</li>
+</ul><h2>
+<a name="resposta-5xx" class="anchor" href="#resposta-5xx"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+
+<p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span>
+<span class="p">}</span>
+</pre></div>
+</li>
+</ul><h1>
+<a name="download-de-um-documento" class="anchor" href="#download-de-um-documento"><span class="octicon octicon-link"></span></a><a name="download-de-um-documento"></a>Download de um documento</h1>
+
+<p>Retorna um arquivo <em>ZIP</em> contendo os 2 arquivos resultantes do processamento: arquivo original, log concatenado a uma cópia carimbada do arquivo.</p>
+
+<ul>
+<li>
+<strong>Method:</strong> GET</li>
+<li>
+<strong>Path:</strong> /documents/:id</li>
+<li>
+<strong>Cabeçalhos:</strong>
+
+<ul>
+<li>
+<strong>Accept</strong>: application/zip</li>
+</ul>
+</li>
+<li>
+<strong>Corpo:</strong> <em>vazio</em>
+</li>
+</ul><h2>
+<a name="resposta-200-1" class="anchor" href="#resposta-200-1"><span class="octicon octicon-link"></span></a>Resposta 200</h2>
+
+<p>Caso não ocorra nenhuma falha na requisição, o corpo da resposta será o arquivo <em>ZIP</em>.t </p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/zip</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<pre><code>PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
+...
+Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
+</code></pre>
+</li>
+</ul><h2>
+<a name="resposta-4xx-1" class="anchor" href="#resposta-4xx-1"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+
+<p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Parâmetros inválidos."</span>
+<span class="p">}</span>
+</pre></div>
+</li>
+</ul><h2>
+<a name="resposta-5xx-1" class="anchor" href="#resposta-5xx-1"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+
+<p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span>
+<span class="p">}</span>
+</pre></div>
+</li>
+</ul><h1>
+<a name="hooks" class="anchor" href="#hooks"><span class="octicon octicon-link"></span></a><a name="hooks"></a>Hooks</h1>
+
+<p>É possível que a Clicksign notifique outras aplições à respeito de determinados eventos, p. ex., documento completamente assinado.</p>
+
+<p>Para isso, a Clicksign dispõe de um sistema de <strong>hooks</strong> que realizam chamadas HTTP para outras aplicações. As <em>hooks</em> são definidas por usuário, portanto cada usuário deve configurar as <em>hooks</em> com os parâmetros que deseja.</p>
+
+<p>Os parâmetros possíveis são:</p>
+
+<ul>
+<li>
+<strong>URL</strong>: caminho completo, incluíndo protocolo</li>
+<li>
+<strong>Método</strong>: GET, POST, PUT, DELETE, PATCH</li>
+<li>
+<strong>Content-Type</strong>: application/json</li>
+</ul><p>É anexado ao corpo da requisição uma representação em <em>JSON</em> do evento que a disparou, p. ex., em evento de documento completamente assinado é anexado um <em>JSON</em> do documento, da lista de assinatura e das assinaturas do documento.</p>
+
+<p>Os tipos de <em>hooks</em> implementados até o momento são:</p>
+
+<ul>
+<li>documento pendente de assinatura</li>
+<li>documento completamente assinado</li>
+</ul><h2>
+<a name="configura%C3%A7%C3%A3o-de-hooks" class="anchor" href="#configura%C3%A7%C3%A3o-de-hooks"><span class="octicon octicon-link"></span></a>Configuração de hooks</h2>
+
+<p>Cadastra um <em>hook</em> para um determinado usuário.</p>
+
+<ul>
+<li>
+<strong>Method:</strong> POST</li>
+<li>
+<strong>Path:</strong> /users/:id/hooks</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"pending"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"url"</span><span class="p">:</span> <span class="s2">"https://example.com/signed/123"</span><span class="p">,</span>
+    <span class="nt">"method"</span><span class="p">:</span> <span class="s2">"POST"</span>
+  <span class="p">},</span>
+
+  <span class="nt">"completed"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"url"</span><span class="p">:</span> <span class="s2">"https://example.com/completed/123"</span><span class="p">,</span>
+    <span class="nt">"method"</span><span class="p">:</span> <span class="s2">"POST"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</li>
+</ul><h2>
+<a name="resposta-200-2" class="anchor" href="#resposta-200-2"><span class="octicon octicon-link"></span></a>Resposta 200</h2>
+
+<p>Caso não ocorra nenhuma falha na requisição, a resposta será apenas o status 200 e seu corpo será vazio.</p>
+
+<h2>
+<a name="resposta-4xx-2" class="anchor" href="#resposta-4xx-2"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+
+<p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Parâmetros inválidos."</span>
+<span class="p">}</span>
+</pre></div>
+</li>
+</ul><h2>
+<a name="resposta-5xx-2" class="anchor" href="#resposta-5xx-2"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+
+<p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span>
+<span class="p">}</span>
+</pre></div>
+</li>
+</ul>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
