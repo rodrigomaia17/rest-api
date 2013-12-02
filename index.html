@@ -37,8 +37,10 @@
 <li><a href="#introducao">Introdução</a></li>
 <li><a href="#funcionamento-geral">Funcionamento geral</a></li>
 <li><a href="#autenticacao">Autenticação</a></li>
-<li><a href="#criacao-de-usuarios-corporativos">Criação de usuários corporativos</a></li>
+<li><a href="#upload-de-documentos">Upload de documentos</a></li>
+<li><a href="#criacao-de-lista-de-assinatura">Criação de lista de assinatura</a></li>
 <li><a href="#download-de-um-documento">Download de um documento</a></li>
+<li><a href="#criacao-de-usuarios-corporativos">Criação de usuários corporativos</a></li>
 <li><a href="#hooks">Hooks</a></li>
 </ul><h1>
 <a name="introdu%C3%A7%C3%A3o" class="anchor" href="#introdu%C3%A7%C3%A3o"><span class="octicon octicon-link"></span></a><a name="introducao"></a>Introdução</h1>
@@ -126,6 +128,252 @@
 <p>O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o <strong>IP</strong> de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente.</p>
 
 <h1>
+<a name="upload-de-documentos" class="anchor" href="#upload-de-documentos"><span class="octicon octicon-link"></span></a><a name="upload-de-documentos"></a>Upload de documentos</h1>
+
+<p>O processo de envio de um documento para o servidor contempla a criação de um arquivo de <strong>log</strong>c ontendo informações de <em>upload</em>, usuário, etc, anexado a uma cópia do documento "carimbada" com um <strong>número de série</strong>. Ao final do processo haverá 2 arquivos nos servidores da Clicksign: documento original e arquivo de log anexado a uma cópia carimbada do documento. Enquanto o log e a cópia carimbada são gerados a requisição <em>não fica bloqueada</em>. O <em>status</em> do documento será <em>working</em> enquanto o processo ocorre. Após concluído, o <em>status</em> será <em>open</em>.</p>
+
+<ul>
+<li>
+<strong>Method:</strong> POST</li>
+<li>
+<strong>Path:</strong> /documents
+
+<ul>
+<li>
+<strong>Content-Type:</strong> multipart/mixed; boundary=frontier</li>
+<li>
+<strong>Accept</strong>: application/json</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/octet-stream</li>
+<li>
+<strong>Content-Transfer-Encoding:</strong> base64</li>
+</ul>
+<pre><code>--frontier--
+PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
+Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
+--frontier--
+</code></pre>
+</li>
+</ul><h2>
+<a name="exemplo-de-resposta-1" class="anchor" href="#exemplo-de-resposta-1"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
+
+<div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span><span class="l">application/json</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">Keep-Alive</span>
+</pre></div>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"key"</span><span class="p">:</span> <span class="s2">"0123-4567-89ab-cdef"</span><span class="p">,</span>
+  <span class="nt">"status"</span><span class="p">:</span> <span class="s2">"working"</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="resposta-4xx" class="anchor" href="#resposta-4xx"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+
+<p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li><strong>Corpo:</strong></li>
+</ul><div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Invalid parameters."</span> <span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="resposta-5xx" class="anchor" href="#resposta-5xx"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+
+<p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li><strong>Corpo:</strong></li>
+</ul><div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span> <span class="p">}</span>
+</pre></div>
+
+<h1>
+<a name="cria%C3%A7%C3%A3o-de-lista-de-assinatura" class="anchor" href="#cria%C3%A7%C3%A3o-de-lista-de-assinatura"><span class="octicon octicon-link"></span></a><a name="criacao-de-lista-de-assinatura"></a>Criação de lista de assinatura</h1>
+
+<p>É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação. Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, e a mensagem.</p>
+
+<ul>
+<li>
+<strong>Method:</strong> POST</li>
+<li>
+<strong>Path:</strong> /documents/:key/list</li>
+<li>
+<strong>Cabeçalhos:</strong>
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+<li>
+<strong>Accept</strong>: application/json</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"signers"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"foo@example.com"</span><span class="p">,</span> <span class="nt">"action"</span><span class="p">:</span> <span class="s2">"sign"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"bar@example.com"</span><span class="p">,</span> <span class="nt">"action"</span><span class="p">:</span> <span class="s2">"sign_as_witness"</span> <span class="p">}</span>
+  <span class="p">],</span>
+
+  <span class="nt">"message"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"recipients"</span><span class="p">:</span> <span class="p">[</span> <span class="s2">"foo@example.com"</span><span class="p">,</span> <span class="s2">"bar@example.com"</span> <span class="p">],</span>
+    <span class="nt">"body"</span><span class="p">:</span> <span class="s2">"Hi guys, please sign this document."</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</li>
+</ul><h2>
+<a name="especificando-signat%C3%A1rios" class="anchor" href="#especificando-signat%C3%A1rios"><span class="octicon octicon-link"></span></a>Especificando signatários</h2>
+
+<p>Para criar uma lista de assinatura, adicionar signatários ao documento e iniciar o processo de assinatura automaticamente, deve-se adicionar um campo <code>signers</code> ao JSON. Caso não haja o campo <code>signers</code> ou ele seja <code>null</code>, o documento não possuirá lista de assinatura definida.</p>
+
+<p>O campo <code>signers</code> deverá ser um <code>Array</code> contendo os signatários. Cada signatário é especificado através de e-mail e ação, sendo os respectivos campos <code>email</code> e <code>action</code>.</p>
+
+<p>Os possíveis campos de <code>action</code> são:</p>
+
+<ul>
+<li>sign</li>
+<li>approve</li>
+<li>sign_as_party</li>
+<li>sign_as_witness</li>
+<li>sign_as_intervenient</li>
+</ul><div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"signers"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"foo@example.com"</span><span class="p">,</span> <span class="nt">"action"</span><span class="p">:</span> <span class="s2">"sign"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"bar@example.com"</span><span class="p">,</span> <span class="nt">"action"</span><span class="p">:</span> <span class="s2">"sign_as_witness"</span> <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="especificando-a-mensagem" class="anchor" href="#especificando-a-mensagem"><span class="octicon octicon-link"></span></a>Especificando a mensagem</h2>
+
+<p>Para especificar a mensagem a ser enviada são necessários dois campos: <code>recipients</code> e <code>body</code>.</p>
+
+<p>O campo <code>recipients</code> é um <code>Array</code> obrigatório com tamanho mínimo de <code>1</code>. Nenhuma mensagem será enviada caso o campo <code>recipients</code> não exista, seja <code>null</code> ou tenha tamanho igual a <code>0</code>.</p>
+
+<p>O campo <code>body</code> especifica o corpo da mensagem, é opcional e caso presente deve ser do tipo <code>String</code>.</p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"message"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"recipients"</span><span class="p">:</span> <span class="p">[</span> <span class="s2">"foo@example.com"</span><span class="p">,</span> <span class="s2">"bar@example.com"</span> <span class="p">],</span>
+    <span class="nt">"body"</span><span class="p">:</span> <span class="s2">"Hi guys, please sign this document."</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h1>
+<a name="download-de-um-documento" class="anchor" href="#download-de-um-documento"><span class="octicon octicon-link"></span></a><a name="download-de-um-documento"></a>Download de um documento</h1>
+
+<p>Retorna um arquivo <em>ZIP</em> contendo os 2 arquivos resultantes do processamento: arquivo original, log concatenado a uma cópia carimbada do arquivo.</p>
+
+<ul>
+<li>
+<strong>Method:</strong> GET</li>
+<li>
+<strong>Path:</strong> /documents/:key</li>
+<li>
+<strong>Cabeçalhos:</strong>
+
+<ul>
+<li>
+<strong>Accept</strong>: application/zip</li>
+</ul>
+</li>
+<li>
+<strong>Corpo:</strong> <em>vazio</em>
+</li>
+</ul><h2>
+<a name="resposta-200" class="anchor" href="#resposta-200"><span class="octicon octicon-link"></span></a>Resposta 200</h2>
+
+<p>Caso não ocorra nenhuma falha na requisição, o corpo da resposta será o arquivo <em>ZIP</em>.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/zip</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<pre><code>PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
+...
+Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
+</code></pre>
+</li>
+</ul><h2>
+<a name="resposta-4xx-1" class="anchor" href="#resposta-4xx-1"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+
+<p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Parâmetros inválidos."</span>
+<span class="p">}</span>
+</pre></div>
+</li>
+</ul><h2>
+<a name="resposta-5xx-1" class="anchor" href="#resposta-5xx-1"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+
+<p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span>
+<span class="p">}</span>
+</pre></div>
+</li>
+</ul><h1>
 <a name="cria%C3%A7%C3%A3o-de-usu%C3%A1rios-corporativos" class="anchor" href="#cria%C3%A7%C3%A3o-de-usu%C3%A1rios-corporativos"><span class="octicon octicon-link"></span></a><a name="criacao-de-usuarios-corporativos"></a>Criação de usuários corporativos</h1>
 
 <ul>
@@ -216,7 +464,7 @@
     </tr>
 </tbody>
 </table><h2>
-<a name="resposta-200" class="anchor" href="#resposta-200"><span class="octicon octicon-link"></span></a>Resposta 200</h2>
+<a name="resposta-200-1" class="anchor" href="#resposta-200-1"><span class="octicon octicon-link"></span></a>Resposta 200</h2>
 
 <p>Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um <em>JSON</em> contendo as informações do cadastro de um usuário corporativo.</p>
 
@@ -240,7 +488,7 @@
 </pre></div>
 </li>
 </ul><h2>
-<a name="resposta-4xx" class="anchor" href="#resposta-4xx"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+<a name="resposta-4xx-2" class="anchor" href="#resposta-4xx-2"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
 
 <p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -262,94 +510,7 @@
 </pre></div>
 </li>
 </ul><h2>
-<a name="resposta-5xx" class="anchor" href="#resposta-5xx"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
-
-<p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
-
-<ul>
-<li>
-<strong>Cabeçalhos</strong>:
-
-<ul>
-<li>
-<strong>Content-Type:</strong> application/json</li>
-</ul>
-</li>
-<li>
-<p><strong>Corpo:</strong></p>
-
-<div class="highlight highlight-json"><pre><span class="p">{</span>
-  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span>
-<span class="p">}</span>
-</pre></div>
-</li>
-</ul><h1>
-<a name="download-de-um-documento" class="anchor" href="#download-de-um-documento"><span class="octicon octicon-link"></span></a><a name="download-de-um-documento"></a>Download de um documento</h1>
-
-<p>Retorna um arquivo <em>ZIP</em> contendo os 2 arquivos resultantes do processamento: arquivo original, log concatenado a uma cópia carimbada do arquivo.</p>
-
-<ul>
-<li>
-<strong>Method:</strong> GET</li>
-<li>
-<strong>Path:</strong> /documents/:id</li>
-<li>
-<strong>Cabeçalhos:</strong>
-
-<ul>
-<li>
-<strong>Accept</strong>: application/zip</li>
-</ul>
-</li>
-<li>
-<strong>Corpo:</strong> <em>vazio</em>
-</li>
-</ul><h2>
-<a name="resposta-200-1" class="anchor" href="#resposta-200-1"><span class="octicon octicon-link"></span></a>Resposta 200</h2>
-
-<p>Caso não ocorra nenhuma falha na requisição, o corpo da resposta será o arquivo <em>ZIP</em>.t </p>
-
-<ul>
-<li>
-<strong>Cabeçalhos</strong>:
-
-<ul>
-<li>
-<strong>Content-Type:</strong> application/zip</li>
-</ul>
-</li>
-<li>
-<p><strong>Corpo:</strong></p>
-
-<pre><code>PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
-...
-Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
-</code></pre>
-</li>
-</ul><h2>
-<a name="resposta-4xx-1" class="anchor" href="#resposta-4xx-1"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
-
-<p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
-
-<ul>
-<li>
-<strong>Cabeçalhos</strong>:
-
-<ul>
-<li>
-<strong>Content-Type:</strong> application/json</li>
-</ul>
-</li>
-<li>
-<p><strong>Corpo:</strong></p>
-
-<div class="highlight highlight-json"><pre><span class="p">{</span>
-  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Parâmetros inválidos."</span>
-<span class="p">}</span>
-</pre></div>
-</li>
-</ul><h2>
-<a name="resposta-5xx-1" class="anchor" href="#resposta-5xx-1"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+<a name="resposta-5xx-2" class="anchor" href="#resposta-5xx-2"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
 
 <p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -425,7 +586,7 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
 <p>Caso não ocorra nenhuma falha na requisição, a resposta será apenas o status 200 e seu corpo será vazio.</p>
 
 <h2>
-<a name="resposta-4xx-2" class="anchor" href="#resposta-4xx-2"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+<a name="resposta-4xx-3" class="anchor" href="#resposta-4xx-3"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
 
 <p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -447,7 +608,7 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
 </pre></div>
 </li>
 </ul><h2>
-<a name="resposta-5xx-2" class="anchor" href="#resposta-5xx-2"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+<a name="resposta-5xx-3" class="anchor" href="#resposta-5xx-3"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
 
 <p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
