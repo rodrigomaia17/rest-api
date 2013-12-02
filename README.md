@@ -126,6 +126,30 @@ Connection: Keep-Alive
 }
 ```
 
+## Resposta 4XX
+
+Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+```json
+{ "message": "Invalid parameters." }
+```
+
+## Resposta 5XX
+
+Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+```json
+{ "message": "Server error." }
+```
+
 
 # <a name="download-de-um-documento"></a>Download de um documento
 
