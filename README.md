@@ -151,12 +151,77 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 ```
 
 
+# Criação de lista de assinatura
+
+É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação. Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, e a mensagem.
+
+* **Method:** POST
+* **Path:** /documents/:key/signature_list
+* **Cabeçalhos:**
+  - **Content-Type:** application/json
+  - **Accept**: application/json
+* **Corpo:**
+
+  ```json
+  {
+    "signers": [
+      { "email": "foo@example.com", "action": "sign" },
+      { "email": "bar@example.com", "action": "sign_as_witness" }
+    ],
+
+    "message": {
+      "recipients": [ "foo@example.com", "bar@example.com" ],
+      "body": "Hi guys, please sign this document."
+    }
+  }
+  ```
+
+## Especificando signatários
+
+Para criar uma lista de assinatura, adicionar signatários ao documento e iniciar o processo de assinatura automaticamente, deve-se adicionar um campo `signers` ao JSON. Caso não haja o campo `signers` ou ele seja `null`, o documento não possuirá lista de assinatura definida.
+
+O campo `signers` deverá ser um `Array` contendo os signatários. Cada signatário é especificado através de e-mail e ação, sendo os respectivos campos `email` e `action`.
+
+Os possíveis campos de `action` são:
+- sign
+- approve
+- sign_as_party
+- sign_as_witness
+- sign_as_intervenient
+
+```json
+{
+  "signers": [
+    { "email": "foo@example.com", "action": "sign" },
+    { "email": "bar@example.com", "action": "sign_as_witness" }
+  ]
+}
+```
+
+## Especificando a mensagem
+
+Para especificar a mensagem a ser enviada são necessários dois campos: `recipients` e `body`.
+
+O campo `recipients` é um `Array` obrigatório com tamanho mínimo de `1`. Nenhuma mensagem será enviada caso o campo `recipients` não exista, seja `null` ou tenha tamanho igual a `0`.
+
+O campo `body` especifica o corpo da mensagem, é opcional e caso presente deve ser do tipo `String`.
+
+```json
+{
+  "message": {
+    "recipients": [ "foo@example.com", "bar@example.com" ],
+    "body": "Hi guys, please sign this document."
+  }
+}
+```
+
+
 # <a name="download-de-um-documento"></a>Download de um documento
 
 Retorna um arquivo _ZIP_ contendo os 2 arquivos resultantes do processamento: arquivo original, log concatenado a uma cópia carimbada do arquivo.
 
 * **Method:** GET
-* **Path:** /documents/:id
+* **Path:** /documents/:key
 * **Cabeçalhos:**
   - **Accept**: application/zip
 * **Corpo:** _vazio_
