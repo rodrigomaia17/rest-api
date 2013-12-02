@@ -4,8 +4,8 @@
 - [Funcionamento geral](#funcionamento-geral)
 - [Autenticação](#autenticacao)
 - [Upload de documentos](#upload-de-documentos)
-- [Criação de usuários corporativos](#criacao-de-usuarios-corporativos)
 - [Download de um documento](#download-de-um-documento)
+- [Criação de usuários corporativos](#criacao-de-usuarios-corporativos)
 - [Hooks](#hooks)
 
 # <a name="introducao"></a>Introdução
@@ -127,6 +127,59 @@ Connection: Keep-Alive
 ```
 
 
+# <a name="download-de-um-documento"></a>Download de um documento
+
+Retorna um arquivo _ZIP_ contendo os 2 arquivos resultantes do processamento: arquivo original, log concatenado a uma cópia carimbada do arquivo.
+
+* **Method:** GET
+* **Path:** /documents/:id
+* **Cabeçalhos:**
+  - **Accept**: application/zip
+* **Corpo:** _vazio_
+
+## Resposta 200
+
+Caso não ocorra nenhuma falha na requisição, o corpo da resposta será o arquivo _ZIP_.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/zip
+* **Corpo:**
+
+  ```
+  PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
+  ...
+  Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
+  ```
+
+## Resposta 4XX
+
+Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+  ```json
+  {
+    "message": "Parâmetros inválidos."
+  }
+  ```
+
+## Resposta 5XX
+
+Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+  ```json
+  {
+    "message": "Server error."
+  }
+  ```
+
+
 # <a name="criacao-de-usuarios-corporativos"></a>Criação de usuários corporativos
 
 * **Method:** POST
@@ -231,59 +284,6 @@ Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JS
       "url": "https://desk.clicksign.com/registration?uuid=...."
     }
   }
-  ```
-
-## Resposta 4XX
-
-Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
-
-* **Cabeçalhos**:
-  - **Content-Type:** application/json
-* **Corpo:**
-
-  ```json
-  {
-    "message": "Parâmetros inválidos."
-  }
-  ```
-
-## Resposta 5XX
-
-Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
-
-* **Cabeçalhos**:
-  - **Content-Type:** application/json
-* **Corpo:**
-
-  ```json
-  {
-    "message": "Server error."
-  }
-  ```
-
-
-# <a name="download-de-um-documento"></a>Download de um documento
-
-Retorna um arquivo _ZIP_ contendo os 2 arquivos resultantes do processamento: arquivo original, log concatenado a uma cópia carimbada do arquivo.
-
-* **Method:** GET
-* **Path:** /documents/:id
-* **Cabeçalhos:**
-  - **Accept**: application/zip
-* **Corpo:** _vazio_
-
-## Resposta 200
-
-Caso não ocorra nenhuma falha na requisição, o corpo da resposta será o arquivo _ZIP_.t 
-
-* **Cabeçalhos**:
-  - **Content-Type:** application/zip
-* **Corpo:**
-
-  ```
-  PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
-  ...
-  Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
   ```
 
 ## Resposta 4XX
