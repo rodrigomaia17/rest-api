@@ -3,6 +3,7 @@
 - [Introdução](#introducao)
 - [Funcionamento geral](#funcionamento-geral)
 - [Autenticação](#autenticacao)
+- [Upload de documentos](#upload-de-documentos)
 - [Criação de usuários corporativos](#criacao-de-usuarios-corporativos)
 - [Download de um documento](#download-de-um-documento)
 - [Hooks](#hooks)
@@ -89,6 +90,41 @@ O primeior fator da autenticação é feito através de 2 parâmetros: **api_id*
 **Atenção:** Os parâmetros de autenticação devem ser enviados a cada requisição feita pelo cliente. Como esses parâmetros são comuns a todos as funções da API, eles serão omitidos das documentações.
 
 O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o **IP** de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente.
+
+
+# <a name="upload-de-documentos"></a>Upload de documentos
+
+O processo de envio de um documento para o servidor contempla a criação de um arquivo de **log**c ontendo informações de _upload_, usuário, etc, anexado a uma cópia do documento "carimbada" com um **número de série**. Ao final do processo haverá 2 arquivos nos servidores da Clicksign: documento original e arquivo de log anexado a uma cópia carimbada do documento. Enquanto o log e a cópia carimbada são gerados a requisição *não fica bloqueada*. O _status_ do documento será _working_ enquanto o processo ocorre. Após concluído, o _status_ será _open_.
+
+* **Method:** POST
+* **Path:** /documents
+  - **Content-Type:** multipart/mixed; boundary=frontier
+  - **Accept**: application/json
+* **Corpo:**
+  - **Content-Type:** application/octet-stream
+  - **Content-Transfer-Encoding:** base64
+
+  ```
+  --frontier--
+  PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
+  Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
+  --frontier--
+  ```
+
+## Exemplo de resposta
+
+```http
+HTTP/1.1 200 OK
+Content-Type:application/json
+Connection: Keep-Alive
+```
+
+```json
+{
+  "key": "0123-4567-89ab-cdef",
+  "status": "working"
+}
+```
 
 
 # <a name="criacao-de-usuarios-corporativos"></a>Criação de usuários corporativos
