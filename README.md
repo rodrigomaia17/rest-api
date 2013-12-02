@@ -4,6 +4,7 @@
 - [Funcionamento geral](#funcionamento-geral)
 - [Autenticação](#autenticacao)
 - [Upload de documentos](#upload-de-documentos)
+- [Criação de lista de assinatura](#criacao-de-lista-de-assinatura)
 - [Download de um documento](#download-de-um-documento)
 - [Criação de usuários corporativos](#criacao-de-usuarios-corporativos)
 - [Hooks](#hooks)
@@ -151,7 +152,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 ```
 
 
-# Criação de lista de assinatura
+# <a name="criacao-de-lista-de-assinatura"></a>Criação de lista de assinatura
 
 É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação. Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, e a mensagem.
 
