@@ -157,7 +157,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação. Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, e a mensagem.
 
 * **Method:** POST
-* **Path:** /documents/:key/signature_list
+* **Path:** /documents/:key/list
 * **Cabeçalhos:**
   - **Content-Type:** application/json
   - **Accept**: application/json
