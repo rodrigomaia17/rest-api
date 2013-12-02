@@ -270,7 +270,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
   ```
 
 
-# <a name="criacao-de-usuarios-corporativos"></a>Criação de usuários corporativos
+# <a name="criacao-de-usuarios-corporativos"></a>Criação de usuários
 
 * **Method:** POST
 * **Path:** /registration
