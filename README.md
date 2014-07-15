@@ -296,6 +296,7 @@ Content-Type:application/json
   "created_at":"2014-07-08T12:35:55.777-03:00",
   "updated_at":"2014-07-08T12:35:55.777-03:00"
 }
+```
 
 ## Resposta 4XX
 
