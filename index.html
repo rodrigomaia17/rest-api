@@ -40,8 +40,8 @@
 <li><a href="#versao">Versão</a></li>
 <li><a href="#upload-de-documentos">Upload de documentos</a></li>
 <li><a href="#criacao-de-lista-de-assinatura">Criação de lista de assinatura</a></li>
-<li><a href="#download-de-um-documento">Download de um documento</a></li>
 <li><a href="#hooks">Hooks</a></li>
+<li><a href="#exemplos">Exemplos</a></li>
 </ul><h1>
 <a name="introdu%C3%A7%C3%A3o" class="anchor" href="#introdu%C3%A7%C3%A3o"><span class="octicon octicon-link"></span></a>
 <a name="introducao"></a>Introdução</h1>
@@ -124,11 +124,11 @@
 <li>Conhecer uma <em>string</em> de <strong>identificação</strong>
 </li>
 <li>Possuir um endereço <strong>IP</strong> específico</li>
-</ol><p>A autenticação é feito através do parâmetro <strong>access_token</strong> que automaticamente determina um usuário e realiza sua autenticação. O parâmetro deve ser enviado no <strong>caminho</strong> da requisição. Portanto, toda requisição deverá conter no <em>path</em> <code>?access\_token=string-do-token</code>.</p>
+</ol><p>A autenticação é feito através do parâmetro <strong>access_token</strong> que automaticamente determina um usuário e realiza sua autenticação. O parâmetro deve ser enviado no <strong>caminho</strong> da requisição. Portanto, toda requisição deverá conter no <em>path</em> <code>?access_token=string-do-token</code>.</p>
 
 <p><strong>Atenção:</strong> O parâmetro de autenticação deve ser enviado a cada requisição feita pelo cliente. Como esse parâmetro é comum a todas as funções da API, ele será omitido das documentações.</p>
 
-<p>O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o <strong>IP</strong> de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente, este fator de autenticação é <strong>opcional</strong>.</p>
+<p>O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o <strong>IP</strong> de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente. Este fator de autenticação é <strong>opcional</strong>.</p>
 
 <h1>
 <a name="vers%C3%A3o" class="anchor" href="#vers%C3%A3o"><span class="octicon octicon-link"></span></a>
@@ -249,7 +249,7 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
 <div class="highlight highlight-json"><pre><span class="p">{</span>
   <span class="nt">"signers"</span><span class="p">:</span> <span class="p">[</span>
     <span class="p">{</span> <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"foo@example.com"</span><span class="p">,</span> <span class="nt">"act"</span><span class="p">:</span> <span class="s2">"sign"</span> <span class="p">},</span>
-    <span class="p">{</span> <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"bar@example.com"</span><span class="p">,</span> <span class="nt">"act"</span><span class="p">:</span> <span class="s2">"sign_as_witness"</span> <span class="p">}</span>
+    <span class="p">{</span> <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"bar@example.com"</span><span class="p">,</span> <span class="nt">"act"</span><span class="p">:</span> <span class="s2">"witness"</span> <span class="p">}</span>
   <span class="p">],</span>
 
   <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Hi guys, please sign this document."</span>
@@ -273,50 +273,61 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
 </ul><p>A mensagem a ser enviada aos signatários é definida pelo campo <code>message</code>.</p>
 
 <h1>
-<a name="download-de-um-documento" class="anchor" href="#download-de-um-documento"><span class="octicon octicon-link"></span></a>
-<a name="download-de-um-documento"></a>Download de um documento</h1>
+<a name="hooks" class="anchor" href="#hooks"><span class="octicon octicon-link"></span></a>
+<a name="hooks"></a>Hooks</h1>
 
-<p>Retorna um arquivo <em>ZIP</em> contendo os 2 arquivos resultantes do processamento: arquivo original, log concatenado a uma cópia carimbada do arquivo.</p>
+<p>É possível que a Clicksign notifique outras aplições à respeito da alteração de estado de um determinado documento. O estado de um documento é alterado quando um dos seguintes eventos ocorrem:</p>
+
+<ul>
+<li>o documento é processado</li>
+<li>alguém se recusa a assinar o documento</li>
+<li>o documento é completamente assinado</li>
+</ul><p>Para isso, a Clicksign dispõe de um sistema de <strong>hooks</strong> que realizam chamadas HTTP para outras aplicações. As <em>hooks</em> são definidas por documento, portanto cada documento deve configurar as <em>hooks</em> com os parâmetros que deseja.</p>
+
+<p>Quando o documento alterar o seu estado, a Clicksign irá realizar um POST para a <code>url</code> que foi configurada na <em>hook</em> do documento. No corpo da requisição irá em anexo a chave do documento em formato JSON. Portanto você pode determinar para cada documento um endereço específico a ser notificado ou colocar em todos os documentos o mesmo endereço a ser notificado e o servidor que atender a requisição inspecionar o JSON e determinar o que fazer com cada documento em particular.</p>
 
 <ul>
 <li>
-<strong>Method:</strong> GET</li>
+<strong>URL</strong>: caminho completo, incluíndo protocolo</li>
 <li>
-<strong>Path:</strong> /documents/:key</li>
-<li>
-<strong>Cabeçalhos:</strong>
+<strong>Content-Type</strong>: application/json</li>
+</ul><h2>
+<a name="configura%C3%A7%C3%A3o-de-hooks" class="anchor" href="#configura%C3%A7%C3%A3o-de-hooks"><span class="octicon octicon-link"></span></a>Configuração de hooks</h2>
+
+<p>Cadastra um <em>hook</em> para um determinado usuário.</p>
 
 <ul>
 <li>
-<strong>Accept</strong>: application/zip</li>
-</ul>
-</li>
+<strong>Method:</strong> POST</li>
 <li>
-<strong>Corpo:</strong> <em>vazio</em>
+<strong>Path:</strong> /documents/:key/hooks</li>
+<li>
+<strong>Corpo:</strong>
+<code>json
+{
+  "url": "https://example.com/signed/123",
+}
+</code>
 </li>
 </ul><h2>
 <a name="resposta-200" class="anchor" href="#resposta-200"><span class="octicon octicon-link"></span></a>Resposta 200</h2>
 
-<p>Caso não ocorra nenhuma falha na requisição, o corpo da resposta será o arquivo <em>ZIP</em>.</p>
+<p>Caso não ocorra nenhuma falha na requisição, a resposta será status 200 e seu corpo será um JSON contendo os dados da <em>hook</em> recém criada.</p>
 
-<ul>
-<li>
-<strong>Cabeçalhos</strong>:
+<div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span><span class="l">application/json</span>
+</pre></div>
 
-<ul>
-<li>
-<strong>Content-Type:</strong> application/zip</li>
-</ul>
-</li>
-<li>
-<p><strong>Corpo:</strong></p>
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+  <span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://example.com"</span><span class="p">,</span>
+  <span class="nt">"document_id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2014-07-08T12:35:55.777-03:00"</span><span class="p">,</span>
+  <span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2014-07-08T12:35:55.777-03:00"</span>
+<span class="p">}</span>
+</pre></div>
 
-<pre><code>PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
-...
-Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
-</code></pre>
-</li>
-</ul><h2>
+<h2>
 <a name="resposta-4xx-1" class="anchor" href="#resposta-4xx-1"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
 
 <p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
@@ -361,105 +372,25 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
 </pre></div>
 </li>
 </ul><h1>
-<a name="hooks" class="anchor" href="#hooks"><span class="octicon octicon-link"></span></a>
-<a name="hooks"></a>Hooks</h1>
+<a name="exemplos" class="anchor" href="#exemplos"><span class="octicon octicon-link"></span></a>
+<a name="exemplos"></a>Exemplos</h1>
 
-<p>É possível que a Clicksign notifique outras aplições à respeito da alteração de estado de um determinado documento. O estado de um documento é alterado quando um dos seguintes eventos ocorrem:</p>
+<p>Os exemplos abaixo podem ser executados direto da linha de comando utilizando o cURL.</p>
 
-<ul>
-<li>o documento é processado</li>
-<li>alguém se recusa a assinar o documento</li>
-<li>o documento é completamente assinado</li>
-</ul><p>Para isso, a Clicksign dispõe de um sistema de <strong>hooks</strong> que realizam chamadas HTTP para outras aplicações. As <em>hooks</em> são definidas por documento, portanto cada documento deve configurar as <em>hooks</em> com os parâmetros que deseja.</p>
+<div class="highlight highlight-bash"><pre><span class="nb">export </span><span class="nv">TOKEN</span><span class="o">=</span>put-your-token-here
+<span class="nb">export </span><span class="nv">DOCUMENT</span><span class="o">=</span>/home/joe/document-de-exemplo.pdf
 
-<p>Quando o documento alterar o seu estado, a Clicksign irá realizar um POST para a <code>url</code> que foi configurada na <em>hook</em> do documento. No corpo da requisição irá em anexo a chave do documento em formato JSON. Portanto você pode determinar para cada documento um endereço específico a ser notificado ou colocar em todos os documentos o mesmo endereço a ser notificado e o servidor que atender a requisição inspecionar o JSON e determinar o que fazer com cada documento em particular.</p>
+<span class="c"># Obter os documentos de uma determinada conta</span>
+curl -X GET -H <span class="s2">"Accept: application/vnd.clicksign.v1"</span> https://api.clicksign.com/documents/?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
 
-<ul>
-<li>
-<strong>URL</strong>: caminho completo, incluíndo protocolo</li>
-<li>
-<strong>Content-Type</strong>: application/json</li>
-</ul><h2>
-<a name="configura%C3%A7%C3%A3o-de-hooks" class="anchor" href="#configura%C3%A7%C3%A3o-de-hooks"><span class="octicon octicon-link"></span></a>Configuração de hooks</h2>
+<span class="c"># Realizar upload de um documento</span>
+curl -X POST -H <span class="s2">"Accept: application/vnd.clicksign.v1"</span> -F <span class="s2">"document[archive][original]=@$DOCUMENT"</span> https://api.clicksign.com/documents?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
 
-<p>Cadastra um <em>hook</em> para um determinado usuário.</p>
+<span class="nb">export </span><span class="nv">KET</span><span class="o">=</span>ver-key-retornada no JSON
 
-<ul>
-<li>
-<strong>Method:</strong> POST</li>
-<li>
-<strong>Path:</strong> /documents/:key/hooks</li>
-<li>
-<strong>Corpo:</strong>
-<code>json
-{
-  "url": "https://example.com/signed/123",
-}
-</code>
-</li>
-</ul><h2>
-<a name="resposta-200-1" class="anchor" href="#resposta-200-1"><span class="octicon octicon-link"></span></a>Resposta 200</h2>
-
-<p>Caso não ocorra nenhuma falha na requisição, a resposta será status 200 e seu corpo será um JSON contendo os dados da <em>hook</em> recém criada.</p>
-
-<div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span><span class="l">application/json</span>
+<span class="c"># Criar uma lista de assinatura</span>
+curl -X POST -H <span class="s2">"Accept: application/vnd.clicksign.v1"</span> -H <span class="s2">"Accept: application/json"</span> -H <span class="s2">"Content-type: application/json"</span> -d <span class="s1">'{"signers": [{ "email": "joe@example.com", "act": "sign" }]}'</span> https://api.clicksign.com/documents/<span class="nv">$KEY</span>/list?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
 </pre></div>
-
-<div class="highlight highlight-json"><pre><span class="p">{</span>
-  <span class="nt">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-  <span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://example.com"</span><span class="p">,</span>
-  <span class="nt">"document_id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2014-07-08T12:35:55.777-03:00"</span><span class="p">,</span>
-  <span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2014-07-08T12:35:55.777-03:00"</span>
-<span class="p">}</span>
-</pre></div>
-
-<h2>
-<a name="resposta-4xx-2" class="anchor" href="#resposta-4xx-2"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
-
-<p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
-
-<ul>
-<li>
-<strong>Cabeçalhos</strong>:
-
-<ul>
-<li>
-<strong>Content-Type:</strong> application/json</li>
-</ul>
-</li>
-<li>
-<p><strong>Corpo:</strong></p>
-
-<div class="highlight highlight-json"><pre><span class="p">{</span>
-  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Parâmetros inválidos."</span>
-<span class="p">}</span>
-</pre></div>
-</li>
-</ul><h2>
-<a name="resposta-5xx-2" class="anchor" href="#resposta-5xx-2"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
-
-<p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
-
-<ul>
-<li>
-<strong>Cabeçalhos</strong>:
-
-<ul>
-<li>
-<strong>Content-Type:</strong> application/json</li>
-</ul>
-</li>
-<li>
-<p><strong>Corpo:</strong></p>
-
-<div class="highlight highlight-json"><pre><span class="p">{</span>
-  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span>
-<span class="p">}</span>
-</pre></div>
-</li>
-</ul>
       </section>
       <footer>
         <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
