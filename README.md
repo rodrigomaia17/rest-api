@@ -7,7 +7,7 @@
 - [Upload de documentos](#upload-de-documentos)
 - [Criação de lista de assinatura](#criacao-de-lista-de-assinatura)
 - [Hooks](#hooks)
-- [Exemplos](#examplos)
+- [Exemplos](#exemplos)
 
 # <a name="introducao"></a>Introdução
 
@@ -285,7 +285,7 @@ export DOCUMENT=/home/joe/document-de-exemplo.pdf
 curl -X GET -H "Accept: application/vnd.clicksign.v1" https://api.clicksign.com/documents/?access_token=$TOKEN
 
 # Realizar upload de um documento
-curl -X POST -H "Accept: application/vnd.clicksign.v1" -F "document[archive][original]=@/DOCUMENT" https://api.clicksign.com/documents?access_token=$TOKEN
+curl -X POST -H "Accept: application/vnd.clicksign.v1" -F "document[archive][original]=@$DOCUMENT" https://api.clicksign.com/documents?access_token=$TOKEN
 
 export KET=ver-key-retornada no JSON
 
