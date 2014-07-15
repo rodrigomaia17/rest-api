@@ -175,7 +175,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
   {
     "signers": [
       { "email": "foo@example.com", "act": "sign" },
-      { "email": "bar@example.com", "act": "sign_as_witness" }
+      { "email": "bar@example.com", "act": "witness" }
     ],
 
     "message": "Hi guys, please sign this document."
