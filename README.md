@@ -261,7 +261,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 
 Para isso, a Clicksign dispõe de um sistema de **hooks** que realizam chamadas HTTP para outras aplicações. As _hooks_ são definidas por documento, portanto cada documento deve configurar as _hooks_ com os parâmetros que deseja.
 
-Quando o documento alterar o seu estado, a Clicksign irá realizar um POST para a `url` que foi configurada na _hook_ do documento. No corpo da requisição irão em anexo os dados dos documento em formato JSON. Portanto você pode determinar para cada documento um endereço específico a ser notificado ou colocar em todos os documentos o mesmo endereço a ser notificado e o servidor que atender a requisição inspecionar o JSON e determinar o que fazer com cada documento em particular.
+Quando o documento alterar o seu estado, a Clicksign irá realizar um POST para a `url` que foi configurada na _hook_ do documento. No corpo da requisição irá em anexo a chave do documento em formato JSON. Portanto você pode determinar para cada documento um endereço específico a ser notificado ou colocar em todos os documentos o mesmo endereço a ser notificado e o servidor que atender a requisição inspecionar o JSON e determinar o que fazer com cada documento em particular.
 
 - **URL**: caminho completo, incluíndo protocolo
 - **Content-Type**: application/json
