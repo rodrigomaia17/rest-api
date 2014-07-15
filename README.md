@@ -6,8 +6,8 @@
 - [Versão](#versao)
 - [Upload de documentos](#upload-de-documentos)
 - [Criação de lista de assinatura](#criacao-de-lista-de-assinatura)
-- [Download de um documento](#download-de-um-documento)
 - [Hooks](#hooks)
+- [Exemplos](#examplos)
 
 # <a name="introducao"></a>Introdução
 
@@ -87,11 +87,11 @@ A Clicksign utiliza duplo fator de autenticação para aumentar a segurança de 
 1. Conhecer uma _string_ de **identificação**
 1. Possuir um endereço **IP** específico
 
-A autenticação é feito através do parâmetro **access_token** que automaticamente determina um usuário e realiza sua autenticação. O parâmetro deve ser enviado no **caminho** da requisição. Portanto, toda requisição deverá conter no _path_ `?access\_token=string-do-token`.
+A autenticação é feito através do parâmetro **access_token** que automaticamente determina um usuário e realiza sua autenticação. O parâmetro deve ser enviado no **caminho** da requisição. Portanto, toda requisição deverá conter no _path_ `?access_token=string-do-token`._
 
 **Atenção:** O parâmetro de autenticação deve ser enviado a cada requisição feita pelo cliente. Como esse parâmetro é comum a todas as funções da API, ele será omitido das documentações.
 
-O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o **IP** de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente, este fator de autenticação é **opcional**.
+O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o **IP** de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente. Este fator de autenticação é **opcional**.
 
 
 # <a name="versao"></a>Versão
@@ -198,59 +198,6 @@ Os possíveis campos de `act` são:
 A mensagem a ser enviada aos signatários é definida pelo campo `message`.
 
 
-# <a name="download-de-um-documento"></a>Download de um documento
-
-Retorna um arquivo _ZIP_ contendo os 2 arquivos resultantes do processamento: arquivo original, log concatenado a uma cópia carimbada do arquivo.
-
-* **Method:** GET
-* **Path:** /documents/:key
-* **Cabeçalhos:**
-  - **Accept**: application/zip
-* **Corpo:** _vazio_
-
-## Resposta 200
-
-Caso não ocorra nenhuma falha na requisição, o corpo da resposta será o arquivo _ZIP_.
-
-* **Cabeçalhos**:
-  - **Content-Type:** application/zip
-* **Corpo:**
-
-  ```
-  PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
-  ...
-  Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
-  ```
-
-## Resposta 4XX
-
-Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
-
-* **Cabeçalhos**:
-  - **Content-Type:** application/json
-* **Corpo:**
-
-  ```json
-  {
-    "message": "Parâmetros inválidos."
-  }
-  ```
-
-## Resposta 5XX
-
-Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
-
-* **Cabeçalhos**:
-  - **Content-Type:** application/json
-* **Corpo:**
-
-  ```json
-  {
-    "message": "Server error."
-  }
-  ```
-
-
 # <a name="hooks"></a>Hooks
 
 É possível que a Clicksign notifique outras aplições à respeito da alteração de estado de um determinado documento. O estado de um documento é alterado quando um dos seguintes eventos ocorrem:
@@ -325,3 +272,23 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
     "message": "Server error."
   }
   ```
+
+# <a name="exemplos"></a>Exemplos
+
+Os exemplos abaixo podem ser executados direto da linha de comando utilizando o cURL.
+
+```bash
+export TOKEN=put-your-token-here
+export DOCUMENT=/home/joe/document-de-exemplo.pdf
+
+# Obter os documentos de uma determinada conta
+curl -X GET -H "Accept: application/vnd.clicksign.v1" https://api.clicksign.com/documents/?access_token=$TOKEN
+
+# Realizar upload de um documento
+curl -X POST -H "Accept: application/vnd.clicksign.v1" -F "document[archive][original]=@/DOCUMENT" https://api.clicksign.com/documents?access_token=$TOKEN
+
+export KET=ver-key-retornada no JSON
+
+# Criar uma lista de assinatura
+curl -X POST -H "Accept: application/vnd.clicksign.v1" -H "Accept: application/json" -H "Content-type: application/json" -d '{"signers": [{ "email": "joe@example.com", "act": "sign" }]}' https://api.clicksign.com/documents/$KEY/list?access_token=$TOKEN
+```
