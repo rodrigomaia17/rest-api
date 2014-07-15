@@ -3,10 +3,10 @@
 - [Introdução](#introducao)
 - [Funcionamento geral](#funcionamento-geral)
 - [Autenticação](#autenticacao)
+- [Versão](#versao)
 - [Upload de documentos](#upload-de-documentos)
 - [Criação de lista de assinatura](#criacao-de-lista-de-assinatura)
 - [Download de um documento](#download-de-um-documento)
-- [Criação de usuários corporativos](#criacao-de-usuarios-corporativos)
 - [Hooks](#hooks)
 
 # <a name="introducao"></a>Introdução
@@ -35,7 +35,7 @@ A resposta, em sua linha inicial, indica a **versão do protocolo**, o **status*
 
 A documentação de cada função da API determina o método e o caminho a ser utilizado, e o significado do corpo e de cada status da resposta.
 
-**Atenção:** Toda a comunição cliente/servidor é feita através de HTTP sobre SSL/TLS (HTTPS). Requisições em HTTP simples resultam em redirecionamentos (304) para o protocolo HTTPS.
+**Atenção:** Toda a comunição cliente/servidor é feita através de HTTP sobre SSL/TLS (HTTPS). Requisições em HTTP simples resultam em redirecionamentos (301) para o protocolo HTTPS.
 
 Todas as requisições da _REST API_ são feitas para `api.clicksign.com`.
 
@@ -79,18 +79,26 @@ Connection: Keep-Alive
 - Cabeçalhos: Content-Type, Connection
 - Corpo: [{...
 
+
 # <a name="autenticacao"></a>Autenticação
 
 A Clicksign utiliza duplo fator de autenticação para aumentar a segurança de suas transações. Autenticações que utilizam duplo fator geralmente são baseadas em algo que o cliente _conhece_ e algo que o cliente _possui_. No caso da API os fatores são:
 
-1. Conhecer um par **identificação** e **segredo**
+1. Conhecer uma _string_ de **identificação**
 1. Possuir um endereço **IP** específico
 
-O primeior fator da autenticação é feito através de 2 parâmetros: **api_id** e **api_secret**. O parâmetro `api_id` define qual cliente está fazendo a requisição. O parâmetro `api_secret` define o senha que será utilizada na verificação de acesso à API. Ambos os parâmetros devem ser enviados no **caminho** da requisição. Portanto, toda requisição deverá conter no _path_ `?api_id=string-da-key&api_secret=string-do-secret`.
+A autenticação é feito através do parâmetro **access_token** que automaticamente determina um usuário e realiza sua autenticação. O parâmetro deve ser enviado no **caminho** da requisição. Portanto, toda requisição deverá conter no _path_ `?access\_token=string-do-token`.
 
-**Atenção:** Os parâmetros de autenticação devem ser enviados a cada requisição feita pelo cliente. Como esses parâmetros são comuns a todos as funções da API, eles serão omitidos das documentações.
+**Atenção:** O parâmetro de autenticação deve ser enviado a cada requisição feita pelo cliente. Como esse parâmetro é comum a todas as funções da API, ele será omitido das documentações.
 
-O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o **IP** de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente.
+O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o **IP** de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente, este fator de autenticação é **opcional**.
+
+
+# <a name="versao"></a>Versão
+
+Para possibilitar a expansão contínua da API, a Clicksign implementa um sistema de versões. Dessa forma é necessário que a requisição contenha qual versão da API está sendo utilizada. Isto é feito através do cabeçalho `Accept` que deverá possuir o valor `application/vnd.clicksign.v1`. Caso haja mais de um valor para o cabeçalho `Accept`, eles deverão ser concatenados utilizando `;`, p.e.: `Accept: application/vnd.clicksign.v1; application/json`.
+
+Atualmente a Clicksign possui apenas este cabeçalho para versões, mas a medida que outras versões forem implementadas, outros valores serão possíveis.
 
 
 # <a name="upload-de-documentos"></a>Upload de documentos
@@ -166,55 +174,28 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
   ```json
   {
     "signers": [
-      { "email": "foo@example.com", "action": "sign" },
-      { "email": "bar@example.com", "action": "sign_as_witness" }
+      { "email": "foo@example.com", "act": "sign" },
+      { "email": "bar@example.com", "act": "sign_as_witness" }
     ],
 
-    "message": {
-      "recipients": [ "foo@example.com", "bar@example.com" ],
-      "body": "Hi guys, please sign this document."
-    }
+    "message": "Hi guys, please sign this document."
   }
   ```
 
-## Especificando signatários
-
 Para criar uma lista de assinatura, adicionar signatários ao documento e iniciar o processo de assinatura automaticamente, deve-se adicionar um campo `signers` ao JSON. Caso não haja o campo `signers` ou ele seja `null`, o documento não possuirá lista de assinatura definida.
 
-O campo `signers` deverá ser um `Array` contendo os signatários. Cada signatário é especificado através de e-mail e ação, sendo os respectivos campos `email` e `action`.
+O campo `signers` deverá ser um `Array` contendo os signatários. Cada signatário é especificado através de e-mail e ação, sendo os respectivos campos `email` e `act`.
 
-Os possíveis campos de `action` são:
+Os possíveis campos de `act` são:
 - sign
 - approve
-- sign_as_party
-- sign_as_witness
-- sign_as_intervenient
+- acknowledge
+- witness
+- intervenient
+- party
+- receipt
 
-```json
-{
-  "signers": [
-    { "email": "foo@example.com", "action": "sign" },
-    { "email": "bar@example.com", "action": "sign_as_witness" }
-  ]
-}
-```
-
-## Especificando a mensagem
-
-Para especificar a mensagem a ser enviada são necessários dois campos: `recipients` e `body`.
-
-O campo `recipients` é um `Array` obrigatório com tamanho mínimo de `1`. Nenhuma mensagem será enviada caso o campo `recipients` não exista, seja `null` ou tenha tamanho igual a `0`.
-
-O campo `body` especifica o corpo da mensagem, é opcional e caso presente deve ser do tipo `String`.
-
-```json
-{
-  "message": {
-    "recipients": [ "foo@example.com", "bar@example.com" ],
-    "body": "Hi guys, please sign this document."
-  }
-}
-```
+A mensagem a ser enviada aos signatários é definida pelo campo `message`.
 
 
 # <a name="download-de-um-documento"></a>Download de um documento
@@ -270,184 +251,51 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
   ```
 
 
-# <a name="criacao-de-usuarios-corporativos"></a>Criação de usuários
-
-* **Method:** POST
-* **Path:** /registration
-* **Cabeçalhos:**
-  - **Content-Type:** application/json
-  - **Accept**: application/json
-* **Corpo:**
-  ```json
-  {
-    "person": {
-      "name": {
-        "given_name": "John",
-        "additional_name": "August",
-        "family_name": "Doe",
-        "honorific_suffix": "III"
-      },
-
-      "documentation": {
-        "country": "br",
-        "kind": "cpf",
-        "value": "999.999.999-99"
-      },
-
-      "phone": {
-        "country": "br",
-        "number": "99-9-9999-9999"
-      }
-    }
-  }
-  ```
-
-Para especificar a criação de um usuário corporativo a requisição json deve seguir o formato especificado acima.
-
-<table>
-  <thead>
-    <tr>
-      <th>Campo</th>
-      <th>Tipo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>person.name.given_name</td>
-      <td>String com até 50 caracteres</td>
-    </tr>
-
-    <tr>
-      <td>person.name.additional_name</td>
-      <td>String com até 50 caracteres</td>
-    </tr>
-
-    <tr>
-      <td>person.name.family_name</td>
-      <td>String com até 50 caracteres. A quantidade total de sobrenomes (additional_name + family_name + honorific_suffix, separados por espaço) não deve ultrapassar a quantidade de <b>6 nomes</b></td>
-    </tr>
-
-    <tr>
-      <td>person.name.honorific_suffix</td>
-      <td>String com até 50 caracteres</td>
-    </tr>
-
-    <tr>
-      <td>person.documentation.country</td>
-      <td>"br"</td>
-    </tr>
-
-    <tr>
-      <td>person.documentation.kind</td>
-      <td>"cpf"</td>
-    </tr>
-
-    <tr>
-      <td>person.documentation.value</td>
-      <td>String com 11 digítos com ou sem pontuação, exemplos válidos: "99999999999", "999.999.999-99"</td>
-    </tr>
-
-    <tr>
-      <td>person.phone.country</td>
-      <td>"br"</td>
-    </tr>
-
-    <tr>
-      <td>person.phone.number</td>
-      <td>String com 10 ou 11 digítos com ou sem pontuação, onde os dois primeiros representam o **ddd** e os últimos 8 ou 9 digítos representam ou número celular</td, exemplos válidos: "99-9999-9999", "99-9-9999-9999", "99999999999", "9999999999"</td>
-    </tr>
-  </tbody>
-</table>
-
-
-## Resposta 200
-
-Caso não ocorra nenhuma falha na requisição, o corpo da resposta será um _JSON_ contendo as informações do cadastro de um usuário corporativo.
-
-* **Cabeçalhos**:
-  - **Content-Type:** application/json
-* **Corpo:**
-
-  ```json
-  {
-    "registration": {
-      "url": "https://desk.clicksign.com/registration?uuid=...."
-    }
-  }
-  ```
-
-## Resposta 4XX
-
-Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
-
-* **Cabeçalhos**:
-  - **Content-Type:** application/json
-* **Corpo:**
-
-  ```json
-  {
-    "message": "Parâmetros inválidos."
-  }
-  ```
-
-## Resposta 5XX
-
-Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
-
-* **Cabeçalhos**:
-  - **Content-Type:** application/json
-* **Corpo:**
-
-  ```json
-  {
-    "message": "Server error."
-  }
-  ```
-
-
 # <a name="hooks"></a>Hooks
 
-É possível que a Clicksign notifique outras aplições à respeito de determinados eventos, p. ex., documento completamente assinado.
+É possível que a Clicksign notifique outras aplições à respeito da alteração de estado de um determinado documento. O estado de um documento é alterado quando um dos seguintes eventos ocorrem:
 
-Para isso, a Clicksign dispõe de um sistema de **hooks** que realizam chamadas HTTP para outras aplicações. As _hooks_ são definidas por usuário, portanto cada usuário deve configurar as _hooks_ com os parâmetros que deseja.
+- o documento é processado
+- alguém se recusa a assinar o documento
+- o documento é completamente assinado
 
-Os parâmetros possíveis são:
+Para isso, a Clicksign dispõe de um sistema de **hooks** que realizam chamadas HTTP para outras aplicações. As _hooks_ são definidas por documento, portanto cada documento deve configurar as _hooks_ com os parâmetros que deseja.
+
+Quando o documento alterar o seu estado, a Clicksign irá realizar um POST para a `url` que foi configurada na _hook_ do documento. No corpo da requisição irá em anexo a chave do documento em formato JSON. Portanto você pode determinar para cada documento um endereço específico a ser notificado ou colocar em todos os documentos o mesmo endereço a ser notificado e o servidor que atender a requisição inspecionar o JSON e determinar o que fazer com cada documento em particular.
 
 - **URL**: caminho completo, incluíndo protocolo
-- **Método**: GET, POST, PUT, DELETE, PATCH
 - **Content-Type**: application/json
-
-É anexado ao corpo da requisição uma representação em _JSON_ do evento que a disparou, p. ex., em evento de documento completamente assinado é anexado um _JSON_ do documento, da lista de assinatura e das assinaturas do documento.
-
-Os tipos de _hooks_ implementados até o momento são:
-
-- documento pendente de assinatura
-- documento completamente assinado
 
 ## Configuração de hooks
 
 Cadastra um _hook_ para um determinado usuário.
 
 * **Method:** POST
-* **Path:** /users/:id/hooks
+* **Path:** /documents/:key/hooks
 * **Corpo:**
   ```json
   {
-    "pending": {
-      "url": "https://example.com/signed/123",
-      "method": "POST"
-    },
-
-    "completed": {
-      "url": "https://example.com/completed/123",
-      "method": "POST"
-    }
+    "url": "https://example.com/signed/123",
   }
   ```
 
 ## Resposta 200
 
-Caso não ocorra nenhuma falha na requisição, a resposta será apenas o status 200 e seu corpo será vazio.
+Caso não ocorra nenhuma falha na requisição, a resposta será status 200 e seu corpo será um JSON contendo os dados da _hook_ recém criada.
+
+```http
+HTTP/1.1 200 OK
+Content-Type:application/json
+```
+
+```json
+{
+  "id":1,
+  "url":"http://example.com",
+  "document_id": 1,
+  "created_at":"2014-07-08T12:35:55.777-03:00",
+  "updated_at":"2014-07-08T12:35:55.777-03:00"
+}
 
 ## Resposta 4XX
 
