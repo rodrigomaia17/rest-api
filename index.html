@@ -16,8 +16,8 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1 class="header">Rest API V2</h1>
-        <p class="header">Rest API V2</p>
+        <h1 class="header">Clicksign API V2</h1>
+        <p class="header">Documentação Oficial da API da Clicksign</p>
 
         <ul>
           <li class="download"><a class="buttons" href="https://github.com/clicksign/rest-api-v2/zipball/master">Download ZIP</a></li>
@@ -30,8 +30,10 @@
 
       </header>
       <section>
-        <h1>
-<a name="%C3%8Dndice" class="anchor" href="#%C3%8Dndice"><span class="octicon octicon-link"></span></a>Índice</h1>
+        <h1 style="border-bottom: none;">Clicksign - API V2</h1>
+
+        <h2>
+<a name="%C3%8Dndice" class="anchor" href="#%C3%8Dndice"><span class="octicon octicon-link"></span></a>Índice</h2>
 
 <ul>
 <li><a href="#introducao">Introdução</a></li>
@@ -42,9 +44,9 @@
 <li><a href="#criacao-de-lista-de-assinatura">Criação de lista de assinatura</a></li>
 <li><a href="#hooks">Hooks</a></li>
 <li><a href="#exemplos">Exemplos</a></li>
-</ul><h1>
+</ul><h2>
 <a name="introdu%C3%A7%C3%A3o" class="anchor" href="#introdu%C3%A7%C3%A3o"><span class="octicon octicon-link"></span></a>
-<a name="introducao"></a>Introdução</h1>
+<a name="introducao"></a>Introdução</h2>
 
 <p>A Clicksign é uma solução online para enviar, guardar e assinar documentos, com validade jurídica. Foi criada para facilitar, reduzir custo e aumentar a segurança e compliance do processo de assinatura e <em>workflow</em> de documentos. </p>
 
@@ -54,9 +56,9 @@
 
 <p>Qualquer linguagem de programação compativel com requisições <strong>HTTP / JSON</strong> cumpre os requisitos necessários para consumir os serviços desta API. Assim, com pouco esforço de programação é possível integrar desde scripts shell até sistemas de ERP.</p>
 
-<h1>
+<h2>
 <a name="funcionamento-geral" class="anchor" href="#funcionamento-geral"><span class="octicon octicon-link"></span></a>
-<a name="funcionamento-geral"></a>Funcionamento geral</h1>
+<a name="funcionamento-geral"></a>Funcionamento geral</h2>
 
 <p>Uma <em>REST API</em> é composta, basicamente, por dois elementos: um <strong>cliente</strong> e um <strong>servidor</strong>. O cliente sempre inicia a comunicação mediante requisição HTTP. O servidor sempre finaliza a comunicação respondendo à requisição.</p>
 
@@ -114,9 +116,9 @@
 <li>Mensagem: OK</li>
 <li>Cabeçalhos: Content-Type, Connection</li>
 <li>Corpo: [{...</li>
-</ul><h1>
+</ul><h2>
 <a name="autentica%C3%A7%C3%A3o" class="anchor" href="#autentica%C3%A7%C3%A3o"><span class="octicon octicon-link"></span></a>
-<a name="autenticacao"></a>Autenticação</h1>
+<a name="autenticacao"></a>Autenticação</h2>
 
 <p>A Clicksign utiliza duplo fator de autenticação para aumentar a segurança de suas transações. Autenticações que utilizam duplo fator geralmente são baseadas em algo que o cliente <em>conhece</em> e algo que o cliente <em>possui</em>. No caso da API os fatores são:</p>
 
@@ -130,17 +132,17 @@
 
 <p>O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o <strong>IP</strong> de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente. Este fator de autenticação é <strong>opcional</strong>.</p>
 
-<h1>
+<h2>
 <a name="vers%C3%A3o" class="anchor" href="#vers%C3%A3o"><span class="octicon octicon-link"></span></a>
-<a name="versao"></a>Versão</h1>
+<a name="versao"></a>Versão</h2>
 
 <p>Para possibilitar a expansão contínua da API, a Clicksign implementa um sistema de versões. Dessa forma é necessário que a requisição contenha qual versão da API está sendo utilizada. Isto é feito através do cabeçalho <code>Accept</code> que deverá possuir o valor <code>application/vnd.clicksign.v1</code>. Caso haja mais de um valor para o cabeçalho <code>Accept</code>, eles deverão ser concatenados utilizando <code>;</code>, p.e.: <code>Accept: application/vnd.clicksign.v1; application/json</code>.</p>
 
 <p>Atualmente a Clicksign possui apenas este cabeçalho para versões, mas a medida que outras versões forem implementadas, outros valores serão possíveis.</p>
 
-<h1>
+<h2>
 <a name="upload-de-documentos" class="anchor" href="#upload-de-documentos"><span class="octicon octicon-link"></span></a>
-<a name="upload-de-documentos"></a>Upload de documentos</h1>
+<a name="upload-de-documentos"></a>Upload de documentos</h2>
 
 <p>O processo de envio de um documento para a Clicksign contempla a criação de um arquivo de <strong>log</strong> contendo informações de <em>upload</em>, usuário, etc, anexado a uma cópia do documento "carimbada" com um <strong>número de série</strong>. Ao final do processo haverá 2 arquivos na Clicksign: documento original e arquivo de log. Enquanto o arquivo é processado a requisição <em>não fica bloqueada</em>. O <em>status</em> do documento será <em>working</em> enquanto o processo ocorre. Após concluído, o <em>status</em> será <em>open</em>.</p>
 
@@ -222,9 +224,9 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
 </ul><div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span> <span class="p">}</span>
 </pre></div>
 
-<h1>
+<h2>
 <a name="cria%C3%A7%C3%A3o-de-lista-de-assinatura" class="anchor" href="#cria%C3%A7%C3%A3o-de-lista-de-assinatura"><span class="octicon octicon-link"></span></a>
-<a name="criacao-de-lista-de-assinatura"></a>Criação de lista de assinatura</h1>
+<a name="criacao-de-lista-de-assinatura"></a>Criação de lista de assinatura</h2>
 
 <p>É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação. Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, e a mensagem.</p>
 
@@ -272,9 +274,9 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
 <li>receipt</li>
 </ul><p>A mensagem a ser enviada aos signatários é definida pelo campo <code>message</code>.</p>
 
-<h1>
+<h2>
 <a name="hooks" class="anchor" href="#hooks"><span class="octicon octicon-link"></span></a>
-<a name="hooks"></a>Hooks</h1>
+<a name="hooks"></a>Hooks</h2>
 
 <p>É possível que a Clicksign notifique outras aplições à respeito da alteração de estado de um determinado documento. O estado de um documento é alterado quando um dos seguintes eventos ocorrem:</p>
 
@@ -371,9 +373,9 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
 <span class="p">}</span>
 </pre></div>
 </li>
-</ul><h1>
+</ul><h2>
 <a name="exemplos" class="anchor" href="#exemplos"><span class="octicon octicon-link"></span></a>
-<a name="exemplos"></a>Exemplos</h1>
+<a name="exemplos"></a>Exemplos</h2>
 
 <p>Os exemplos abaixo podem ser executados direto da linha de comando utilizando o cURL.</p>
 
