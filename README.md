@@ -278,17 +278,18 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 Os exemplos abaixo podem ser executados direto da linha de comando utilizando o cURL.
 
 ```bash
+export DOMAIN=api.clicksign.com
 export TOKEN=put-your-token-here
 export DOCUMENT=/home/joe/document-de-exemplo.pdf
 
 # Obter os documentos de uma determinada conta
-curl -X GET -H "Accept: application/vnd.clicksign.v1" https://api.clicksign.com/documents/?access_token=$TOKEN
+curl -X GET -H "Accept: application/vnd.clicksign.v1" https://$DOMAIN/documents/?access_token=$TOKEN
 
 # Realizar upload de um documento
-curl -X POST -H "Accept: application/vnd.clicksign.v1" -F "document[archive][original]=@$DOCUMENT" https://api.clicksign.com/documents?access_token=$TOKEN
+curl -X POST -H "Accept: application/vnd.clicksign.v1" -F "document[archive][original]=@$DOCUMENT" https://$DOMAIN/documents?access_token=$TOKEN
 
-export KET=ver-key-retornada no JSON
+export KEY=ver-key-retornada-no-JSON
 
 # Criar uma lista de assinatura
-curl -X POST -H "Accept: application/vnd.clicksign.v1" -H "Accept: application/json" -H "Content-type: application/json" -d '{"signers": [{ "email": "joe@example.com", "act": "sign" }]}' https://api.clicksign.com/documents/$KEY/list?access_token=$TOKEN
+curl -X POST -H "Accept: application/vnd.clicksign.v1" -H "Accept: application/json" -H "Content-type: application/json" -d '{"signers": [{ "email": "joe@example.com", "act": "sign" }]}' https://$DOMAIN/documents/$KEY/list?access_token=$TOKEN
 ```
