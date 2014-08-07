@@ -4,6 +4,7 @@
 - [Funcionamento geral](#funcionamento-geral)
 - [Autenticação](#autenticacao)
 - [Versão](#versao)
+- [Listagem de documentos](#listagem-de-documentos)
 - [Upload de documentos](#upload-de-documentos)
 - [Criação de lista de assinatura](#criacao-de-lista-de-assinatura)
 - [Hooks](#hooks)
@@ -100,6 +101,116 @@ Para possibilitar a expansão contínua da API, a Clicksign implementa um sistem
 
 Atualmente a Clicksign possui apenas este cabeçalho para versões, mas a medida que outras versões forem implementadas, outros valores serão possíveis.
 
+
+# <a name="listagem-de-documentos"></a>Listagem de documentos
+
+Você pode obter uma listagem de todos os documentos da conta além de informações extras pertinentes ao andamento da lista de assinatura. A listagem retornarár todos os documentos na conta, sem a necessidade de parâmetros de paginação ou busca.
+
+* **Method:**GET
+* **Path:** /documents
+  - **Accept**: application/json
+
+## Exemplo de resposta
+
+```http
+HTTP/1.1 200 OK
+Content-Type:application/json
+Connection: Keep-Alive
+```
+
+```json
+[
+  {
+    "document": {
+      "key": "1123-4567-89ab-cdef",
+      original_name: "document-2.pdf"
+      "status": "completed",
+      "archive_id": 2,
+      "created_at": "2014-06-18T09:55:16.873-03:00",
+      "updated_at": "2014-06-18T10:02:03.056-03:00",
+      "user_key":"A0BF-848B-0A42-916C",
+      "list": {
+        "locked":null,
+        "started_at":null,
+        "created_at":"2014-06-18T09:57:14.434-03:00",
+        "updated_at":"2014-06-18T09:57:14.434-03:00",
+        "user_key":"A0BF-848B-0A42-916C",
+        "signatures": []
+      }
+    }
+  },
+  {
+    "document": {
+      "key": "0123-4567-89ab-cdef",
+      original_name: "document-1.pdf"
+      "status": "completed",
+      "archive_id": 1,
+      "created_at": "2014-06-18T09:55:16.873-03:00",
+      "updated_at": "2014-06-18T10:02:03.056-03:00",
+      "user_key":"A0BF-848B-0A42-916C",
+      "list": {
+        "locked":null,
+        "started_at":"2014-06-18T09:58:46.450-03:00",
+        "created_at":"2014-06-18T09:57:14.434-03:00",
+        "updated_at":"2014-06-18T09:58:46.452-03:00",
+        "user_key":"A0BF-848B-0A42-916C",
+        "signatures": [
+          {
+            "display_name":"Daniel Gaboardi Libanori",
+            "title":null,
+            "company_name":null,
+            "key":"A0BF-848B-0A42-916C",
+            "act":"receipt",
+            "decision":"agreed",
+            "address":"201.81.113.174",
+            "email":"daniel.libanori@clicksign.com",
+            "signed_at":"2014-06-18T09:59:58.713-03:00",
+            "created_at":"2014-06-18T09:57:24.191-03:00",
+            "updated_at":"2014-06-18T09:59:58.836-03:00"
+          },
+          {
+            "display_name":"Daniel Gaboardi Libanori",
+            "title":null,
+            "company_name":null,
+            "key":"A0BF-848B-0A42-916C",
+            "act":"intervening",
+            "decision":"agreed",
+            "address":"201.81.113.174",
+            "email":"daniel.libanori@clicksign.com",
+            "signed_at":"2014-06-18T10:01:18.327-03:00",
+            "created_at":"2014-06-18T09:57:31.114-03:00",
+            "updated_at":"2014-06-18T10:01:18.389-03:00"
+          }
+        ]
+      }
+    }
+  }
+]
+```
+
+## Resposta 4XX
+
+Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+```json
+{ "message": "Invalid parameters." }
+```
+
+## Resposta 5XX
+
+Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+```json
+{ "message": "Server error." }
+```
 
 # <a name="upload-de-documentos"></a>Upload de documentos
 
