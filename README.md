@@ -106,7 +106,7 @@ Atualmente a Clicksign possui apenas este cabeçalho para versões, mas a medida
 
 Você pode obter uma listagem de todos os documentos da conta além de informações extras pertinentes ao andamento da lista de assinatura. A listagem retornarár todos os documentos na conta, sem a necessidade de parâmetros de paginação ou busca.
 
-* **Method:**GET
+* **Method:** GET
 * **Path:** /documents
   - **Accept**: application/json
 
