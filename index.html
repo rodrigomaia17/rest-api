@@ -38,6 +38,7 @@
 <li><a href="#funcionamento-geral">Funcionamento geral</a></li>
 <li><a href="#autenticacao">Autenticação</a></li>
 <li><a href="#versao">Versão</a></li>
+<li><a href="#listagem-de-documentos">Listagem de documentos</a></li>
 <li><a href="#upload-de-documentos">Upload de documentos</a></li>
 <li><a href="#criacao-de-lista-de-assinatura">Criação de lista de assinatura</a></li>
 <li><a href="#hooks">Hooks</a></li>
@@ -139,6 +140,135 @@
 <p>Atualmente a Clicksign possui apenas este cabeçalho para versões, mas a medida que outras versões forem implementadas, outros valores serão possíveis.</p>
 
 <h1>
+<a name="listagem-de-documentos" class="anchor" href="#listagem-de-documentos"><span class="octicon octicon-link"></span></a>
+<a name="listagem-de-documentos"></a>Listagem de documentos</h1>
+
+<p>Você pode obter uma listagem de todos os documentos da conta além de informações extras pertinentes ao andamento da lista de assinatura. A listagem retornarár todos os documentos na conta, sem a necessidade de parâmetros de paginação ou busca.</p>
+
+<ul>
+<li>**Method:**GET</li>
+<li>
+<strong>Path:</strong> /documents
+
+<ul>
+<li>
+<strong>Accept</strong>: application/json</li>
+</ul>
+</li>
+</ul><h2>
+<a name="exemplo-de-resposta-1" class="anchor" href="#exemplo-de-resposta-1"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
+
+<div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span><span class="l">application/json</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">Keep-Alive</span>
+</pre></div>
+
+<div class="highlight highlight-json"><pre><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">"document"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"key"</span><span class="p">:</span> <span class="s2">"1123-4567-89ab-cdef"</span><span class="p">,</span>
+      <span class="err">original_name:</span> <span class="nt">"document-2.pdf"</span>
+      <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"completed"</span><span class="p">,</span>
+      <span class="nt">"archive_id"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="nt">"created_at"</span><span class="p">:</span> <span class="s2">"2014-06-18T09:55:16.873-03:00"</span><span class="p">,</span>
+      <span class="nt">"updated_at"</span><span class="p">:</span> <span class="s2">"2014-06-18T10:02:03.056-03:00"</span><span class="p">,</span>
+      <span class="nt">"user_key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
+      <span class="nt">"list"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"locked"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="nt">"started_at"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:57:14.434-03:00"</span><span class="p">,</span>
+        <span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:57:14.434-03:00"</span><span class="p">,</span>
+        <span class="nt">"user_key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
+        <span class="nt">"signatures"</span><span class="p">:</span> <span class="p">[]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">"document"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"key"</span><span class="p">:</span> <span class="s2">"0123-4567-89ab-cdef"</span><span class="p">,</span>
+      <span class="err">original_name:</span> <span class="nt">"document-1.pdf"</span>
+      <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"completed"</span><span class="p">,</span>
+      <span class="nt">"archive_id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">"created_at"</span><span class="p">:</span> <span class="s2">"2014-06-18T09:55:16.873-03:00"</span><span class="p">,</span>
+      <span class="nt">"updated_at"</span><span class="p">:</span> <span class="s2">"2014-06-18T10:02:03.056-03:00"</span><span class="p">,</span>
+      <span class="nt">"user_key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
+      <span class="nt">"list"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"locked"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+        <span class="nt">"started_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:58:46.450-03:00"</span><span class="p">,</span>
+        <span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:57:14.434-03:00"</span><span class="p">,</span>
+        <span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:58:46.452-03:00"</span><span class="p">,</span>
+        <span class="nt">"user_key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
+        <span class="nt">"signatures"</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="nt">"display_name"</span><span class="p">:</span><span class="s2">"Daniel Gaboardi Libanori"</span><span class="p">,</span>
+            <span class="nt">"title"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+            <span class="nt">"company_name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+            <span class="nt">"key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
+            <span class="nt">"act"</span><span class="p">:</span><span class="s2">"receipt"</span><span class="p">,</span>
+            <span class="nt">"decision"</span><span class="p">:</span><span class="s2">"agreed"</span><span class="p">,</span>
+            <span class="nt">"address"</span><span class="p">:</span><span class="s2">"201.81.113.174"</span><span class="p">,</span>
+            <span class="nt">"email"</span><span class="p">:</span><span class="s2">"daniel.libanori@clicksign.com"</span><span class="p">,</span>
+            <span class="nt">"signed_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:59:58.713-03:00"</span><span class="p">,</span>
+            <span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:57:24.191-03:00"</span><span class="p">,</span>
+            <span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:59:58.836-03:00"</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+            <span class="nt">"display_name"</span><span class="p">:</span><span class="s2">"Daniel Gaboardi Libanori"</span><span class="p">,</span>
+            <span class="nt">"title"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+            <span class="nt">"company_name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+            <span class="nt">"key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
+            <span class="nt">"act"</span><span class="p">:</span><span class="s2">"intervening"</span><span class="p">,</span>
+            <span class="nt">"decision"</span><span class="p">:</span><span class="s2">"agreed"</span><span class="p">,</span>
+            <span class="nt">"address"</span><span class="p">:</span><span class="s2">"201.81.113.174"</span><span class="p">,</span>
+            <span class="nt">"email"</span><span class="p">:</span><span class="s2">"daniel.libanori@clicksign.com"</span><span class="p">,</span>
+            <span class="nt">"signed_at"</span><span class="p">:</span><span class="s2">"2014-06-18T10:01:18.327-03:00"</span><span class="p">,</span>
+            <span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:57:31.114-03:00"</span><span class="p">,</span>
+            <span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2014-06-18T10:01:18.389-03:00"</span>
+          <span class="p">}</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+
+<h2>
+<a name="resposta-4xx" class="anchor" href="#resposta-4xx"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+
+<p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li><strong>Corpo:</strong></li>
+</ul><div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Invalid parameters."</span> <span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="resposta-5xx" class="anchor" href="#resposta-5xx"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+
+<p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li><strong>Corpo:</strong></li>
+</ul><div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span> <span class="p">}</span>
+</pre></div>
+
+<h1>
 <a name="upload-de-documentos" class="anchor" href="#upload-de-documentos"><span class="octicon octicon-link"></span></a>
 <a name="upload-de-documentos"></a>Upload de documentos</h1>
 
@@ -173,7 +303,7 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
 </code></pre>
 </li>
 </ul><h2>
-<a name="exemplo-de-resposta-1" class="anchor" href="#exemplo-de-resposta-1"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
+<a name="exemplo-de-resposta-2" class="anchor" href="#exemplo-de-resposta-2"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
 
 <div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span><span class="l">application/json</span>
@@ -187,7 +317,7 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
 </pre></div>
 
 <h2>
-<a name="resposta-4xx" class="anchor" href="#resposta-4xx"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+<a name="resposta-4xx-1" class="anchor" href="#resposta-4xx-1"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
 
 <p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -205,7 +335,7 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
 </pre></div>
 
 <h2>
-<a name="resposta-5xx" class="anchor" href="#resposta-5xx"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+<a name="resposta-5xx-1" class="anchor" href="#resposta-5xx-1"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
 
 <p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -328,7 +458,7 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
 </pre></div>
 
 <h2>
-<a name="resposta-4xx-1" class="anchor" href="#resposta-4xx-1"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+<a name="resposta-4xx-2" class="anchor" href="#resposta-4xx-2"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
 
 <p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -350,7 +480,7 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
 </pre></div>
 </li>
 </ul><h2>
-<a name="resposta-5xx-1" class="anchor" href="#resposta-5xx-1"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+<a name="resposta-5xx-2" class="anchor" href="#resposta-5xx-2"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
 
 <p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
