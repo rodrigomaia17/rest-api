@@ -377,19 +377,20 @@ Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
 
 <p>Os exemplos abaixo podem ser executados direto da linha de comando utilizando o cURL.</p>
 
-<div class="highlight highlight-bash"><pre><span class="nb">export </span><span class="nv">TOKEN</span><span class="o">=</span>put-your-token-here
+<div class="highlight highlight-bash"><pre><span class="nb">export </span><span class="nv">DOMAIN</span><span class="o">=</span>api.clicksign.com
+<span class="nb">export </span><span class="nv">TOKEN</span><span class="o">=</span>put-your-token-here
 <span class="nb">export </span><span class="nv">DOCUMENT</span><span class="o">=</span>/home/joe/document-de-exemplo.pdf
 
 <span class="c"># Obter os documentos de uma determinada conta</span>
-curl -X GET -H <span class="s2">"Accept: application/vnd.clicksign.v1"</span> https://api.clicksign.com/documents/?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
+curl -X GET -H <span class="s2">"Accept: application/vnd.clicksign.v1"</span> https://<span class="nv">$DOMAIN</span>/documents/?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
 
 <span class="c"># Realizar upload de um documento</span>
-curl -X POST -H <span class="s2">"Accept: application/vnd.clicksign.v1"</span> -F <span class="s2">"document[archive][original]=@$DOCUMENT"</span> https://api.clicksign.com/documents?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
+curl -X POST -H <span class="s2">"Accept: application/vnd.clicksign.v1"</span> -F <span class="s2">"document[archive][original]=@$DOCUMENT"</span> https://<span class="nv">$DOMAIN</span>/documents?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
 
-<span class="nb">export </span><span class="nv">KET</span><span class="o">=</span>ver-key-retornada no JSON
+<span class="nb">export </span><span class="nv">KEY</span><span class="o">=</span>ver-key-retornada-no-JSON
 
 <span class="c"># Criar uma lista de assinatura</span>
-curl -X POST -H <span class="s2">"Accept: application/vnd.clicksign.v1"</span> -H <span class="s2">"Accept: application/json"</span> -H <span class="s2">"Content-type: application/json"</span> -d <span class="s1">'{"signers": [{ "email": "joe@example.com", "act": "sign" }]}'</span> https://api.clicksign.com/documents/<span class="nv">$KEY</span>/list?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
+curl -X POST -H <span class="s2">"Accept: application/vnd.clicksign.v1"</span> -H <span class="s2">"Accept: application/json"</span> -H <span class="s2">"Content-type: application/json"</span> -d <span class="s1">'{"signers": [{ "email": "joe@example.com", "act": "sign" }]}'</span> https://<span class="nv">$DOMAIN</span>/documents/<span class="nv">$KEY</span>/list?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
 </pre></div>
       </section>
       <footer>
