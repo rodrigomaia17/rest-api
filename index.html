@@ -146,7 +146,8 @@
 <p>Você pode obter uma listagem de todos os documentos da conta além de informações extras pertinentes ao andamento da lista de assinatura. A listagem retornarár todos os documentos na conta, sem a necessidade de parâmetros de paginação ou busca.</p>
 
 <ul>
-<li>**Method:**GET</li>
+<li>
+<strong>Method:</strong> GET</li>
 <li>
 <strong>Path:</strong> /documents
 
@@ -274,6 +275,8 @@
 
 <p>O processo de envio de um documento para a Clicksign contempla a criação de um arquivo de <strong>log</strong> contendo informações de <em>upload</em>, usuário, etc, anexado a uma cópia do documento "carimbada" com um <strong>número de série</strong>. Ao final do processo haverá 2 arquivos na Clicksign: documento original e arquivo de log. Enquanto o arquivo é processado a requisição <em>não fica bloqueada</em>. O <em>status</em> do documento será <em>working</em> enquanto o processo ocorre. Após concluído, o <em>status</em> será <em>open</em>.</p>
 
+<p>O nome do parâmetro do documento a ser enviado é <strong>document[archive][original]</strong>. O parâmetro geralmente vai dentro do corpo (<em>payload</em>) devido a requisição ser <em>multipart</em>.</p>
+
 <ul>
 <li>
 <strong>Method:</strong> POST</li>
@@ -282,24 +285,19 @@
 
 <ul>
 <li>
-<strong>Content-Type:</strong> multipart/mixed; boundary=frontier</li>
-<li>
 <strong>Accept</strong>: application/json</li>
+<li>
+<strong>Content-Type:</strong> multipart/form-data; boundary=----WebKitFormBoundaryjm7rLhiPSO6cEjWs</li>
 </ul>
 </li>
 <li>
 <p><strong>Corpo:</strong></p>
 
-<ul>
-<li>
-<strong>Content-Type:</strong> application/octet-stream</li>
-<li>
-<strong>Content-Transfer-Encoding:</strong> base64</li>
-</ul>
-<pre><code>--frontier--
-PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
-Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
---frontier--
+<pre><code>------WebKitFormBoundaryjm7rLhiPSO6cEjWs
+Content-Disposition: form-data; name="document[archive][original]"; filename="06pages.pdf"
+Content-Type: application/pdf
+
+------WebKitFormBoundaryjm7rLhiPSO6cEjWs--
 </code></pre>
 </li>
 </ul><h2>
