@@ -215,21 +215,21 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 # <a name="upload-de-documentos"></a>Upload de documentos
 
 O processo de envio de um documento para a Clicksign contempla a criação de um arquivo de **log** contendo informações de _upload_, usuário, etc, anexado a uma cópia do documento "carimbada" com um **número de série**. Ao final do processo haverá 2 arquivos na Clicksign: documento original e arquivo de log. Enquanto o arquivo é processado a requisição *não fica bloqueada*. O _status_ do documento será _working_ enquanto o processo ocorre. Após concluído, o _status_ será _open_.
+O nome do parâmetro do documento a ser enviado é **document[archive][original]**. O parâmetro geralmente vai dentro do corpo (_payload_) devido a requisição ser _multipart_.
 
 * **Method:** POST
 * **Path:** /documents
-  - **Content-Type:** multipart/mixed; boundary=frontier
   - **Accept**: application/json
+  - **Content-Type:** multipart/form-data; boundary=----WebKitFormBoundaryjm7rLhiPSO6cEjWs
 * **Corpo:**
-  - **Content-Type:** application/octet-stream
-  - **Content-Transfer-Encoding:** base64
+  ```
+  ------WebKitFormBoundaryjm7rLhiPSO6cEjWs
+  Content-Disposition: form-data; name="document[archive][original]"; filename="06pages.pdf"
+  Content-Type: application/pdf
 
+  ------WebKitFormBoundaryjm7rLhiPSO6cEjWs--
   ```
-  --frontier--
-  PGh0bWw+CiAgPGhlYWQ+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPHA+VGhpcyBpcyB0aGUg
-  Ym9keSBvZiB0aGUgbWVzc2FnZS48L3A+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==
-  --frontier--
-  ```
+
 
 ## Exemplo de resposta
 
