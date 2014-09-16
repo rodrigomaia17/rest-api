@@ -404,7 +404,7 @@ Content-Type: application/pdf
 
 <p>O campo <code>signers</code> deverá ser um <code>Array</code> contendo os signatários. Cada signatário é especificado através de e-mail e ação, sendo os respectivos campos <code>email</code> e <code>act</code>.</p>
 
-<p>Os possíveis campos de <code>act</code> são:</p>
+<p>Os possíveis valores de <code>act</code> são:</p>
 
 <ul>
 <li>sign</li>
@@ -418,8 +418,11 @@ Content-Type: application/pdf
 
 <p>Além disso também é possível especificar se deseja ao iniciar a lista de assinatura que seja enviado um e-mail para os signatários ou não, isso é feito através do parametro <code>skip_email</code> que recebe um boolean.</p>
 
+<p>Os possíveis valores de <code>skip_email</code> são:</p>
+
 <ul>
-<li>skip_email (boolean default false)</li>
+<li>false (padrão)</li>
+<li>true</li>
 </ul><p>Caso o parametro seja passado como <strong>true</strong> ao criar a lista de assinatura não será enviado nenhum e-mail para os signatários. É importante notar
 que caso seja fornecido o parametro <code>skip_email</code> como <em>true</em>, o parametro <code>message</code> se torna desnecessário dado que não será enviado nenhum e-mail. Também
 é importante observar que como o valor padrão desse parametro é <code>false</code> ele pode ser omitido do json que é enviado para o servidor caso você deseje enviar os e-mails normalmente.</p>
