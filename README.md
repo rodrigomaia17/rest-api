@@ -95,12 +95,25 @@ A autenticação é feito através do parâmetro **access_token** que automatica
 O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o **IP** de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente. Este fator de autenticação é **opcional**.
 
 
-# <a name="versao"></a>Versão
+# <a name="versao"></a>Versão da API
 
-Para possibilitar a expansão contínua da API, a Clicksign implementa um sistema de versões. Dessa forma é necessário que a requisição contenha qual versão da API está sendo utilizada. Isto é feito através do cabeçalho `Accept` que deverá possuir o valor `application/vnd.clicksign.v1`. Caso haja mais de um valor para o cabeçalho `Accept`, eles deverão ser concatenados utilizando `;`, p.e.: `Accept: application/vnd.clicksign.v1; application/json`.
+Para possibilitar a expansão contínua da API, a Clicksign implementa um sistema
+de versões. Dessa forma é necessário que a requisição contenha qual versão da
+API está sendo utilizada. Isto **é feito através do path** da requisição.
 
-Atualmente a Clicksign possui apenas este cabeçalho para versões, mas a medida que outras versões forem implementadas, outros valores serão possíveis.
+A Clicksign manterá, além da versão atual, a versão anterior da sua API em
+funcionamento. Quando uma nova versão é lançada, a versão anterior deixa de ser
+suportada, p.e.: supondo que a versão atual seja 4, a versão 3 também será
+suportada, no lançamento da versão 5, as versões suportadas serão 5 e 4 e a
+versão 3 deixará de ser suportada.
 
+Um nova versão é lançada **apenas quando há quebra de funcionalidade**. Ou seja,
+melhorias, novas funcionalidades e correções de _bugs_, desde que não alterem o
+comportamento esperado, não implicam no lançamento de uma nova versão.
+
+As melhorias, noas funcionalidades e correções, assim como o lançamento de novas
+versões da API, serão comunicados através de e-mail para todos os usuários que
+possuem chave da API configurada nos ambientes de _production_ e _demo_.
 
 # <a name="listagem-de-documentos"></a>Listagem de documentos
 
@@ -404,13 +417,13 @@ export TOKEN=put-your-token-here
 export DOCUMENT=/home/joe/document-de-exemplo.pdf
 
 # Obter os documentos de uma determinada conta
-curl -X GET -H "Accept: application/vnd.clicksign.v1" https://$DOMAIN/documents/?access_token=$TOKEN
+curl -X GET -H "Accept: application/json" https://$DOMAIN/v1/documents/?access_token=$TOKEN
 
 # Realizar upload de um documento
-curl -X POST -H "Accept: application/vnd.clicksign.v1" -F "document[archive][original]=@$DOCUMENT" https://$DOMAIN/documents?access_token=$TOKEN
+curl -X POST -H "Accept: application/json" -F "document[archive][original]=@$DOCUMENT" https://$DOMAIN/v1/documents?access_token=$TOKEN
 
 export KEY=ver-key-retornada-no-JSON
 
 # Criar uma lista de assinatura
-curl -X POST -H "Accept: application/vnd.clicksign.v1" -H "Accept: application/json" -H "Content-type: application/json" -d '{"signers": [{ "email": "joe@example.com", "act": "sign" }]}' https://$DOMAIN/documents/$KEY/list?access_token=$TOKEN
+curl -X POST -H "Accept: application/json" -H "Content-type: application/json" -d '{"signers": [{ "email": "joe@example.com", "act": "sign" }]}' https://$DOMAIN/v1/documents/$KEY/list?access_token=$TOKEN
 ```
