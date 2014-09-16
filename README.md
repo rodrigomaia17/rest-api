@@ -107,7 +107,7 @@ Atualmente a Clicksign possui apenas este cabeçalho para versões, mas a medida
 Você pode obter uma listagem de todos os documentos da conta além de informações extras pertinentes ao andamento da lista de assinatura. A listagem retornarár todos os documentos na conta, sem a necessidade de parâmetros de paginação ou busca.
 
 * **Method:** GET
-* **Path:** /documents
+* **Path:** /v1/documents
   - **Accept**: application/json
 
 ## Exemplo de resposta
@@ -219,7 +219,7 @@ O processo de envio de um documento para a Clicksign contempla a criação de um
 O nome do parâmetro do documento a ser enviado é **document[archive][original]**. O parâmetro geralmente vai dentro do corpo (_payload_) devido a requisição ser _multipart_.
 
 * **Method:** POST
-* **Path:** /documents
+* **Path:** /v1/documents
   - **Accept**: application/json
   - **Content-Type:** multipart/form-data; boundary=----WebKitFormBoundaryjm7rLhiPSO6cEjWs
 * **Corpo:**
@@ -274,10 +274,10 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 
 # <a name="criacao-de-lista-de-assinatura"></a>Criação de lista de assinatura
 
-É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação. Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, e a mensagem.
+É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação. Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, a mensagem e opcionalmente se deseja enviar e-mail para os signatários ou não.
 
 * **Method:** POST
-* **Path:** /documents/:key/list
+* **Path:** /v1/documents/:key/list
 * **Cabeçalhos:**
   - **Content-Type:** application/json
   - **Accept**: application/json
@@ -290,7 +290,8 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
       { "email": "bar@example.com", "act": "witness" }
     ],
 
-    "message": "Hi guys, please sign this document."
+    "message": "Hi guys, please sign this document.",
+    "skip_email": false
   }
   ```
 
@@ -308,6 +309,14 @@ Os possíveis campos de `act` são:
 - receipt
 
 A mensagem a ser enviada aos signatários é definida pelo campo `message`.
+
+Além disso também é possível especificar se deseja ao iniciar a lista de assinatura que seja enviado um e-mail para os signatários ou não, isso é feito através do parametro `skip_email` que recebe um boolean.
+
+- skip_email (boolean default false)
+
+Caso o parametro seja passado como **true** ao criar a lista de assinatura não será enviado nenhum e-mail para os signatários. É importante notar
+que caso seja fornecido o parametro `skip_email` como *true*, o parametro `message` se torna desnecessário dado que não será enviado nenhum e-mail. Também
+é importante observar que como o valor padrão desse parametro é `false` ele pode ser omitido do json que é enviado para o servidor caso você deseje enviar os e-mails normalmente.
 
 
 # <a name="hooks"></a>Hooks
@@ -330,7 +339,7 @@ Quando o documento alterar o seu estado, a Clicksign irá realizar um POST para 
 Cadastra um _hook_ para um determinado usuário.
 
 * **Method:** POST
-* **Path:** /documents/:key/hooks
+* **Path:** /v1/documents/:key/hooks
 * **Corpo:**
   ```json
   {
