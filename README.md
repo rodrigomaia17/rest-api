@@ -312,7 +312,7 @@ Para criar uma lista de assinatura, adicionar signatários ao documento e inicia
 
 O campo `signers` deverá ser um `Array` contendo os signatários. Cada signatário é especificado através de e-mail e ação, sendo os respectivos campos `email` e `act`.
 
-Os possíveis campos de `act` são:
+Os possíveis valores de `act` são:
 - sign
 - approve
 - acknowledge
@@ -325,7 +325,9 @@ A mensagem a ser enviada aos signatários é definida pelo campo `message`.
 
 Além disso também é possível especificar se deseja ao iniciar a lista de assinatura que seja enviado um e-mail para os signatários ou não, isso é feito através do parametro `skip_email` que recebe um boolean.
 
-- skip_email (boolean default false)
+Os possíveis valores de `skip_email` são:
+- false (padrão)
+- true
 
 Caso o parametro seja passado como **true** ao criar a lista de assinatura não será enviado nenhum e-mail para os signatários. É importante notar
 que caso seja fornecido o parametro `skip_email` como *true*, o parametro `message` se torna desnecessário dado que não será enviado nenhum e-mail. Também
