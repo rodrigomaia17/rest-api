@@ -133,12 +133,26 @@
 <p>O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o <strong>IP</strong> de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente. Este fator de autenticação é <strong>opcional</strong>.</p>
 
 <h1>
-<a name="vers%C3%A3o" class="anchor" href="#vers%C3%A3o"><span class="octicon octicon-link"></span></a>
-<a name="versao"></a>Versão</h1>
+<a name="vers%C3%A3o-da-api" class="anchor" href="#vers%C3%A3o-da-api"><span class="octicon octicon-link"></span></a>
+<a name="versao"></a>Versão da API</h1>
 
-<p>Para possibilitar a expansão contínua da API, a Clicksign implementa um sistema de versões. Dessa forma é necessário que a requisição contenha qual versão da API está sendo utilizada. Isto é feito através do cabeçalho <code>Accept</code> que deverá possuir o valor <code>application/vnd.clicksign.v1</code>. Caso haja mais de um valor para o cabeçalho <code>Accept</code>, eles deverão ser concatenados utilizando <code>;</code>, p.e.: <code>Accept: application/vnd.clicksign.v1; application/json</code>.</p>
+<p>Para possibilitar a expansão contínua da API, a Clicksign implementa um sistema
+de versões. Dessa forma é necessário que a requisição contenha qual versão da
+API está sendo utilizada. Isto <strong>é feito através do path</strong> da requisição.</p>
 
-<p>Atualmente a Clicksign possui apenas este cabeçalho para versões, mas a medida que outras versões forem implementadas, outros valores serão possíveis.</p>
+<p>A Clicksign manterá, além da versão atual, a versão anterior da sua API em
+funcionamento. Quando uma nova versão é lançada, a versão anterior deixa de ser
+suportada, p.e.: supondo que a versão atual seja 4, a versão 3 também será
+suportada, no lançamento da versão 5, as versões suportadas serão 5 e 4 e a
+versão 3 deixará de ser suportada.</p>
+
+<p>Um nova versão é lançada <strong>apenas quando há quebra de funcionalidade</strong>. Ou seja,
+melhorias, novas funcionalidades e correções de <em>bugs</em>, desde que não alterem o
+comportamento esperado, não implicam no lançamento de uma nova versão.</p>
+
+<p>As melhorias, noas funcionalidades e correções, assim como o lançamento de novas
+versões da API, serão comunicados através de e-mail para todos os usuários que
+possuem chave da API configurada nos ambientes de <em>production</em> e <em>demo</em>.</p>
 
 <h1>
 <a name="listagem-de-documentos" class="anchor" href="#listagem-de-documentos"><span class="octicon octicon-link"></span></a>
@@ -150,7 +164,7 @@
 <li>
 <strong>Method:</strong> GET</li>
 <li>
-<strong>Path:</strong> /documents
+<strong>Path:</strong> /v1/documents
 
 <ul>
 <li>
@@ -282,7 +296,7 @@
 <li>
 <strong>Method:</strong> POST</li>
 <li>
-<strong>Path:</strong> /documents
+<strong>Path:</strong> /v1/documents
 
 <ul>
 <li>
@@ -355,13 +369,13 @@ Content-Type: application/pdf
 <a name="cria%C3%A7%C3%A3o-de-lista-de-assinatura" class="anchor" href="#cria%C3%A7%C3%A3o-de-lista-de-assinatura"><span class="octicon octicon-link"></span></a>
 <a name="criacao-de-lista-de-assinatura"></a>Criação de lista de assinatura</h1>
 
-<p>É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação. Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, e a mensagem.</p>
+<p>É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação. Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, a mensagem e opcionalmente se deseja enviar e-mail para os signatários ou não.</p>
 
 <ul>
 <li>
 <strong>Method:</strong> POST</li>
 <li>
-<strong>Path:</strong> /documents/:key/list</li>
+<strong>Path:</strong> /v1/documents/:key/list</li>
 <li>
 <strong>Cabeçalhos:</strong>
 
@@ -381,7 +395,8 @@ Content-Type: application/pdf
     <span class="p">{</span> <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"bar@example.com"</span><span class="p">,</span> <span class="nt">"act"</span><span class="p">:</span> <span class="s2">"witness"</span> <span class="p">}</span>
   <span class="p">],</span>
 
-  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Hi guys, please sign this document."</span>
+  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Hi guys, please sign this document."</span><span class="p">,</span>
+  <span class="nt">"skip_email"</span><span class="p">:</span> <span class="kc">false</span>
 <span class="p">}</span>
 </pre></div>
 </li>
@@ -400,6 +415,14 @@ Content-Type: application/pdf
 <li>party</li>
 <li>receipt</li>
 </ul><p>A mensagem a ser enviada aos signatários é definida pelo campo <code>message</code>.</p>
+
+<p>Além disso também é possível especificar se deseja ao iniciar a lista de assinatura que seja enviado um e-mail para os signatários ou não, isso é feito através do parametro <code>skip_email</code> que recebe um boolean.</p>
+
+<ul>
+<li>skip_email (boolean default false)</li>
+</ul><p>Caso o parametro seja passado como <strong>true</strong> ao criar a lista de assinatura não será enviado nenhum e-mail para os signatários. É importante notar
+que caso seja fornecido o parametro <code>skip_email</code> como <em>true</em>, o parametro <code>message</code> se torna desnecessário dado que não será enviado nenhum e-mail. Também
+é importante observar que como o valor padrão desse parametro é <code>false</code> ele pode ser omitido do json que é enviado para o servidor caso você deseje enviar os e-mails normalmente.</p>
 
 <h1>
 <a name="hooks" class="anchor" href="#hooks"><span class="octicon octicon-link"></span></a>
@@ -429,7 +452,7 @@ Content-Type: application/pdf
 <li>
 <strong>Method:</strong> POST</li>
 <li>
-<strong>Path:</strong> /documents/:key/hooks</li>
+<strong>Path:</strong> /v1/documents/:key/hooks</li>
 <li>
 <strong>Corpo:</strong>
 <code>json
@@ -511,15 +534,15 @@ Content-Type: application/pdf
 <span class="nb">export </span><span class="nv">DOCUMENT</span><span class="o">=</span>/home/joe/document-de-exemplo.pdf
 
 <span class="c"># Obter os documentos de uma determinada conta</span>
-curl -X GET -H <span class="s2">"Accept: application/vnd.clicksign.v1"</span> https://<span class="nv">$DOMAIN</span>/documents/?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
+curl -X GET -H <span class="s2">"Accept: application/json"</span> https://<span class="nv">$DOMAIN</span>/v1/documents/?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
 
 <span class="c"># Realizar upload de um documento</span>
-curl -X POST -H <span class="s2">"Accept: application/vnd.clicksign.v1"</span> -F <span class="s2">"document[archive][original]=@$DOCUMENT"</span> https://<span class="nv">$DOMAIN</span>/documents?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
+curl -X POST -H <span class="s2">"Accept: application/json"</span> -F <span class="s2">"document[archive][original]=@$DOCUMENT"</span> https://<span class="nv">$DOMAIN</span>/v1/documents?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
 
 <span class="nb">export </span><span class="nv">KEY</span><span class="o">=</span>ver-key-retornada-no-JSON
 
 <span class="c"># Criar uma lista de assinatura</span>
-curl -X POST -H <span class="s2">"Accept: application/vnd.clicksign.v1"</span> -H <span class="s2">"Accept: application/json"</span> -H <span class="s2">"Content-type: application/json"</span> -d <span class="s1">'{"signers": [{ "email": "joe@example.com", "act": "sign" }]}'</span> https://<span class="nv">$DOMAIN</span>/documents/<span class="nv">$KEY</span>/list?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
+curl -X POST -H <span class="s2">"Accept: application/json"</span> -H <span class="s2">"Content-type: application/json"</span> -d <span class="s1">'{"signers": [{ "email": "joe@example.com", "act": "sign" }]}'</span> https://<span class="nv">$DOMAIN</span>/v1/documents/<span class="nv">$KEY</span>/list?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
 </pre></div>
       </section>
     </div>
