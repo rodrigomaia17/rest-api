@@ -4,7 +4,9 @@
 - [Funcionamento geral](#funcionamento-geral)
 - [Autenticação](#autenticacao)
 - [Versão](#versao)
+- [Formatos](#formatos)
 - [Listagem de documentos](#listagem-de-documentos)
+- [Visualizacão de Documento](#visualizacao-de-documento)
 - [Upload de documentos](#upload-de-documentos)
 - [Criação de lista de assinatura](#criacao-de-lista-de-assinatura)
 - [Hooks](#hooks)
@@ -115,6 +117,27 @@ As melhorias, noas funcionalidades e correções, assim como o lançamento de no
 versões da API, serão comunicados através de e-mail para todos os usuários que
 possuem chave da API configurada nos ambientes de _production_ e _demo_.
 
+# <a name="formatos"></a> Formatos
+
+A API da Clicksign atualmente aceita dois formatos distintos como formato de
+*resposta* da requisição, sendo eles: `JSON` e `XML`. O formato deve ser
+passado através do `HTTP HEADER` `Accept` seguido do **mime type** referente ao
+formato. Por exemplo, para que o formato de sua resposta seja em `JSON`, será
+necessário prover um header com o seguinte formato:
+
+```
+Accept: application/json
+```
+
+Caso deseje receber o formato da resposta em `XML` basta passar dessa forma:
+
+```
+Accept: application/xml
+```
+
+Nos exemplos restantes dessa documentação o formato da resposta serão mostrados
+em JSON, porém todos os exemplos também podem ter as respostas no formato `XML`.
+
 # <a name="listagem-de-documentos"></a>Listagem de documentos
 
 Você pode obter uma listagem de todos os documentos da conta além de informações extras pertinentes ao andamento da lista de assinatura. A listagem retornarár todos os documentos na conta, sem a necessidade de parâmetros de paginação ou busca.
@@ -199,6 +222,71 @@ Connection: Keep-Alive
     }
   }
 ]
+```
+
+## Resposta 4XX
+
+Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+```json
+{ "message": "Invalid parameters." }
+```
+
+## Resposta 5XX
+
+Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JSON_ contendo uma mensagem de erro.
+
+* **Cabeçalhos**:
+  - **Content-Type:** application/json
+* **Corpo:**
+
+```json
+{ "message": "Server error." }
+```
+
+# <a name="visualizacao-de-documento"></a>Visualização de documentos
+
+Caso seja necessário obter detalhes sobre um documento em específico, existe um endpoint onde é possível
+obter essas informações. A visualização de um documento funcionamento de forma
+semelhante as demais chamadas da api, sendo necessário apenas passar a **key**
+do documento.
+
+* **Method:** GET
+* **Path:** /v1/documents/:key
+  - **Accept**: application/json
+
+## Exemplo de resposta
+
+```http
+HTTP/1.1 200 OK
+Content-Type:application/json
+Connection: Keep-Alive
+```
+
+```json
+{
+  "document": {
+    "key": "1123-4567-89ab-cdef",
+    original_name: "document-2.pdf"
+    "status": "completed",
+    "archive_id": 2,
+    "created_at": "2014-06-18T09:55:16.873-03:00",
+    "updated_at": "2014-06-18T10:02:03.056-03:00",
+    "user_key":"A0BF-848B-0A42-916C",
+    "list": {
+      "locked":null,
+      "started_at":null,
+      "created_at":"2014-06-18T09:57:14.434-03:00",
+      "updated_at":"2014-06-18T09:57:14.434-03:00",
+      "user_key":"A0BF-848B-0A42-916C",
+      "signatures": []
+    }
+  }
+}
 ```
 
 ## Resposta 4XX
