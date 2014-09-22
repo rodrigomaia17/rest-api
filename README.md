@@ -251,7 +251,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 # <a name="visualizacao-de-documento"></a>Visualização de documentos
 
 Caso seja necessário obter detalhes sobre um documento em específico, existe um endpoint onde é possível
-obter essas informações. A visualização de um documento funcionamento de forma
+obter essas informações. A visualização de um documento funciona de forma
 semelhante as demais chamadas da api, sendo necessário apenas passar a **key**
 do documento.
 
