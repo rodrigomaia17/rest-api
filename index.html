@@ -39,7 +39,9 @@
 <li><a href="#funcionamento-geral">Funcionamento geral</a></li>
 <li><a href="#autenticacao">Autenticação</a></li>
 <li><a href="#versao">Versão</a></li>
+<li><a href="#formatos">Formatos</a></li>
 <li><a href="#listagem-de-documentos">Listagem de documentos</a></li>
+<li><a href="#visualizacao-de-documento">Visualizacão de Documento</a></li>
 <li><a href="#upload-de-documentos">Upload de documentos</a></li>
 <li><a href="#criacao-de-lista-de-assinatura">Criação de lista de assinatura</a></li>
 <li><a href="#hooks">Hooks</a></li>
@@ -153,6 +155,27 @@ comportamento esperado, não implicam no lançamento de uma nova versão.</p>
 <p>As melhorias, noas funcionalidades e correções, assim como o lançamento de novas
 versões da API, serão comunicados através de e-mail para todos os usuários que
 possuem chave da API configurada nos ambientes de <em>production</em> e <em>demo</em>.</p>
+
+<h1>
+<a name="-formatos" class="anchor" href="#-formatos"><span class="octicon octicon-link"></span></a>
+<a name="formatos"></a> Formatos</h1>
+
+<p>A API da Clicksign atualmente aceita dois formatos distintos como formato de
+<em>resposta</em> da requisição, sendo eles: <code>JSON</code> e <code>XML</code>. O formato deve ser
+passado através do <code>HTTP HEADER</code> <code>Accept</code> seguido do <strong>mime type</strong> referente ao
+formato. Por exemplo, para que o formato de sua resposta seja em <code>JSON</code>, será
+necessário prover um header com o seguinte formato:</p>
+
+<pre><code>Accept: application/json
+</code></pre>
+
+<p>Caso deseje receber o formato da resposta em <code>XML</code> basta passar dessa forma:</p>
+
+<pre><code>Accept: application/xml
+</code></pre>
+
+<p>Nos exemplos restantes dessa documentação o formato da resposta serão mostrados
+em JSON, porém todos os exemplos também podem ter as respostas no formato <code>XML</code>.</p>
 
 <h1>
 <a name="listagem-de-documentos" class="anchor" href="#listagem-de-documentos"><span class="octicon octicon-link"></span></a>
@@ -285,6 +308,91 @@ possuem chave da API configurada nos ambientes de <em>production</em> e <em>demo
 </pre></div>
 
 <h1>
+<a name="visualiza%C3%A7%C3%A3o-de-documentos" class="anchor" href="#visualiza%C3%A7%C3%A3o-de-documentos"><span class="octicon octicon-link"></span></a>
+<a name="visualizacao-de-documento"></a>Visualização de documentos</h1>
+
+<p>Caso seja necessário obter detalhes sobre um documento em específico, existe um endpoint onde é possível
+obter essas informações. A visualização de um documento funciona de forma
+semelhante as demais chamadas da api, sendo necessário apenas passar a <strong>key</strong>
+do documento.</p>
+
+<ul>
+<li>
+<strong>Method:</strong> GET</li>
+<li>
+<strong>Path:</strong> /v1/documents/:key
+
+<ul>
+<li>
+<strong>Accept</strong>: application/json</li>
+</ul>
+</li>
+</ul><h2>
+<a name="exemplo-de-resposta-2" class="anchor" href="#exemplo-de-resposta-2"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
+
+<div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span><span class="l">application/json</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">Keep-Alive</span>
+</pre></div>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"document"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"key"</span><span class="p">:</span> <span class="s2">"1123-4567-89ab-cdef"</span><span class="p">,</span>
+    <span class="err">original_name:</span> <span class="nt">"document-2.pdf"</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"completed"</span><span class="p">,</span>
+    <span class="nt">"archive_id"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">"created_at"</span><span class="p">:</span> <span class="s2">"2014-06-18T09:55:16.873-03:00"</span><span class="p">,</span>
+    <span class="nt">"updated_at"</span><span class="p">:</span> <span class="s2">"2014-06-18T10:02:03.056-03:00"</span><span class="p">,</span>
+    <span class="nt">"user_key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
+    <span class="nt">"list"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"locked"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+      <span class="nt">"started_at"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+      <span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:57:14.434-03:00"</span><span class="p">,</span>
+      <span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:57:14.434-03:00"</span><span class="p">,</span>
+      <span class="nt">"user_key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
+      <span class="nt">"signatures"</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="resposta-4xx-1" class="anchor" href="#resposta-4xx-1"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+
+<p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li><strong>Corpo:</strong></li>
+</ul><div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Invalid parameters."</span> <span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="resposta-5xx-1" class="anchor" href="#resposta-5xx-1"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+
+<p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
+
+<ul>
+<li>
+<strong>Cabeçalhos</strong>:
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+</ul>
+</li>
+<li><strong>Corpo:</strong></li>
+</ul><div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span> <span class="p">}</span>
+</pre></div>
+
+<h1>
 <a name="upload-de-documentos" class="anchor" href="#upload-de-documentos"><span class="octicon octicon-link"></span></a>
 <a name="upload-de-documentos"></a>Upload de documentos</h1>
 
@@ -316,7 +424,7 @@ Content-Type: application/pdf
 </code></pre>
 </li>
 </ul><h2>
-<a name="exemplo-de-resposta-2" class="anchor" href="#exemplo-de-resposta-2"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
+<a name="exemplo-de-resposta-3" class="anchor" href="#exemplo-de-resposta-3"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
 
 <div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span><span class="l">application/json</span>
@@ -330,7 +438,7 @@ Content-Type: application/pdf
 </pre></div>
 
 <h2>
-<a name="resposta-4xx-1" class="anchor" href="#resposta-4xx-1"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+<a name="resposta-4xx-2" class="anchor" href="#resposta-4xx-2"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
 
 <p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -348,7 +456,7 @@ Content-Type: application/pdf
 </pre></div>
 
 <h2>
-<a name="resposta-5xx-1" class="anchor" href="#resposta-5xx-1"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+<a name="resposta-5xx-2" class="anchor" href="#resposta-5xx-2"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
 
 <p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -483,7 +591,7 @@ que caso seja fornecido o parametro <code>skip_email</code> como <em>true</em>, 
 </pre></div>
 
 <h2>
-<a name="resposta-4xx-2" class="anchor" href="#resposta-4xx-2"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+<a name="resposta-4xx-3" class="anchor" href="#resposta-4xx-3"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
 
 <p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -505,7 +613,7 @@ que caso seja fornecido o parametro <code>skip_email</code> como <em>true</em>, 
 </pre></div>
 </li>
 </ul><h2>
-<a name="resposta-5xx-2" class="anchor" href="#resposta-5xx-2"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+<a name="resposta-5xx-3" class="anchor" href="#resposta-5xx-3"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
 
 <p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
