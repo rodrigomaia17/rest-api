@@ -32,6 +32,37 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h1>
+<a name="tldr" class="anchor" href="#tldr"><span class="octicon octicon-link"></span></a>TL;DR</h1>
+
+<p>Particularidades da API da Clicksign:</p>
+
+<ul>
+<li>a versão da API está contida no caminho da requisição;</li>
+<li>a chave da API é enviada como um dos parâmetros;</li>
+<li>a chave da API é enviada em todas requisições;</li>
+<li>a chave da API identifica e autentica o usuário;</li>
+</ul>
+
+<p>Fluxo de um documento:</p>
+
+<ol>
+<li>Upload do documento</li>
+<li>Criação de hooks em um documento</li>
+<li>Criação de uma lista de assinatura</li>
+</ol>
+
+<p>Cada documento possui uma chave única dentro da Clicksign.  Através desta chave
+é feita toda referência a um documento.  É necessário criar uma lista de
+documento para que um documento seja assinado.</p>
+
+<p>Estão disponíveis bibliotecas para as seguintes plataformas:</p>
+
+<ul>
+<li><a href="https://www.nuget.org/packages/Clicksign4dotNet/">.Net</a></li>
+<li><a href="https://github.com/clicksign/clicksign-ruby">Ruby</a></li>
+</ul>
+
+<h1>
 <a name="%C3%8Dndice" class="anchor" href="#%C3%8Dndice"><span class="octicon octicon-link"></span></a>Índice</h1>
 
 <ul>
@@ -44,9 +75,12 @@
 <li><a href="#visualizacao-de-documento">Visualizacão de Documento</a></li>
 <li><a href="#upload-de-documentos">Upload de documentos</a></li>
 <li><a href="#criacao-de-lista-de-assinatura">Criação de lista de assinatura</a></li>
+<li><a href="#criacao-de-pacote-de-documentos">Criação de pacote de documentos</a></li>
 <li><a href="#hooks">Hooks</a></li>
 <li><a href="#exemplos">Exemplos</a></li>
-</ul><h1>
+</ul>
+
+<h1>
 <a name="introdu%C3%A7%C3%A3o" class="anchor" href="#introdu%C3%A7%C3%A3o"><span class="octicon octicon-link"></span></a>
 <a name="introducao"></a>Introdução</h1>
 
@@ -65,7 +99,8 @@
 <p>Uma <em>REST API</em> é composta, basicamente, por dois elementos: um <strong>cliente</strong> e um <strong>servidor</strong>. O cliente sempre inicia a comunicação mediante requisição HTTP. O servidor sempre finaliza a comunicação respondendo à requisição.</p>
 
 <p align="center">
-  <img src="https://raw.github.com/clicksign/rest-api-v2/master/images/client-server.png"></p>
+  <img src="https://raw.github.com/clicksign/rest-api-v2/master/images/client-server.png">
+</p>
 
 <p>As mensagens HTTP são compostas por uma linha inicial, um conjunto de cabeçalhos e um corpo. A linha inicial difere nas requisições e nas respostas, o cabeçalho compartilha parâmetros em comum e parâmetros específicos, e o corpo é completamente dependente de cada mensagem, podendo até ser nulo.</p>
 
@@ -93,7 +128,9 @@
 <li>Versão: 1.1</li>
 <li>Cabeçalhos: Host, Accept</li>
 <li>Corpo: vazio</li>
-</ul><h2>
+</ul>
+
+<h2>
 <a name="exemplo-de-resposta" class="anchor" href="#exemplo-de-resposta"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
 
 <div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
@@ -118,7 +155,9 @@
 <li>Mensagem: OK</li>
 <li>Cabeçalhos: Content-Type, Connection</li>
 <li>Corpo: [{...</li>
-</ul><h1>
+</ul>
+
+<h1>
 <a name="autentica%C3%A7%C3%A3o" class="anchor" href="#autentica%C3%A7%C3%A3o"><span class="octicon octicon-link"></span></a>
 <a name="autenticacao"></a>Autenticação</h1>
 
@@ -128,7 +167,9 @@
 <li>Conhecer uma <em>string</em> de <strong>identificação</strong>
 </li>
 <li>Possuir um endereço <strong>IP</strong> específico</li>
-</ol><p>A autenticação é feito através do parâmetro <strong>access_token</strong> que automaticamente determina um usuário e realiza sua autenticação. O parâmetro deve ser enviado no <strong>caminho</strong> da requisição. Portanto, toda requisição deverá conter no <em>path</em> <code>?access_token=string-do-token</code>._</p>
+</ol>
+
+<p>A autenticação é feito através do parâmetro <strong>access_token</strong> que automaticamente determina um usuário e realiza sua autenticação. O parâmetro deve ser enviado no <strong>caminho</strong> da requisição. Portanto, toda requisição deverá conter no <em>path</em> <code>?access_token=string-do-token</code>._</p>
 
 <p><strong>Atenção:</strong> O parâmetro de autenticação deve ser enviado a cada requisição feita pelo cliente. Como esse parâmetro é comum a todas as funções da API, ele será omitido das documentações.</p>
 
@@ -194,7 +235,9 @@ em JSON, porém todos os exemplos também podem ter as respostas no formato <cod
 <strong>Accept</strong>: application/json</li>
 </ul>
 </li>
-</ul><h2>
+</ul>
+
+<h2>
 <a name="exemplo-de-resposta-1" class="anchor" href="#exemplo-de-resposta-1"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
 
 <div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
@@ -286,7 +329,9 @@ em JSON, porém todos os exemplos também podem ter as respostas no formato <cod
 </ul>
 </li>
 <li><strong>Corpo:</strong></li>
-</ul><div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Invalid parameters."</span> <span class="p">}</span>
+</ul>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Invalid parameters."</span> <span class="p">}</span>
 </pre></div>
 
 <h2>
@@ -304,7 +349,9 @@ em JSON, porém todos os exemplos também podem ter as respostas no formato <cod
 </ul>
 </li>
 <li><strong>Corpo:</strong></li>
-</ul><div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span> <span class="p">}</span>
+</ul>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span> <span class="p">}</span>
 </pre></div>
 
 <h1>
@@ -327,7 +374,9 @@ do documento.</p>
 <strong>Accept</strong>: application/json</li>
 </ul>
 </li>
-</ul><h2>
+</ul>
+
+<h2>
 <a name="exemplo-de-resposta-2" class="anchor" href="#exemplo-de-resposta-2"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
 
 <div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
@@ -371,7 +420,9 @@ do documento.</p>
 </ul>
 </li>
 <li><strong>Corpo:</strong></li>
-</ul><div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Invalid parameters."</span> <span class="p">}</span>
+</ul>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Invalid parameters."</span> <span class="p">}</span>
 </pre></div>
 
 <h2>
@@ -389,7 +440,9 @@ do documento.</p>
 </ul>
 </li>
 <li><strong>Corpo:</strong></li>
-</ul><div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span> <span class="p">}</span>
+</ul>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span> <span class="p">}</span>
 </pre></div>
 
 <h1>
@@ -423,7 +476,9 @@ Content-Type: application/pdf
 ------WebKitFormBoundaryjm7rLhiPSO6cEjWs--
 </code></pre>
 </li>
-</ul><h2>
+</ul>
+
+<h2>
 <a name="exemplo-de-resposta-3" class="anchor" href="#exemplo-de-resposta-3"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
 
 <div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
@@ -452,7 +507,9 @@ Content-Type: application/pdf
 </ul>
 </li>
 <li><strong>Corpo:</strong></li>
-</ul><div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Invalid parameters."</span> <span class="p">}</span>
+</ul>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Invalid parameters."</span> <span class="p">}</span>
 </pre></div>
 
 <h2>
@@ -470,7 +527,9 @@ Content-Type: application/pdf
 </ul>
 </li>
 <li><strong>Corpo:</strong></li>
-</ul><div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span> <span class="p">}</span>
+</ul>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span> <span class="p">}</span>
 </pre></div>
 
 <h1>
@@ -508,7 +567,9 @@ Content-Type: application/pdf
 <span class="p">}</span>
 </pre></div>
 </li>
-</ul><p>Para criar uma lista de assinatura, adicionar signatários ao documento e iniciar o processo de assinatura automaticamente, deve-se adicionar um campo <code>signers</code> ao JSON. Caso não haja o campo <code>signers</code> ou ele seja <code>null</code>, o documento não possuirá lista de assinatura definida.</p>
+</ul>
+
+<p>Para criar uma lista de assinatura, adicionar signatários ao documento e iniciar o processo de assinatura automaticamente, deve-se adicionar um campo <code>signers</code> ao JSON. Caso não haja o campo <code>signers</code> ou ele seja <code>null</code>, o documento não possuirá lista de assinatura definida.</p>
 
 <p>O campo <code>signers</code> deverá ser um <code>Array</code> contendo os signatários. Cada signatário é especificado através de e-mail e ação, sendo os respectivos campos <code>email</code> e <code>act</code>.</p>
 
@@ -522,7 +583,9 @@ Content-Type: application/pdf
 <li>intervenient</li>
 <li>party</li>
 <li>receipt</li>
-</ul><p>A mensagem a ser enviada aos signatários é definida pelo campo <code>message</code>.</p>
+</ul>
+
+<p>A mensagem a ser enviada aos signatários é definida pelo campo <code>message</code>.</p>
 
 <p>Além disso também é possível especificar se deseja ao iniciar a lista de assinatura que seja enviado um e-mail para os signatários ou não, isso é feito através do parametro <code>skip_email</code> que recebe um boolean.</p>
 
@@ -531,9 +594,46 @@ Content-Type: application/pdf
 <ul>
 <li>false (padrão)</li>
 <li>true</li>
-</ul><p>Caso o parametro seja passado como <strong>true</strong> ao criar a lista de assinatura não será enviado nenhum e-mail para os signatários. É importante notar
-que caso seja fornecido o parametro <code>skip_email</code> como <em>true</em>, o parametro <code>message</code> se torna desnecessário dado que não será enviado nenhum e-mail. Também
-é importante observar que como o valor padrão desse parametro é <code>false</code> ele pode ser omitido do json que é enviado para o servidor caso você deseje enviar os e-mails normalmente.</p>
+</ul>
+
+<p>Caso o parametro seja passado como <strong>true</strong> ao criar a lista de assinatura não será enviado nenhum e-mail para os signatários. É importante notar
+que caso seja fornecido o parametro <code>skip_email</code><code>como *true*, o parametro</code>message<code>se torna desnecessário dado que não será enviado nenhum e-mail. Também
+é importante observar que como o valor padrão desse parametro é</code>false` ele pode ser omitido do json que é enviado para o servidor caso você deseje enviar os e-mails normalmente.</p>
+
+<h1>
+<a name="cria%C3%A7%C3%A3o-de-pacote-de-documentos" class="anchor" href="#cria%C3%A7%C3%A3o-de-pacote-de-documentos"><span class="octicon octicon-link"></span></a>
+<a name="criacao-de-pacote-de-documentos"></a>Criação de pacote de documentos</h1>
+
+<p>Você pode criar um pacote de documentos caso você deseja possibilitar ao signatário que ele assine todos os documentos em uma única etapa (<em>feature</em> atualmente disponível apenas via <em>widget</em>).  Para isto, é necessário que os documentos sejam <em>empacotados</em> em uma estrutura.  A criação de um pacote é extremamente simples, basta fazer uma requisição com o <em>array</em> de documentos que devam compor o pacote.</p>
+
+<ul>
+<li>
+<strong>Method:</strong> POST</li>
+<li>
+<strong>Path:</strong> /v1/batches</li>
+<li>
+<strong>Cabeçalhos:</strong>
+
+<ul>
+<li>
+<strong>Content-Type:</strong> application/json</li>
+<li>
+<strong>Accept</strong>: application/json</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"keys"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"0b2ec469-6b49-42bb-809f-d978279baeeb"</span><span class="p">,</span>
+    <span class="s2">"db75a09b-6b30-48b9-b9f0-873951a050ed"</span><span class="p">,</span>
+    <span class="s2">"42334730-5a93-48ae-b5e4-e8e86d62610a"</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</li>
+</ul>
 
 <h1>
 <a name="hooks" class="anchor" href="#hooks"><span class="octicon octicon-link"></span></a>
@@ -545,7 +645,9 @@ que caso seja fornecido o parametro <code>skip_email</code> como <em>true</em>, 
 <li>o documento é processado</li>
 <li>alguém se recusa a assinar o documento</li>
 <li>o documento é completamente assinado</li>
-</ul><p>Para isso, a Clicksign dispõe de um sistema de <strong>hooks</strong> que realizam chamadas HTTP para outras aplicações. As <em>hooks</em> são definidas por documento, portanto cada documento deve configurar as <em>hooks</em> com os parâmetros que deseja.</p>
+</ul>
+
+<p>Para isso, a Clicksign dispõe de um sistema de <strong>hooks</strong> que realizam chamadas HTTP para outras aplicações. As <em>hooks</em> são definidas por documento, portanto cada documento deve configurar as <em>hooks</em> com os parâmetros que deseja.</p>
 
 <p>Quando o documento alterar o seu estado, a Clicksign irá realizar um POST para a <code>url</code> que foi configurada na <em>hook</em> do documento. No corpo da requisição irá em anexo a chave do documento em formato JSON. Portanto você pode determinar para cada documento um endereço específico a ser notificado ou colocar em todos os documentos o mesmo endereço a ser notificado e o servidor que atender a requisição inspecionar o JSON e determinar o que fazer com cada documento em particular.</p>
 
@@ -554,7 +656,9 @@ que caso seja fornecido o parametro <code>skip_email</code> como <em>true</em>, 
 <strong>URL</strong>: caminho completo, incluíndo protocolo</li>
 <li>
 <strong>Content-Type</strong>: application/json</li>
-</ul><h2>
+</ul>
+
+<h2>
 <a name="configura%C3%A7%C3%A3o-de-hooks" class="anchor" href="#configura%C3%A7%C3%A3o-de-hooks"><span class="octicon octicon-link"></span></a>Configuração de hooks</h2>
 
 <p>Cadastra um <em>hook</em> para um determinado usuário.</p>
@@ -572,7 +676,9 @@ que caso seja fornecido o parametro <code>skip_email</code> como <em>true</em>, 
 }
 </code>
 </li>
-</ul><h2>
+</ul>
+
+<h2>
 <a name="resposta-200" class="anchor" href="#resposta-200"><span class="octicon octicon-link"></span></a>Resposta 200</h2>
 
 <p>Caso não ocorra nenhuma falha na requisição, a resposta será status 200 e seu corpo será um JSON contendo os dados da <em>hook</em> recém criada.</p>
@@ -612,7 +718,9 @@ que caso seja fornecido o parametro <code>skip_email</code> como <em>true</em>, 
 <span class="p">}</span>
 </pre></div>
 </li>
-</ul><h2>
+</ul>
+
+<h2>
 <a name="resposta-5xx-3" class="anchor" href="#resposta-5xx-3"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
 
 <p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
@@ -634,7 +742,9 @@ que caso seja fornecido o parametro <code>skip_email</code> como <em>true</em>, 
 <span class="p">}</span>
 </pre></div>
 </li>
-</ul><h1>
+</ul>
+
+<h1>
 <a name="exemplos" class="anchor" href="#exemplos"><span class="octicon octicon-link"></span></a>
 <a name="exemplos"></a>Exemplos</h1>
 
