@@ -1,3 +1,27 @@
+# TL;DR
+
+Particularidades da API da Clicksign:
+
+- a versão da API está contida no caminho da requisição;
+- a chave da API é enviada como um dos parâmetros;
+- a chave da API é enviada em todas requisições;
+- a chave da API identifica e autentica o usuário;
+
+Fluxo de um documento:
+
+1. Upload do documento
+2. Criação de hooks em um documento
+3. Criação de uma lista de assinatura
+
+Cada documento possui uma chave única dentro da Clicksign.  Através desta chave
+é feita toda referência a um documento.  É necessário criar uma lista de
+documento para que um documento seja assinado.
+
+Estão disponíveis bibliotecas para as seguintes plataformas:
+
+- [.Net](https://www.nuget.org/packages/Clicksign4dotNet/)
+- [Ruby](https://github.com/clicksign/clicksign-ruby)
+
 # Índice
 
 - [Introdução](#introducao)
