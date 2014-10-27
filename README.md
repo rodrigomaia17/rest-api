@@ -33,6 +33,7 @@ Estão disponíveis bibliotecas para as seguintes plataformas:
 - [Visualizacão de Documento](#visualizacao-de-documento)
 - [Upload de documentos](#upload-de-documentos)
 - [Criação de lista de assinatura](#criacao-de-lista-de-assinatura)
+- [Criação de pacote de documentos](#criacao-de-pacote-de-documentos)
 - [Hooks](#hooks)
 - [Exemplos](#exemplos)
 
@@ -435,15 +436,37 @@ Os possíveis valores de `act` são:
 
 A mensagem a ser enviada aos signatários é definida pelo campo `message`.
 
-Além disso também é possível especificar se deseja ao iniciar a lista de assinatura que seja enviado um e-mail para os signatários ou não, isso é feito através do parametro `skip_email` que recebe um boolean.
+Além disso também é possível especificar se deseja ao iniciar a lista de assinatura que seja enviado um e-mail para os signatários ou não, isso é feito através do parametro ```skip_email``` que recebe um boolean.
 
-Os possíveis valores de `skip_email` são:
+Os possíveis valores de ```skip_email``` são:
 - false (padrão)
 - true
 
 Caso o parametro seja passado como **true** ao criar a lista de assinatura não será enviado nenhum e-mail para os signatários. É importante notar
-que caso seja fornecido o parametro `skip_email` como *true*, o parametro `message` se torna desnecessário dado que não será enviado nenhum e-mail. Também
+que caso seja fornecido o parametro ```skip_email```` como *true*, o parametro `message` se torna desnecessário dado que não será enviado nenhum e-mail. Também
 é importante observar que como o valor padrão desse parametro é `false` ele pode ser omitido do json que é enviado para o servidor caso você deseje enviar os e-mails normalmente.
+
+
+# <a name="criacao-de-pacote-de-documentos"></a>Criação de pacote de documentos
+
+Você pode criar um pacote de documentos caso você deseja possibilitar ao signatário que ele assine todos os documentos em uma única etapa (_feature_ atualmente disponível apenas via _widget_).  Para isto, é necessário que os documentos sejam _empacotados_ em uma estrutura.  A criação de um pacote é extremamente simples, basta fazer uma requisição com o _array_ de documentos que devam compor o pacote.
+
+* **Method:** POST
+* **Path:** /v1/batches
+* **Cabeçalhos:**
+  - **Content-Type:** application/json
+  - **Accept**: application/json
+* **Corpo:**
+
+  ```json
+  {
+    "keys": [
+      "0b2ec469-6b49-42bb-809f-d978279baeeb",
+      "db75a09b-6b30-48b9-b9f0-873951a050ed",
+      "42334730-5a93-48ae-b5e4-e8e86d62610a"
+    ]
+  }
+  ```
 
 
 # <a name="hooks"></a>Hooks
