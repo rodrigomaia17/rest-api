@@ -33,6 +33,7 @@ Estão disponíveis bibliotecas para as seguintes plataformas:
 - [Visualizacão de Documento](#visualizacao-de-documento)
 - [Upload de documentos](#upload-de-documentos)
 - [Criação de lista de assinatura](#criacao-de-lista-de-assinatura)
+- [Download de documento](#download-de-documento)
 - [Criação de pacote de documentos](#criacao-de-pacote-de-documentos)
 - [Hooks](#hooks)
 - [Exemplos](#exemplos)
@@ -445,6 +446,18 @@ Os possíveis valores de ```skip_email``` são:
 Caso o parametro seja passado como **true** ao criar a lista de assinatura não será enviado nenhum e-mail para os signatários. É importante notar
 que caso seja fornecido o parametro ```skip_email```` como *true*, o parametro `message` se torna desnecessário dado que não será enviado nenhum e-mail. Também
 é importante observar que como o valor padrão desse parametro é `false` ele pode ser omitido do json que é enviado para o servidor caso você deseje enviar os e-mails normalmente.
+
+
+# <a name="download-de-documento"></a>Download de documento
+
+Você pode realizar download de um arquivo.  O arquivo original empacotado com um arquivo de log e enviado em **formato ZIP**.  O empacotamento é realizado sob demanda e em _background_, para isso, o servidor não irá aguardar a conclusão do empacotamento para retornar a requisição, ao invés disso, ele irá retorna uma respota com _status_ 201 indicando o início do empacotamento.  Enquanto ocorre o empacotamento o servidor irá retornar a mesma resposta 201.  Quando o processo for concluído, a resposta será código 200 contendo em seu corpo o ZIP.
+
+Você deverá realizar uma espera ativa, efetuando diversas requisições e obtendo respostas 201 até obter um código 200.  O empacotamento ocorre em 2 ou 3 segundos no máximo, por isso, **recomendamos realizar uma requisição por segundo** até você obter um código 200, dessa forma em 2 ou 3 requisições você obterá o ZIP.
+
+* **Method:** GET
+* **Path:** /v1/documents/:key/download
+* **Cabeçalhos:**
+  - **Accept**: application/json
 
 
 # <a name="criacao-de-pacote-de-documentos"></a>Criação de pacote de documentos
