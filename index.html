@@ -32,7 +32,7 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h1>
-<a name="tldr" class="anchor" href="#tldr"><span class="octicon octicon-link"></span></a>TL;DR</h1>
+<a id="tldr" class="anchor" href="#tldr" aria-hidden="true"><span class="octicon octicon-link"></span></a>TL;DR</h1>
 
 <p>Particularidades da API da Clicksign:</p>
 
@@ -63,7 +63,7 @@ documento para que um documento seja assinado.</p>
 </ul>
 
 <h1>
-<a name="%C3%8Dndice" class="anchor" href="#%C3%8Dndice"><span class="octicon octicon-link"></span></a>Índice</h1>
+<a id="Índice" class="anchor" href="#%C3%8Dndice" aria-hidden="true"><span class="octicon octicon-link"></span></a>Índice</h1>
 
 <ul>
 <li><a href="#introducao">Introdução</a></li>
@@ -75,13 +75,14 @@ documento para que um documento seja assinado.</p>
 <li><a href="#visualizacao-de-documento">Visualizacão de Documento</a></li>
 <li><a href="#upload-de-documentos">Upload de documentos</a></li>
 <li><a href="#criacao-de-lista-de-assinatura">Criação de lista de assinatura</a></li>
+<li><a href="#download-de-documento">Download de documento</a></li>
 <li><a href="#criacao-de-pacote-de-documentos">Criação de pacote de documentos</a></li>
 <li><a href="#hooks">Hooks</a></li>
 <li><a href="#exemplos">Exemplos</a></li>
 </ul>
 
 <h1>
-<a name="introdu%C3%A7%C3%A3o" class="anchor" href="#introdu%C3%A7%C3%A3o"><span class="octicon octicon-link"></span></a>
+<a id="introdução" class="anchor" href="#introdu%C3%A7%C3%A3o" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="introducao"></a>Introdução</h1>
 
 <p>A Clicksign é uma solução online para enviar, guardar e assinar documentos, com validade jurídica. Foi criada para facilitar, reduzir custo e aumentar a segurança e compliance do processo de assinatura e <em>workflow</em> de documentos. </p>
@@ -93,7 +94,7 @@ documento para que um documento seja assinado.</p>
 <p>Qualquer linguagem de programação compativel com requisições <strong>HTTP / JSON</strong> cumpre os requisitos necessários para consumir os serviços desta API. Assim, com pouco esforço de programação é possível integrar desde scripts shell até sistemas de ERP.</p>
 
 <h1>
-<a name="funcionamento-geral" class="anchor" href="#funcionamento-geral"><span class="octicon octicon-link"></span></a>
+<a id="funcionamento-geral" class="anchor" href="#funcionamento-geral" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="funcionamento-geral"></a>Funcionamento geral</h1>
 
 <p>Uma <em>REST API</em> é composta, basicamente, por dois elementos: um <strong>cliente</strong> e um <strong>servidor</strong>. O cliente sempre inicia a comunicação mediante requisição HTTP. O servidor sempre finaliza a comunicação respondendo à requisição.</p>
@@ -115,12 +116,12 @@ documento para que um documento seja assinado.</p>
 <p>Todas as requisições da <em>REST API</em> são feitas para <code>api.clicksign.com</code>.</p>
 
 <h2>
-<a name="exemplo-de-requisi%C3%A7%C3%A3o" class="anchor" href="#exemplo-de-requisi%C3%A7%C3%A3o"><span class="octicon octicon-link"></span></a>Exemplo de requisição</h2>
+<a id="exemplo-de-requisição" class="anchor" href="#exemplo-de-requisi%C3%A7%C3%A3o" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exemplo de requisição</h2>
 
-<div class="highlight highlight-http"><pre><span class="err">GET /documents HTTPS/1.1</span>
-<span class="err">Host: api.clicksign.com</span>
-<span class="err">Accept: application/json</span>
-</pre></div>
+<pre lang="http"><code>GET /documents HTTPS/1.1
+Host: api.clicksign.com
+Accept: application/json
+</code></pre>
 
 <ul>
 <li>Método: GET</li>
@@ -131,23 +132,22 @@ documento para que um documento seja assinado.</p>
 </ul>
 
 <h2>
-<a name="exemplo-de-resposta" class="anchor" href="#exemplo-de-resposta"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
+<a id="exemplo-de-resposta" class="anchor" href="#exemplo-de-resposta" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
 
-<div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span><span class="l">application/json</span>
-<span class="na">Connection</span><span class="o">:</span> <span class="l">Keep-Alive</span>
-</pre></div>
+<pre lang="http"><code>HTTP/1.1 200 OK
+Content-Type:application/json
+Connection: Keep-Alive
+</code></pre>
 
-<div class="highlight highlight-json"><pre><span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"abcd..."</span>
-  <span class="p">},</span>
+<div class="highlight highlight-json"><pre>[
+  {
+    <span class="s2">"id"</span>: <span class="s2">"abcd..."</span>
+  },
 
-  <span class="p">{</span>
-    <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"..."</span>
-  <span class="p">}</span>
-<span class="p">]</span>
-</pre></div>
+  {
+    <span class="s2">"id"</span>: <span class="s2">"..."</span>
+  }
+]</pre></div>
 
 <ul>
 <li>Versão: 1.1</li>
@@ -158,7 +158,7 @@ documento para que um documento seja assinado.</p>
 </ul>
 
 <h1>
-<a name="autentica%C3%A7%C3%A3o" class="anchor" href="#autentica%C3%A7%C3%A3o"><span class="octicon octicon-link"></span></a>
+<a id="autenticação" class="anchor" href="#autentica%C3%A7%C3%A3o" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="autenticacao"></a>Autenticação</h1>
 
 <p>A Clicksign utiliza duplo fator de autenticação para aumentar a segurança de suas transações. Autenticações que utilizam duplo fator geralmente são baseadas em algo que o cliente <em>conhece</em> e algo que o cliente <em>possui</em>. No caso da API os fatores são:</p>
@@ -176,7 +176,7 @@ documento para que um documento seja assinado.</p>
 <p>O segundo fator da autenticação é realizado automaticamente pelo servidor da Clicksign, que verifica se o <strong>IP</strong> de origem da requisição está dentro de uma lista de endereços previamente cadastrados para determinado cliente. Este fator de autenticação é <strong>opcional</strong>.</p>
 
 <h1>
-<a name="vers%C3%A3o-da-api" class="anchor" href="#vers%C3%A3o-da-api"><span class="octicon octicon-link"></span></a>
+<a id="versão-da-api" class="anchor" href="#vers%C3%A3o-da-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="versao"></a>Versão da API</h1>
 
 <p>Para possibilitar a expansão contínua da API, a Clicksign implementa um sistema
@@ -198,7 +198,7 @@ versões da API, serão comunicados através de e-mail para todos os usuários q
 possuem chave da API configurada nos ambientes de <em>production</em> e <em>demo</em>.</p>
 
 <h1>
-<a name="-formatos" class="anchor" href="#-formatos"><span class="octicon octicon-link"></span></a>
+<a id="-formatos" class="anchor" href="#-formatos" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="formatos"></a> Formatos</h1>
 
 <p>A API da Clicksign atualmente aceita dois formatos distintos como formato de
@@ -219,7 +219,7 @@ necessário prover um header com o seguinte formato:</p>
 em JSON, porém todos os exemplos também podem ter as respostas no formato <code>XML</code>.</p>
 
 <h1>
-<a name="listagem-de-documentos" class="anchor" href="#listagem-de-documentos"><span class="octicon octicon-link"></span></a>
+<a id="listagem-de-documentos" class="anchor" href="#listagem-de-documentos" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="listagem-de-documentos"></a>Listagem de documentos</h1>
 
 <p>Você pode obter uma listagem de todos os documentos da conta além de informações extras pertinentes ao andamento da lista de assinatura. A listagem retornarár todos os documentos na conta, sem a necessidade de parâmetros de paginação ou busca.</p>
@@ -238,84 +238,83 @@ em JSON, porém todos os exemplos também podem ter as respostas no formato <cod
 </ul>
 
 <h2>
-<a name="exemplo-de-resposta-1" class="anchor" href="#exemplo-de-resposta-1"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
+<a id="exemplo-de-resposta-1" class="anchor" href="#exemplo-de-resposta-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
 
-<div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span><span class="l">application/json</span>
-<span class="na">Connection</span><span class="o">:</span> <span class="l">Keep-Alive</span>
-</pre></div>
+<pre lang="http"><code>HTTP/1.1 200 OK
+Content-Type:application/json
+Connection: Keep-Alive
+</code></pre>
 
-<div class="highlight highlight-json"><pre><span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nt">"document"</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">"key"</span><span class="p">:</span> <span class="s2">"1123-4567-89ab-cdef"</span><span class="p">,</span>
-      <span class="err">original_name:</span> <span class="nt">"document-2.pdf"</span>
-      <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"completed"</span><span class="p">,</span>
-      <span class="nt">"archive_id"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">"created_at"</span><span class="p">:</span> <span class="s2">"2014-06-18T09:55:16.873-03:00"</span><span class="p">,</span>
-      <span class="nt">"updated_at"</span><span class="p">:</span> <span class="s2">"2014-06-18T10:02:03.056-03:00"</span><span class="p">,</span>
-      <span class="nt">"user_key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
-      <span class="nt">"list"</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">"locked"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
-        <span class="nt">"started_at"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
-        <span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:57:14.434-03:00"</span><span class="p">,</span>
-        <span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:57:14.434-03:00"</span><span class="p">,</span>
-        <span class="nt">"user_key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
-        <span class="nt">"signatures"</span><span class="p">:</span> <span class="p">[]</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nt">"document"</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">"key"</span><span class="p">:</span> <span class="s2">"0123-4567-89ab-cdef"</span><span class="p">,</span>
-      <span class="err">original_name:</span> <span class="nt">"document-1.pdf"</span>
-      <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"completed"</span><span class="p">,</span>
-      <span class="nt">"archive_id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">"created_at"</span><span class="p">:</span> <span class="s2">"2014-06-18T09:55:16.873-03:00"</span><span class="p">,</span>
-      <span class="nt">"updated_at"</span><span class="p">:</span> <span class="s2">"2014-06-18T10:02:03.056-03:00"</span><span class="p">,</span>
-      <span class="nt">"user_key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
-      <span class="nt">"list"</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">"locked"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
-        <span class="nt">"started_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:58:46.450-03:00"</span><span class="p">,</span>
-        <span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:57:14.434-03:00"</span><span class="p">,</span>
-        <span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:58:46.452-03:00"</span><span class="p">,</span>
-        <span class="nt">"user_key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
-        <span class="nt">"signatures"</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">"display_name"</span><span class="p">:</span><span class="s2">"Daniel Gaboardi Libanori"</span><span class="p">,</span>
-            <span class="nt">"title"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
-            <span class="nt">"company_name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
-            <span class="nt">"key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
-            <span class="nt">"act"</span><span class="p">:</span><span class="s2">"receipt"</span><span class="p">,</span>
-            <span class="nt">"decision"</span><span class="p">:</span><span class="s2">"agreed"</span><span class="p">,</span>
-            <span class="nt">"address"</span><span class="p">:</span><span class="s2">"201.81.113.174"</span><span class="p">,</span>
-            <span class="nt">"email"</span><span class="p">:</span><span class="s2">"daniel.libanori@clicksign.com"</span><span class="p">,</span>
-            <span class="nt">"signed_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:59:58.713-03:00"</span><span class="p">,</span>
-            <span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:57:24.191-03:00"</span><span class="p">,</span>
-            <span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:59:58.836-03:00"</span>
-          <span class="p">},</span>
-          <span class="p">{</span>
-            <span class="nt">"display_name"</span><span class="p">:</span><span class="s2">"Daniel Gaboardi Libanori"</span><span class="p">,</span>
-            <span class="nt">"title"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
-            <span class="nt">"company_name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
-            <span class="nt">"key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
-            <span class="nt">"act"</span><span class="p">:</span><span class="s2">"intervening"</span><span class="p">,</span>
-            <span class="nt">"decision"</span><span class="p">:</span><span class="s2">"agreed"</span><span class="p">,</span>
-            <span class="nt">"address"</span><span class="p">:</span><span class="s2">"201.81.113.174"</span><span class="p">,</span>
-            <span class="nt">"email"</span><span class="p">:</span><span class="s2">"daniel.libanori@clicksign.com"</span><span class="p">,</span>
-            <span class="nt">"signed_at"</span><span class="p">:</span><span class="s2">"2014-06-18T10:01:18.327-03:00"</span><span class="p">,</span>
-            <span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:57:31.114-03:00"</span><span class="p">,</span>
-            <span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2014-06-18T10:01:18.389-03:00"</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">]</span>
-</pre></div>
+<div class="highlight highlight-json"><pre>[
+  {
+    <span class="s2">"document"</span>: {
+      <span class="s2">"key"</span>: <span class="s2">"1123-4567-89ab-cdef"</span>,
+      <span class="err">original_name</span>: <span class="s2">"document-2.pdf"</span>
+      <span class="s2">"status"</span><span class="err">:</span> <span class="s2">"completed"</span>,
+      <span class="s2">"archive_id"</span>: <span class="m">2</span>,
+      <span class="s2">"created_at"</span>: <span class="s2">"2014-06-18T09:55:16.873-03:00"</span>,
+      <span class="s2">"updated_at"</span>: <span class="s2">"2014-06-18T10:02:03.056-03:00"</span>,
+      <span class="s2">"user_key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
+      <span class="s2">"list"</span>: {
+        <span class="s2">"locked"</span>:<span class="kc">null</span>,
+        <span class="s2">"started_at"</span>:<span class="kc">null</span>,
+        <span class="s2">"created_at"</span>:<span class="s2">"2014-06-18T09:57:14.434-03:00"</span>,
+        <span class="s2">"updated_at"</span>:<span class="s2">"2014-06-18T09:57:14.434-03:00"</span>,
+        <span class="s2">"user_key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
+        <span class="s2">"signatures"</span>: []
+      }
+    }
+  },
+  {
+    <span class="s2">"document"</span>: {
+      <span class="s2">"key"</span>: <span class="s2">"0123-4567-89ab-cdef"</span>,
+      <span class="err">original_name</span>: <span class="s2">"document-1.pdf"</span>
+      <span class="s2">"status"</span><span class="err">:</span> <span class="s2">"completed"</span>,
+      <span class="s2">"archive_id"</span>: <span class="m">1</span>,
+      <span class="s2">"created_at"</span>: <span class="s2">"2014-06-18T09:55:16.873-03:00"</span>,
+      <span class="s2">"updated_at"</span>: <span class="s2">"2014-06-18T10:02:03.056-03:00"</span>,
+      <span class="s2">"user_key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
+      <span class="s2">"list"</span>: {
+        <span class="s2">"locked"</span>:<span class="kc">null</span>,
+        <span class="s2">"started_at"</span>:<span class="s2">"2014-06-18T09:58:46.450-03:00"</span>,
+        <span class="s2">"created_at"</span>:<span class="s2">"2014-06-18T09:57:14.434-03:00"</span>,
+        <span class="s2">"updated_at"</span>:<span class="s2">"2014-06-18T09:58:46.452-03:00"</span>,
+        <span class="s2">"user_key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
+        <span class="s2">"signatures"</span>: [
+          {
+            <span class="s2">"display_name"</span>:<span class="s2">"Daniel Gaboardi Libanori"</span>,
+            <span class="s2">"title"</span>:<span class="kc">null</span>,
+            <span class="s2">"company_name"</span>:<span class="kc">null</span>,
+            <span class="s2">"key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
+            <span class="s2">"act"</span>:<span class="s2">"receipt"</span>,
+            <span class="s2">"decision"</span>:<span class="s2">"agreed"</span>,
+            <span class="s2">"address"</span>:<span class="s2">"201.81.113.174"</span>,
+            <span class="s2">"email"</span>:<span class="s2">"daniel.libanori@clicksign.com"</span>,
+            <span class="s2">"signed_at"</span>:<span class="s2">"2014-06-18T09:59:58.713-03:00"</span>,
+            <span class="s2">"created_at"</span>:<span class="s2">"2014-06-18T09:57:24.191-03:00"</span>,
+            <span class="s2">"updated_at"</span>:<span class="s2">"2014-06-18T09:59:58.836-03:00"</span>
+          },
+          {
+            <span class="s2">"display_name"</span>:<span class="s2">"Daniel Gaboardi Libanori"</span>,
+            <span class="s2">"title"</span>:<span class="kc">null</span>,
+            <span class="s2">"company_name"</span>:<span class="kc">null</span>,
+            <span class="s2">"key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
+            <span class="s2">"act"</span>:<span class="s2">"intervening"</span>,
+            <span class="s2">"decision"</span>:<span class="s2">"agreed"</span>,
+            <span class="s2">"address"</span>:<span class="s2">"201.81.113.174"</span>,
+            <span class="s2">"email"</span>:<span class="s2">"daniel.libanori@clicksign.com"</span>,
+            <span class="s2">"signed_at"</span>:<span class="s2">"2014-06-18T10:01:18.327-03:00"</span>,
+            <span class="s2">"created_at"</span>:<span class="s2">"2014-06-18T09:57:31.114-03:00"</span>,
+            <span class="s2">"updated_at"</span>:<span class="s2">"2014-06-18T10:01:18.389-03:00"</span>
+          }
+        ]
+      }
+    }
+  }
+]</pre></div>
 
 <h2>
-<a name="resposta-4xx" class="anchor" href="#resposta-4xx"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+<a id="resposta-4xx" class="anchor" href="#resposta-4xx" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
 
 <p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -331,11 +330,10 @@ em JSON, porém todos os exemplos também podem ter as respostas no formato <cod
 <li><strong>Corpo:</strong></li>
 </ul>
 
-<div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Invalid parameters."</span> <span class="p">}</span>
-</pre></div>
+<div class="highlight highlight-json"><pre>{ <span class="s2">"message"</span>: <span class="s2">"Invalid parameters."</span> }</pre></div>
 
 <h2>
-<a name="resposta-5xx" class="anchor" href="#resposta-5xx"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+<a id="resposta-5xx" class="anchor" href="#resposta-5xx" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
 
 <p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -351,11 +349,10 @@ em JSON, porém todos os exemplos também podem ter as respostas no formato <cod
 <li><strong>Corpo:</strong></li>
 </ul>
 
-<div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span> <span class="p">}</span>
-</pre></div>
+<div class="highlight highlight-json"><pre>{ <span class="s2">"message"</span>: <span class="s2">"Server error."</span> }</pre></div>
 
 <h1>
-<a name="visualiza%C3%A7%C3%A3o-de-documentos" class="anchor" href="#visualiza%C3%A7%C3%A3o-de-documentos"><span class="octicon octicon-link"></span></a>
+<a id="visualização-de-documentos" class="anchor" href="#visualiza%C3%A7%C3%A3o-de-documentos" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="visualizacao-de-documento"></a>Visualização de documentos</h1>
 
 <p>Caso seja necessário obter detalhes sobre um documento em específico, existe um endpoint onde é possível
@@ -377,36 +374,35 @@ do documento.</p>
 </ul>
 
 <h2>
-<a name="exemplo-de-resposta-2" class="anchor" href="#exemplo-de-resposta-2"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
+<a id="exemplo-de-resposta-2" class="anchor" href="#exemplo-de-resposta-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
 
-<div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span><span class="l">application/json</span>
-<span class="na">Connection</span><span class="o">:</span> <span class="l">Keep-Alive</span>
-</pre></div>
+<pre lang="http"><code>HTTP/1.1 200 OK
+Content-Type:application/json
+Connection: Keep-Alive
+</code></pre>
 
-<div class="highlight highlight-json"><pre><span class="p">{</span>
-  <span class="nt">"document"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">"key"</span><span class="p">:</span> <span class="s2">"1123-4567-89ab-cdef"</span><span class="p">,</span>
-    <span class="err">original_name:</span> <span class="nt">"document-2.pdf"</span>
-    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"completed"</span><span class="p">,</span>
-    <span class="nt">"archive_id"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="nt">"created_at"</span><span class="p">:</span> <span class="s2">"2014-06-18T09:55:16.873-03:00"</span><span class="p">,</span>
-    <span class="nt">"updated_at"</span><span class="p">:</span> <span class="s2">"2014-06-18T10:02:03.056-03:00"</span><span class="p">,</span>
-    <span class="nt">"user_key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
-    <span class="nt">"list"</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">"locked"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
-      <span class="nt">"started_at"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
-      <span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:57:14.434-03:00"</span><span class="p">,</span>
-      <span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2014-06-18T09:57:14.434-03:00"</span><span class="p">,</span>
-      <span class="nt">"user_key"</span><span class="p">:</span><span class="s2">"A0BF-848B-0A42-916C"</span><span class="p">,</span>
-      <span class="nt">"signatures"</span><span class="p">:</span> <span class="p">[]</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
+<div class="highlight highlight-json"><pre>{
+  <span class="s2">"document"</span>: {
+    <span class="s2">"key"</span>: <span class="s2">"1123-4567-89ab-cdef"</span>,
+    <span class="err">original_name</span>: <span class="s2">"document-2.pdf"</span>
+    <span class="s2">"status"</span><span class="err">:</span> <span class="s2">"completed"</span>,
+    <span class="s2">"archive_id"</span>: <span class="m">2</span>,
+    <span class="s2">"created_at"</span>: <span class="s2">"2014-06-18T09:55:16.873-03:00"</span>,
+    <span class="s2">"updated_at"</span>: <span class="s2">"2014-06-18T10:02:03.056-03:00"</span>,
+    <span class="s2">"user_key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
+    <span class="s2">"list"</span>: {
+      <span class="s2">"locked"</span>:<span class="kc">null</span>,
+      <span class="s2">"started_at"</span>:<span class="kc">null</span>,
+      <span class="s2">"created_at"</span>:<span class="s2">"2014-06-18T09:57:14.434-03:00"</span>,
+      <span class="s2">"updated_at"</span>:<span class="s2">"2014-06-18T09:57:14.434-03:00"</span>,
+      <span class="s2">"user_key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
+      <span class="s2">"signatures"</span>: []
+    }
+  }
+}</pre></div>
 
 <h2>
-<a name="resposta-4xx-1" class="anchor" href="#resposta-4xx-1"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+<a id="resposta-4xx-1" class="anchor" href="#resposta-4xx-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
 
 <p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -422,11 +418,10 @@ do documento.</p>
 <li><strong>Corpo:</strong></li>
 </ul>
 
-<div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Invalid parameters."</span> <span class="p">}</span>
-</pre></div>
+<div class="highlight highlight-json"><pre>{ <span class="s2">"message"</span>: <span class="s2">"Invalid parameters."</span> }</pre></div>
 
 <h2>
-<a name="resposta-5xx-1" class="anchor" href="#resposta-5xx-1"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+<a id="resposta-5xx-1" class="anchor" href="#resposta-5xx-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
 
 <p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -442,11 +437,10 @@ do documento.</p>
 <li><strong>Corpo:</strong></li>
 </ul>
 
-<div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span> <span class="p">}</span>
-</pre></div>
+<div class="highlight highlight-json"><pre>{ <span class="s2">"message"</span>: <span class="s2">"Server error."</span> }</pre></div>
 
 <h1>
-<a name="upload-de-documentos" class="anchor" href="#upload-de-documentos"><span class="octicon octicon-link"></span></a>
+<a id="upload-de-documentos" class="anchor" href="#upload-de-documentos" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="upload-de-documentos"></a>Upload de documentos</h1>
 
 <p>O processo de envio de um documento para a Clicksign contempla a criação de um arquivo de <strong>log</strong> contendo informações de <em>upload</em>, usuário, etc, anexado a uma cópia do documento "carimbada" com um <strong>número de série</strong>. Ao final do processo haverá 2 arquivos na Clicksign: documento original e arquivo de log. Enquanto o arquivo é processado a requisição <em>não fica bloqueada</em>. O <em>status</em> do documento será <em>working</em> enquanto o processo ocorre. Após concluído, o <em>status</em> será <em>open</em>.</p>
@@ -479,21 +473,20 @@ Content-Type: application/pdf
 </ul>
 
 <h2>
-<a name="exemplo-de-resposta-3" class="anchor" href="#exemplo-de-resposta-3"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
+<a id="exemplo-de-resposta-3" class="anchor" href="#exemplo-de-resposta-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exemplo de resposta</h2>
 
-<div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span><span class="l">application/json</span>
-<span class="na">Connection</span><span class="o">:</span> <span class="l">Keep-Alive</span>
-</pre></div>
+<pre lang="http"><code>HTTP/1.1 200 OK
+Content-Type:application/json
+Connection: Keep-Alive
+</code></pre>
 
-<div class="highlight highlight-json"><pre><span class="p">{</span>
-  <span class="nt">"key"</span><span class="p">:</span> <span class="s2">"0123-4567-89ab-cdef"</span><span class="p">,</span>
-  <span class="nt">"status"</span><span class="p">:</span> <span class="s2">"working"</span>
-<span class="p">}</span>
-</pre></div>
+<div class="highlight highlight-json"><pre>{
+  <span class="s2">"key"</span>: <span class="s2">"0123-4567-89ab-cdef"</span>,
+  <span class="s2">"status"</span>: <span class="s2">"working"</span>
+}</pre></div>
 
 <h2>
-<a name="resposta-4xx-2" class="anchor" href="#resposta-4xx-2"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+<a id="resposta-4xx-2" class="anchor" href="#resposta-4xx-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
 
 <p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -509,11 +502,10 @@ Content-Type: application/pdf
 <li><strong>Corpo:</strong></li>
 </ul>
 
-<div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Invalid parameters."</span> <span class="p">}</span>
-</pre></div>
+<div class="highlight highlight-json"><pre>{ <span class="s2">"message"</span>: <span class="s2">"Invalid parameters."</span> }</pre></div>
 
 <h2>
-<a name="resposta-5xx-2" class="anchor" href="#resposta-5xx-2"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+<a id="resposta-5xx-2" class="anchor" href="#resposta-5xx-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
 
 <p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -529,11 +521,10 @@ Content-Type: application/pdf
 <li><strong>Corpo:</strong></li>
 </ul>
 
-<div class="highlight highlight-json"><pre><span class="p">{</span> <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span> <span class="p">}</span>
-</pre></div>
+<div class="highlight highlight-json"><pre>{ <span class="s2">"message"</span>: <span class="s2">"Server error."</span> }</pre></div>
 
 <h1>
-<a name="cria%C3%A7%C3%A3o-de-lista-de-assinatura" class="anchor" href="#cria%C3%A7%C3%A3o-de-lista-de-assinatura"><span class="octicon octicon-link"></span></a>
+<a id="criação-de-lista-de-assinatura" class="anchor" href="#cria%C3%A7%C3%A3o-de-lista-de-assinatura" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="criacao-de-lista-de-assinatura"></a>Criação de lista de assinatura</h1>
 
 <p>É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação. Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, a mensagem e opcionalmente se deseja enviar e-mail para os signatários ou não.</p>
@@ -556,16 +547,15 @@ Content-Type: application/pdf
 <li>
 <p><strong>Corpo:</strong></p>
 
-<div class="highlight highlight-json"><pre><span class="p">{</span>
-  <span class="nt">"signers"</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span> <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"foo@example.com"</span><span class="p">,</span> <span class="nt">"act"</span><span class="p">:</span> <span class="s2">"sign"</span> <span class="p">},</span>
-    <span class="p">{</span> <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"bar@example.com"</span><span class="p">,</span> <span class="nt">"act"</span><span class="p">:</span> <span class="s2">"witness"</span> <span class="p">}</span>
-  <span class="p">],</span>
+<div class="highlight highlight-json"><pre>{
+  <span class="s2">"signers"</span>: [
+    { <span class="s2">"email"</span>: <span class="s2">"foo@example.com"</span>, <span class="s2">"act"</span>: <span class="s2">"sign"</span> },
+    { <span class="s2">"email"</span>: <span class="s2">"bar@example.com"</span>, <span class="s2">"act"</span>: <span class="s2">"witness"</span> }
+  ],
 
-  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Hi guys, please sign this document."</span><span class="p">,</span>
-  <span class="nt">"skip_email"</span><span class="p">:</span> <span class="kc">false</span>
-<span class="p">}</span>
-</pre></div>
+  <span class="s2">"message"</span>: <span class="s2">"Hi guys, please sign this document."</span>,
+  <span class="s2">"skip_email"</span>: <span class="kc">false</span>
+}</pre></div>
 </li>
 </ul>
 
@@ -601,7 +591,30 @@ que caso seja fornecido o parametro <code>skip_email</code><code>como *true*, o 
 é importante observar que como o valor padrão desse parametro é</code>false` ele pode ser omitido do json que é enviado para o servidor caso você deseje enviar os e-mails normalmente.</p>
 
 <h1>
-<a name="cria%C3%A7%C3%A3o-de-pacote-de-documentos" class="anchor" href="#cria%C3%A7%C3%A3o-de-pacote-de-documentos"><span class="octicon octicon-link"></span></a>
+<a id="download-de-documento" class="anchor" href="#download-de-documento" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+<a name="download-de-documento"></a>Download de documento</h1>
+
+<p>Você pode realizar download de um arquivo.  O arquivo original empacotado com um arquivo de log e enviado em <strong>formato ZIP</strong>.  O empacotamento é realizado sob demanda e em <em>background</em>, para isso, o servidor não irá aguardar a conclusão do empacotamento para retornar a requisição, ao invés disso, ele irá retorna uma respota com <em>status</em> 201 indicando o início do empacotamento.  Enquanto ocorre o empacotamento o servidor irá retornar a mesma resposta 201.  Quando o processo for concluído, a resposta será código 200 contendo em seu corpo o ZIP.</p>
+
+<p>Você deverá realizar uma espera ativa, efetuando diversas requisições e obtendo respostas 201 até obter um código 200.  O empacotamento ocorre em 2 ou 3 segundos no máximo, por isso, <strong>recomendamos realizar uma requisição por segundo</strong> até você obter um código 200, dessa forma em 2 ou 3 requisições você obterá o ZIP.</p>
+
+<ul>
+<li>
+<strong>Method:</strong> GET</li>
+<li>
+<strong>Path:</strong> /v1/documents/:key/download</li>
+<li>
+<strong>Cabeçalhos:</strong>
+
+<ul>
+<li>
+<strong>Accept</strong>: application/json</li>
+</ul>
+</li>
+</ul>
+
+<h1>
+<a id="criação-de-pacote-de-documentos" class="anchor" href="#cria%C3%A7%C3%A3o-de-pacote-de-documentos" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="criacao-de-pacote-de-documentos"></a>Criação de pacote de documentos</h1>
 
 <p>Você pode criar um pacote de documentos caso você deseja possibilitar ao signatário que ele assine todos os documentos em uma única etapa (<em>feature</em> atualmente disponível apenas via <em>widget</em>).  Para isto, é necessário que os documentos sejam <em>empacotados</em> em uma estrutura.  A criação de um pacote é extremamente simples, basta fazer uma requisição com o <em>array</em> de documentos que devam compor o pacote.</p>
@@ -624,19 +637,18 @@ que caso seja fornecido o parametro <code>skip_email</code><code>como *true*, o 
 <li>
 <p><strong>Corpo:</strong></p>
 
-<div class="highlight highlight-json"><pre><span class="p">{</span>
-  <span class="nt">"keys"</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">"0b2ec469-6b49-42bb-809f-d978279baeeb"</span><span class="p">,</span>
-    <span class="s2">"db75a09b-6b30-48b9-b9f0-873951a050ed"</span><span class="p">,</span>
+<div class="highlight highlight-json"><pre>{
+  <span class="s2">"keys"</span>: [
+    <span class="s2">"0b2ec469-6b49-42bb-809f-d978279baeeb"</span>,
+    <span class="s2">"db75a09b-6b30-48b9-b9f0-873951a050ed"</span>,
     <span class="s2">"42334730-5a93-48ae-b5e4-e8e86d62610a"</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-</pre></div>
+  ]
+}</pre></div>
 </li>
 </ul>
 
 <h1>
-<a name="hooks" class="anchor" href="#hooks"><span class="octicon octicon-link"></span></a>
+<a id="hooks" class="anchor" href="#hooks" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="hooks"></a>Hooks</h1>
 
 <p>É possível que a Clicksign notifique outras aplições à respeito da alteração de estado de um determinado documento. O estado de um documento é alterado quando um dos seguintes eventos ocorrem:</p>
@@ -659,7 +671,7 @@ que caso seja fornecido o parametro <code>skip_email</code><code>como *true*, o 
 </ul>
 
 <h2>
-<a name="configura%C3%A7%C3%A3o-de-hooks" class="anchor" href="#configura%C3%A7%C3%A3o-de-hooks"><span class="octicon octicon-link"></span></a>Configuração de hooks</h2>
+<a id="configuração-de-hooks" class="anchor" href="#configura%C3%A7%C3%A3o-de-hooks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuração de hooks</h2>
 
 <p>Cadastra um <em>hook</em> para um determinado usuário.</p>
 
@@ -679,25 +691,24 @@ que caso seja fornecido o parametro <code>skip_email</code><code>como *true*, o 
 </ul>
 
 <h2>
-<a name="resposta-200" class="anchor" href="#resposta-200"><span class="octicon octicon-link"></span></a>Resposta 200</h2>
+<a id="resposta-200" class="anchor" href="#resposta-200" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resposta 200</h2>
 
 <p>Caso não ocorra nenhuma falha na requisição, a resposta será status 200 e seu corpo será um JSON contendo os dados da <em>hook</em> recém criada.</p>
 
-<div class="highlight highlight-http"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span><span class="l">application/json</span>
-</pre></div>
+<pre lang="http"><code>HTTP/1.1 200 OK
+Content-Type:application/json
+</code></pre>
 
-<div class="highlight highlight-json"><pre><span class="p">{</span>
-  <span class="nt">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-  <span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://example.com"</span><span class="p">,</span>
-  <span class="nt">"document_id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2014-07-08T12:35:55.777-03:00"</span><span class="p">,</span>
-  <span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2014-07-08T12:35:55.777-03:00"</span>
-<span class="p">}</span>
-</pre></div>
+<div class="highlight highlight-json"><pre>{
+  <span class="s2">"id"</span>:<span class="m">1</span>,
+  <span class="s2">"url"</span>:<span class="s2">"http://example.com"</span>,
+  <span class="s2">"document_id"</span>: <span class="m">1</span>,
+  <span class="s2">"created_at"</span>:<span class="s2">"2014-07-08T12:35:55.777-03:00"</span>,
+  <span class="s2">"updated_at"</span>:<span class="s2">"2014-07-08T12:35:55.777-03:00"</span>
+}</pre></div>
 
 <h2>
-<a name="resposta-4xx-3" class="anchor" href="#resposta-4xx-3"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
+<a id="resposta-4xx-3" class="anchor" href="#resposta-4xx-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resposta 4XX</h2>
 
 <p>Caso o cliente utilize parâmetros inválidos, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -713,15 +724,14 @@ que caso seja fornecido o parametro <code>skip_email</code><code>como *true*, o 
 <li>
 <p><strong>Corpo:</strong></p>
 
-<div class="highlight highlight-json"><pre><span class="p">{</span>
-  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Parâmetros inválidos."</span>
-<span class="p">}</span>
-</pre></div>
+<div class="highlight highlight-json"><pre>{
+  <span class="s2">"message"</span>: <span class="s2">"Parâmetros inválidos."</span>
+}</pre></div>
 </li>
 </ul>
 
 <h2>
-<a name="resposta-5xx-3" class="anchor" href="#resposta-5xx-3"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
+<a id="resposta-5xx-3" class="anchor" href="#resposta-5xx-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
 
 <p>Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um <em>JSON</em> contendo uma mensagem de erro.</p>
 
@@ -737,34 +747,32 @@ que caso seja fornecido o parametro <code>skip_email</code><code>como *true*, o 
 <li>
 <p><strong>Corpo:</strong></p>
 
-<div class="highlight highlight-json"><pre><span class="p">{</span>
-  <span class="nt">"message"</span><span class="p">:</span> <span class="s2">"Server error."</span>
-<span class="p">}</span>
-</pre></div>
+<div class="highlight highlight-json"><pre>{
+  <span class="s2">"message"</span>: <span class="s2">"Server error."</span>
+}</pre></div>
 </li>
 </ul>
 
 <h1>
-<a name="exemplos" class="anchor" href="#exemplos"><span class="octicon octicon-link"></span></a>
+<a id="exemplos" class="anchor" href="#exemplos" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="exemplos"></a>Exemplos</h1>
 
 <p>Os exemplos abaixo podem ser executados direto da linha de comando utilizando o cURL.</p>
 
-<div class="highlight highlight-bash"><pre><span class="nb">export </span><span class="nv">DOMAIN</span><span class="o">=</span>api.clicksign.com
-<span class="nb">export </span><span class="nv">TOKEN</span><span class="o">=</span>put-your-token-here
-<span class="nb">export </span><span class="nv">DOCUMENT</span><span class="o">=</span>/home/joe/document-de-exemplo.pdf
+<div class="highlight highlight-bash"><pre><span class="k">export</span> DOMAIN=api.clicksign.com
+<span class="k">export</span> TOKEN=put-your-token-here
+<span class="k">export</span> DOCUMENT=/home/joe/document-de-exemplo.pdf
 
-<span class="c"># Obter os documentos de uma determinada conta</span>
-curl -X GET -H <span class="s2">"Accept: application/json"</span> https://<span class="nv">$DOMAIN</span>/v1/documents/?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
+<span class="c1"># Obter os documentos de uma determinada conta</span>
+curl -X GET -H <span class="s2">"Accept: application/json"</span> https://<span class="nv">$DOMAIN</span>/v1/documents/<span class="o">?</span>access_token=<span class="nv">$TOKEN</span>
 
-<span class="c"># Realizar upload de um documento</span>
-curl -X POST -H <span class="s2">"Accept: application/json"</span> -F <span class="s2">"document[archive][original]=@$DOCUMENT"</span> https://<span class="nv">$DOMAIN</span>/v1/documents?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
+<span class="c1"># Realizar upload de um documento</span>
+curl -X POST -H <span class="s2">"Accept: application/json"</span> -F <span class="s2">"document[archive][original]=@<span class="nv">$DOCUMENT</span>"</span> https://<span class="nv">$DOMAIN</span>/v1/documents<span class="o">?</span>access_token=<span class="nv">$TOKEN</span>
 
-<span class="nb">export </span><span class="nv">KEY</span><span class="o">=</span>ver-key-retornada-no-JSON
+<span class="k">export</span> KEY=ver-key-retornada-no-JSON
 
-<span class="c"># Criar uma lista de assinatura</span>
-curl -X POST -H <span class="s2">"Accept: application/json"</span> -H <span class="s2">"Content-type: application/json"</span> -d <span class="s1">'{"signers": [{ "email": "joe@example.com", "act": "sign" }]}'</span> https://<span class="nv">$DOMAIN</span>/v1/documents/<span class="nv">$KEY</span>/list?access_token<span class="o">=</span><span class="nv">$TOKEN</span>
-</pre></div>
+<span class="c1"># Criar uma lista de assinatura</span>
+curl -X POST -H <span class="s2">"Accept: application/json"</span> -H <span class="s2">"Content-type: application/json"</span> -d <span class="s1">'{"signers": [{ "email": "joe@example.com", "act": "sign" }]}'</span> https://<span class="nv">$DOMAIN</span>/v1/documents/<span class="nv">$KEY</span>/list<span class="o">?</span>access_token=<span class="nv">$TOKEN</span></pre></div>
       </section>
     </div>
 
