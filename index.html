@@ -222,7 +222,7 @@ em JSON, porém todos os exemplos também podem ter as respostas no formato <cod
 <a id="listagem-de-documentos" class="anchor" href="#listagem-de-documentos" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="listagem-de-documentos"></a>Listagem de documentos</h1>
 
-<p>Você pode obter uma listagem de todos os documentos da conta além de informações extras pertinentes ao andamento da lista de assinatura. A listagem retornarár todos os documentos na conta, sem a necessidade de parâmetros de paginação ou busca.</p>
+<p>Você pode obter uma listagem de todos os documentos da conta além de informações extras pertinentes ao andamento da lista de assinatura. A listagem retornará todos os documentos na conta, sem a necessidade de parâmetros de paginação ou busca.</p>
 
 <ul>
 <li>
@@ -355,7 +355,7 @@ Connection: Keep-Alive
 <a id="visualização-de-documentos" class="anchor" href="#visualiza%C3%A7%C3%A3o-de-documentos" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="visualizacao-de-documento"></a>Visualização de documentos</h1>
 
-<p>Caso seja necessário obter detalhes sobre um documento em específico, existe um endpoint onde é possível
+<p>Caso seja necessário obter detalhes sobre um documento em específico, existe um <em>endpoint</em> onde é possível
 obter essas informações. A visualização de um documento funciona de forma
 semelhante as demais chamadas da api, sendo necessário apenas passar a <strong>key</strong>
 do documento.</p>
@@ -577,7 +577,7 @@ Connection: Keep-Alive
 
 <p>A mensagem a ser enviada aos signatários é definida pelo campo <code>message</code>.</p>
 
-<p>Além disso também é possível especificar se deseja ao iniciar a lista de assinatura que seja enviado um e-mail para os signatários ou não, isso é feito através do parametro <code>skip_email</code> que recebe um boolean.</p>
+<p>Além disso também é possível especificar se deseja ao iniciar a lista de assinatura que seja enviado um e-mail para os signatários ou não, isso é feito através do parâmetro <code>skip_email</code> que recebe um boolean.</p>
 
 <p>Os possíveis valores de <code>skip_email</code> são:</p>
 
@@ -586,9 +586,9 @@ Connection: Keep-Alive
 <li>true</li>
 </ul>
 
-<p>Caso o parametro seja passado como <strong>true</strong> ao criar a lista de assinatura não será enviado nenhum e-mail para os signatários. É importante notar
-que caso seja fornecido o parametro <code>skip_email</code><code>como *true*, o parametro</code>message<code>se torna desnecessário dado que não será enviado nenhum e-mail. Também
-é importante observar que como o valor padrão desse parametro é</code>false` ele pode ser omitido do json que é enviado para o servidor caso você deseje enviar os e-mails normalmente.</p>
+<p>Caso o parâmetro seja passado como <strong>true</strong> ao criar a lista de assinatura não será enviado nenhum e-mail para os signatários. É importante notar
+que caso seja fornecido o parâmetro <code>skip_email</code><code>como *true*, o parâmetro</code>message<code>se torna desnecessário dado que não será enviado nenhum e-mail. Também
+é importante observar que como o valor padrão desse parâmetro é</code>false` ele pode ser omitido do json que é enviado para o servidor caso você deseje enviar os e-mails normalmente.</p>
 
 <h1>
 <a id="download-de-documento" class="anchor" href="#download-de-documento" aria-hidden="true"><span class="octicon octicon-link"></span></a>
