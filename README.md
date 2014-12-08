@@ -2,7 +2,7 @@
 
 Estão disponíveis bibliotecas para as seguintes plataformas:
 
-- [.Net](https://www.nuget.org/packages/Clicksign4dotNet/)
+- [.Net](https://www.nuget.org/packages/Clicksign4dotNet)
 - [Ruby](https://github.com/clicksign/clicksign-ruby)
 - [PHP](https://github.com/clicksign/clicksign-php)
 
@@ -34,6 +34,7 @@ documento para que um documento seja assinado.
 - [Visualizacão de Documento](#visualizacao-de-documento)
 - [Upload de documentos](#upload-de-documentos)
 - [Criação de lista de assinatura](#criacao-de-lista-de-assinatura)
+- [Upload e criação de lista de assinatura](#upload-e-criacao-de-lista-de-assinatura)
 - [Download de documento](#download-de-documento)
 - [Criação de pacote de documentos](#criacao-de-pacote-de-documentos)
 - [Hooks](#hooks)
@@ -402,7 +403,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
 
 # <a name="criacao-de-lista-de-assinatura"></a>Criação de lista de assinatura
 
-É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação. Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, a mensagem e opcionalmente se deseja enviar e-mail para os signatários ou não.
+É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação.  Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, a mensagem e opcionalmente se deseja enviar e-mail para os signatários ou não.
 
 * **Method:** POST
 * **Path:** /v1/documents/:key/list
@@ -423,7 +424,7 @@ Caso ocorra qualquer tipo de falha no servidor, o corpo da resposta será um _JS
   }
   ```
 
-Para criar uma lista de assinatura, adicionar signatários ao documento e iniciar o processo de assinatura automaticamente, deve-se adicionar um campo `signers` ao JSON. Caso não haja o campo `signers` ou ele seja `null`, o documento não possuirá lista de assinatura definida.
+Para criar uma lista de assinatura, adicionar signatários ao documento e iniciar o processo de assinatura automaticamente, deve-se adicionar um campo `signers` ao JSON.  Caso não haja o campo `signers` ou ele seja `null`, o documento não possuirá lista de assinatura definida.
 
 O campo `signers` deverá ser um `Array` contendo os signatários. Cada signatário é especificado através de e-mail e ação, sendo os respectivos campos `email` e `act`.
 
@@ -447,6 +448,49 @@ Os possíveis valores de ```skip_email``` são:
 Caso o parametro seja passado como **true** ao criar a lista de assinatura não será enviado nenhum e-mail para os signatários. É importante notar
 que caso seja fornecido o parametro ```skip_email```` como *true*, o parametro `message` se torna desnecessário dado que não será enviado nenhum e-mail. Também
 é importante observar que como o valor padrão desse parametro é `false` ele pode ser omitido do json que é enviado para o servidor caso você deseje enviar os e-mails normalmente.
+
+
+# <a name="upload-e-criacao-de-lista-de-assinatura"></a>Upload e criação de lista de assinatura
+
+É possível realizar o _upload_ e a criação da lista de assinatura em uma única ação.  Basta enviar, além do documento, os parâmetros da lista de assinatura.  Todas as opções válidas em ambas chamadas continuam válidas aqui.  O retorno será conforme a chamada de _upload_ de documento.
+
+* **Method:** POST
+* **Path:** /v1/documents
+  - **Accept**: application/json
+  - **Content-Type:** multipart/form-data; boundary=700481
+* **Corpo:**
+  ```
+  --700481
+  Content-Disposition: form-data; name="document[archive][original]"; filename="06pages.pdf"
+  Content-Type: application/pdf
+  ...
+
+  --700481
+  Content-Disposition: form-data; name="signers[][email]"
+
+  elefanta@example.org
+  --700481
+  Content-Disposition: form-data; name="signers[][act]"
+
+  sign
+  --700481
+  Content-Disposition: form-data; name="signers[][email]"
+
+  elefante@example.org
+  --700481
+  Content-Disposition: form-data; name="signers[][act]"
+
+  sign
+  --700481
+  Content-Disposition: form-data; name="message"
+
+  hello world
+  --700481
+  Content-Disposition: form-data; name="access_token"
+
+  d76a22b82a7d0807d406fa64231fae97
+  --700481--
+  ```
 
 
 # <a name="download-de-documento"></a>Download de documento
