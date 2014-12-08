@@ -1,5 +1,11 @@
 # TL;DR
 
+Estão disponíveis bibliotecas para as seguintes plataformas:
+
+- [.Net](https://www.nuget.org/packages/Clicksign4dotNet/)
+- [Ruby](https://github.com/clicksign/clicksign-ruby)
+- [PHP](https://github.com/clicksign/clicksign-php)
+
 Particularidades da API da Clicksign:
 
 - a versão da API está contida no caminho da requisição;
@@ -16,11 +22,6 @@ Fluxo de um documento:
 Cada documento possui uma chave única dentro da Clicksign.  Através desta chave
 é feita toda referência a um documento.  É necessário criar uma lista de
 documento para que um documento seja assinado.
-
-Estão disponíveis bibliotecas para as seguintes plataformas:
-
-- [.Net](https://www.nuget.org/packages/Clicksign4dotNet/)
-- [Ruby](https://github.com/clicksign/clicksign-ruby)
 
 # Índice
 
