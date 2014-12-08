@@ -2,7 +2,7 @@
 
 Estão disponíveis bibliotecas para as seguintes plataformas:
 
-- [.Net](https://www.nuget.org/packages/Clicksign4dotNet)
+- [.Net](https://github.com/clicksign/clicksign-dotnet)
 - [Ruby](https://github.com/clicksign/clicksign-ruby)
 - [PHP](https://github.com/clicksign/clicksign-php)
 
