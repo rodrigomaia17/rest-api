@@ -34,6 +34,14 @@
         <h1>
 <a id="tldr" class="anchor" href="#tldr" aria-hidden="true"><span class="octicon octicon-link"></span></a>TL;DR</h1>
 
+<p>Estão disponíveis bibliotecas para as seguintes plataformas:</p>
+
+<ul>
+<li><a href="https://github.com/clicksign/clicksign-dotnet">.Net</a></li>
+<li><a href="https://github.com/clicksign/clicksign-ruby">Ruby</a></li>
+<li><a href="https://github.com/clicksign/clicksign-php">PHP</a></li>
+</ul>
+
 <p>Particularidades da API da Clicksign:</p>
 
 <ul>
@@ -55,13 +63,6 @@
 é feita toda referência a um documento.  É necessário criar uma lista de
 documento para que um documento seja assinado.</p>
 
-<p>Estão disponíveis bibliotecas para as seguintes plataformas:</p>
-
-<ul>
-<li><a href="https://www.nuget.org/packages/Clicksign4dotNet/">.Net</a></li>
-<li><a href="https://github.com/clicksign/clicksign-ruby">Ruby</a></li>
-</ul>
-
 <h1>
 <a id="Índice" class="anchor" href="#%C3%8Dndice" aria-hidden="true"><span class="octicon octicon-link"></span></a>Índice</h1>
 
@@ -75,6 +76,7 @@ documento para que um documento seja assinado.</p>
 <li><a href="#visualizacao-de-documento">Visualizacão de Documento</a></li>
 <li><a href="#upload-de-documentos">Upload de documentos</a></li>
 <li><a href="#criacao-de-lista-de-assinatura">Criação de lista de assinatura</a></li>
+<li><a href="#upload-e-criacao-de-lista-de-assinatura">Upload e criação de lista de assinatura</a></li>
 <li><a href="#download-de-documento">Download de documento</a></li>
 <li><a href="#criacao-de-pacote-de-documentos">Criação de pacote de documentos</a></li>
 <li><a href="#hooks">Hooks</a></li>
@@ -141,11 +143,11 @@ Connection: Keep-Alive
 
 <div class="highlight highlight-json"><pre>[
   {
-    <span class="s2">"id"</span>: <span class="s2">"abcd..."</span>
+    <span class="pl-s1"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>abcd...<span class="pl-pds">"</span></span>
   },
 
   {
-    <span class="s2">"id"</span>: <span class="s2">"..."</span>
+    <span class="pl-s1"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>...<span class="pl-pds">"</span></span>
   }
 ]</pre></div>
 
@@ -193,7 +195,7 @@ versão 3 deixará de ser suportada.</p>
 melhorias, novas funcionalidades e correções de <em>bugs</em>, desde que não alterem o
 comportamento esperado, não implicam no lançamento de uma nova versão.</p>
 
-<p>As melhorias, novas funcionalidades e correções, assim como o lançamento de novas
+<p>As melhorias, noas funcionalidades e correções, assim como o lançamento de novas
 versões da API, serão comunicados através de e-mail para todos os usuários que
 possuem chave da API configurada nos ambientes de <em>production</em> e <em>demo</em>.</p>
 
@@ -222,7 +224,7 @@ em JSON, porém todos os exemplos também podem ter as respostas no formato <cod
 <a id="listagem-de-documentos" class="anchor" href="#listagem-de-documentos" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="listagem-de-documentos"></a>Listagem de documentos</h1>
 
-<p>Você pode obter uma listagem de todos os documentos da conta além de informações extras pertinentes ao andamento da lista de assinatura. A listagem retornará todos os documentos na conta, sem a necessidade de parâmetros de paginação ou busca.</p>
+<p>Você pode obter uma listagem de todos os documentos da conta além de informações extras pertinentes ao andamento da lista de assinatura. A listagem retornarár todos os documentos na conta, sem a necessidade de parâmetros de paginação ou busca.</p>
 
 <ul>
 <li>
@@ -247,65 +249,65 @@ Connection: Keep-Alive
 
 <div class="highlight highlight-json"><pre>[
   {
-    <span class="s2">"document"</span>: {
-      <span class="s2">"key"</span>: <span class="s2">"1123-4567-89ab-cdef"</span>,
-      <span class="err">original_name</span>: <span class="s2">"document-2.pdf"</span>
-      <span class="s2">"status"</span><span class="err">:</span> <span class="s2">"completed"</span>,
-      <span class="s2">"archive_id"</span>: <span class="m">2</span>,
-      <span class="s2">"created_at"</span>: <span class="s2">"2014-06-18T09:55:16.873-03:00"</span>,
-      <span class="s2">"updated_at"</span>: <span class="s2">"2014-06-18T10:02:03.056-03:00"</span>,
-      <span class="s2">"user_key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
-      <span class="s2">"list"</span>: {
-        <span class="s2">"locked"</span>:<span class="kc">null</span>,
-        <span class="s2">"started_at"</span>:<span class="kc">null</span>,
-        <span class="s2">"created_at"</span>:<span class="s2">"2014-06-18T09:57:14.434-03:00"</span>,
-        <span class="s2">"updated_at"</span>:<span class="s2">"2014-06-18T09:57:14.434-03:00"</span>,
-        <span class="s2">"user_key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
-        <span class="s2">"signatures"</span>: []
+    <span class="pl-s1"><span class="pl-pds">"</span>document<span class="pl-pds">"</span></span>: {
+      <span class="pl-s1"><span class="pl-pds">"</span>key<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>1123-4567-89ab-cdef<span class="pl-pds">"</span></span>,
+      <span class="pl-ii">original_name</span>: <span class="pl-s1"><span class="pl-pds">"</span>document-2.pdf<span class="pl-pds">"</span></span>
+      <span class="pl-s1"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span><span class="pl-ii">:</span> <span class="pl-s1"><span class="pl-pds">"</span>completed<span class="pl-pds">"</span></span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>archive_id<span class="pl-pds">"</span></span>: <span class="pl-c1">2</span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>created_at<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T09:55:16.873-03:00<span class="pl-pds">"</span></span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>updated_at<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T10:02:03.056-03:00<span class="pl-pds">"</span></span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>user_key<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>A0BF-848B-0A42-916C<span class="pl-pds">"</span></span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>list<span class="pl-pds">"</span></span>: {
+        <span class="pl-s1"><span class="pl-pds">"</span>locked<span class="pl-pds">"</span></span>:<span class="pl-c1">null</span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>started_at<span class="pl-pds">"</span></span>:<span class="pl-c1">null</span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>created_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T09:57:14.434-03:00<span class="pl-pds">"</span></span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>updated_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T09:57:14.434-03:00<span class="pl-pds">"</span></span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>user_key<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>A0BF-848B-0A42-916C<span class="pl-pds">"</span></span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>signatures<span class="pl-pds">"</span></span>: []
       }
     }
   },
   {
-    <span class="s2">"document"</span>: {
-      <span class="s2">"key"</span>: <span class="s2">"0123-4567-89ab-cdef"</span>,
-      <span class="err">original_name</span>: <span class="s2">"document-1.pdf"</span>
-      <span class="s2">"status"</span><span class="err">:</span> <span class="s2">"completed"</span>,
-      <span class="s2">"archive_id"</span>: <span class="m">1</span>,
-      <span class="s2">"created_at"</span>: <span class="s2">"2014-06-18T09:55:16.873-03:00"</span>,
-      <span class="s2">"updated_at"</span>: <span class="s2">"2014-06-18T10:02:03.056-03:00"</span>,
-      <span class="s2">"user_key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
-      <span class="s2">"list"</span>: {
-        <span class="s2">"locked"</span>:<span class="kc">null</span>,
-        <span class="s2">"started_at"</span>:<span class="s2">"2014-06-18T09:58:46.450-03:00"</span>,
-        <span class="s2">"created_at"</span>:<span class="s2">"2014-06-18T09:57:14.434-03:00"</span>,
-        <span class="s2">"updated_at"</span>:<span class="s2">"2014-06-18T09:58:46.452-03:00"</span>,
-        <span class="s2">"user_key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
-        <span class="s2">"signatures"</span>: [
+    <span class="pl-s1"><span class="pl-pds">"</span>document<span class="pl-pds">"</span></span>: {
+      <span class="pl-s1"><span class="pl-pds">"</span>key<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>0123-4567-89ab-cdef<span class="pl-pds">"</span></span>,
+      <span class="pl-ii">original_name</span>: <span class="pl-s1"><span class="pl-pds">"</span>document-1.pdf<span class="pl-pds">"</span></span>
+      <span class="pl-s1"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span><span class="pl-ii">:</span> <span class="pl-s1"><span class="pl-pds">"</span>completed<span class="pl-pds">"</span></span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>archive_id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>created_at<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T09:55:16.873-03:00<span class="pl-pds">"</span></span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>updated_at<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T10:02:03.056-03:00<span class="pl-pds">"</span></span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>user_key<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>A0BF-848B-0A42-916C<span class="pl-pds">"</span></span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>list<span class="pl-pds">"</span></span>: {
+        <span class="pl-s1"><span class="pl-pds">"</span>locked<span class="pl-pds">"</span></span>:<span class="pl-c1">null</span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>started_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T09:58:46.450-03:00<span class="pl-pds">"</span></span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>created_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T09:57:14.434-03:00<span class="pl-pds">"</span></span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>updated_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T09:58:46.452-03:00<span class="pl-pds">"</span></span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>user_key<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>A0BF-848B-0A42-916C<span class="pl-pds">"</span></span>,
+        <span class="pl-s1"><span class="pl-pds">"</span>signatures<span class="pl-pds">"</span></span>: [
           {
-            <span class="s2">"display_name"</span>:<span class="s2">"Daniel Gaboardi Libanori"</span>,
-            <span class="s2">"title"</span>:<span class="kc">null</span>,
-            <span class="s2">"company_name"</span>:<span class="kc">null</span>,
-            <span class="s2">"key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
-            <span class="s2">"act"</span>:<span class="s2">"receipt"</span>,
-            <span class="s2">"decision"</span>:<span class="s2">"agreed"</span>,
-            <span class="s2">"address"</span>:<span class="s2">"201.81.113.174"</span>,
-            <span class="s2">"email"</span>:<span class="s2">"daniel.libanori@clicksign.com"</span>,
-            <span class="s2">"signed_at"</span>:<span class="s2">"2014-06-18T09:59:58.713-03:00"</span>,
-            <span class="s2">"created_at"</span>:<span class="s2">"2014-06-18T09:57:24.191-03:00"</span>,
-            <span class="s2">"updated_at"</span>:<span class="s2">"2014-06-18T09:59:58.836-03:00"</span>
+            <span class="pl-s1"><span class="pl-pds">"</span>display_name<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>Daniel Gaboardi Libanori<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>:<span class="pl-c1">null</span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>company_name<span class="pl-pds">"</span></span>:<span class="pl-c1">null</span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>key<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>A0BF-848B-0A42-916C<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>act<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>receipt<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>decision<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>agreed<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>address<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>201.81.113.174<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>daniel.libanori@clicksign.com<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>signed_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T09:59:58.713-03:00<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>created_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T09:57:24.191-03:00<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>updated_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T09:59:58.836-03:00<span class="pl-pds">"</span></span>
           },
           {
-            <span class="s2">"display_name"</span>:<span class="s2">"Daniel Gaboardi Libanori"</span>,
-            <span class="s2">"title"</span>:<span class="kc">null</span>,
-            <span class="s2">"company_name"</span>:<span class="kc">null</span>,
-            <span class="s2">"key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
-            <span class="s2">"act"</span>:<span class="s2">"intervening"</span>,
-            <span class="s2">"decision"</span>:<span class="s2">"agreed"</span>,
-            <span class="s2">"address"</span>:<span class="s2">"201.81.113.174"</span>,
-            <span class="s2">"email"</span>:<span class="s2">"daniel.libanori@clicksign.com"</span>,
-            <span class="s2">"signed_at"</span>:<span class="s2">"2014-06-18T10:01:18.327-03:00"</span>,
-            <span class="s2">"created_at"</span>:<span class="s2">"2014-06-18T09:57:31.114-03:00"</span>,
-            <span class="s2">"updated_at"</span>:<span class="s2">"2014-06-18T10:01:18.389-03:00"</span>
+            <span class="pl-s1"><span class="pl-pds">"</span>display_name<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>Daniel Gaboardi Libanori<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>:<span class="pl-c1">null</span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>company_name<span class="pl-pds">"</span></span>:<span class="pl-c1">null</span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>key<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>A0BF-848B-0A42-916C<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>act<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>intervening<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>decision<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>agreed<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>address<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>201.81.113.174<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>daniel.libanori@clicksign.com<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>signed_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T10:01:18.327-03:00<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>created_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T09:57:31.114-03:00<span class="pl-pds">"</span></span>,
+            <span class="pl-s1"><span class="pl-pds">"</span>updated_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T10:01:18.389-03:00<span class="pl-pds">"</span></span>
           }
         ]
       }
@@ -330,7 +332,7 @@ Connection: Keep-Alive
 <li><strong>Corpo:</strong></li>
 </ul>
 
-<div class="highlight highlight-json"><pre>{ <span class="s2">"message"</span>: <span class="s2">"Invalid parameters."</span> }</pre></div>
+<div class="highlight highlight-json"><pre>{ <span class="pl-s1"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>Invalid parameters.<span class="pl-pds">"</span></span> }</pre></div>
 
 <h2>
 <a id="resposta-5xx" class="anchor" href="#resposta-5xx" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
@@ -349,13 +351,13 @@ Connection: Keep-Alive
 <li><strong>Corpo:</strong></li>
 </ul>
 
-<div class="highlight highlight-json"><pre>{ <span class="s2">"message"</span>: <span class="s2">"Server error."</span> }</pre></div>
+<div class="highlight highlight-json"><pre>{ <span class="pl-s1"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>Server error.<span class="pl-pds">"</span></span> }</pre></div>
 
 <h1>
 <a id="visualização-de-documentos" class="anchor" href="#visualiza%C3%A7%C3%A3o-de-documentos" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="visualizacao-de-documento"></a>Visualização de documentos</h1>
 
-<p>Caso seja necessário obter detalhes sobre um documento em específico, existe um <em>endpoint</em> onde é possível
+<p>Caso seja necessário obter detalhes sobre um documento em específico, existe um endpoint onde é possível
 obter essas informações. A visualização de um documento funciona de forma
 semelhante as demais chamadas da api, sendo necessário apenas passar a <strong>key</strong>
 do documento.</p>
@@ -382,21 +384,21 @@ Connection: Keep-Alive
 </code></pre>
 
 <div class="highlight highlight-json"><pre>{
-  <span class="s2">"document"</span>: {
-    <span class="s2">"key"</span>: <span class="s2">"1123-4567-89ab-cdef"</span>,
-    <span class="err">original_name</span>: <span class="s2">"document-2.pdf"</span>
-    <span class="s2">"status"</span><span class="err">:</span> <span class="s2">"completed"</span>,
-    <span class="s2">"archive_id"</span>: <span class="m">2</span>,
-    <span class="s2">"created_at"</span>: <span class="s2">"2014-06-18T09:55:16.873-03:00"</span>,
-    <span class="s2">"updated_at"</span>: <span class="s2">"2014-06-18T10:02:03.056-03:00"</span>,
-    <span class="s2">"user_key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
-    <span class="s2">"list"</span>: {
-      <span class="s2">"locked"</span>:<span class="kc">null</span>,
-      <span class="s2">"started_at"</span>:<span class="kc">null</span>,
-      <span class="s2">"created_at"</span>:<span class="s2">"2014-06-18T09:57:14.434-03:00"</span>,
-      <span class="s2">"updated_at"</span>:<span class="s2">"2014-06-18T09:57:14.434-03:00"</span>,
-      <span class="s2">"user_key"</span>:<span class="s2">"A0BF-848B-0A42-916C"</span>,
-      <span class="s2">"signatures"</span>: []
+  <span class="pl-s1"><span class="pl-pds">"</span>document<span class="pl-pds">"</span></span>: {
+    <span class="pl-s1"><span class="pl-pds">"</span>key<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>1123-4567-89ab-cdef<span class="pl-pds">"</span></span>,
+    <span class="pl-ii">original_name</span>: <span class="pl-s1"><span class="pl-pds">"</span>document-2.pdf<span class="pl-pds">"</span></span>
+    <span class="pl-s1"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span><span class="pl-ii">:</span> <span class="pl-s1"><span class="pl-pds">"</span>completed<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>archive_id<span class="pl-pds">"</span></span>: <span class="pl-c1">2</span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>created_at<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T09:55:16.873-03:00<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>updated_at<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T10:02:03.056-03:00<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>user_key<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>A0BF-848B-0A42-916C<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>list<span class="pl-pds">"</span></span>: {
+      <span class="pl-s1"><span class="pl-pds">"</span>locked<span class="pl-pds">"</span></span>:<span class="pl-c1">null</span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>started_at<span class="pl-pds">"</span></span>:<span class="pl-c1">null</span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>created_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T09:57:14.434-03:00<span class="pl-pds">"</span></span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>updated_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-06-18T09:57:14.434-03:00<span class="pl-pds">"</span></span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>user_key<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>A0BF-848B-0A42-916C<span class="pl-pds">"</span></span>,
+      <span class="pl-s1"><span class="pl-pds">"</span>signatures<span class="pl-pds">"</span></span>: []
     }
   }
 }</pre></div>
@@ -418,7 +420,7 @@ Connection: Keep-Alive
 <li><strong>Corpo:</strong></li>
 </ul>
 
-<div class="highlight highlight-json"><pre>{ <span class="s2">"message"</span>: <span class="s2">"Invalid parameters."</span> }</pre></div>
+<div class="highlight highlight-json"><pre>{ <span class="pl-s1"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>Invalid parameters.<span class="pl-pds">"</span></span> }</pre></div>
 
 <h2>
 <a id="resposta-5xx-1" class="anchor" href="#resposta-5xx-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
@@ -437,7 +439,7 @@ Connection: Keep-Alive
 <li><strong>Corpo:</strong></li>
 </ul>
 
-<div class="highlight highlight-json"><pre>{ <span class="s2">"message"</span>: <span class="s2">"Server error."</span> }</pre></div>
+<div class="highlight highlight-json"><pre>{ <span class="pl-s1"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>Server error.<span class="pl-pds">"</span></span> }</pre></div>
 
 <h1>
 <a id="upload-de-documentos" class="anchor" href="#upload-de-documentos" aria-hidden="true"><span class="octicon octicon-link"></span></a>
@@ -481,8 +483,8 @@ Connection: Keep-Alive
 </code></pre>
 
 <div class="highlight highlight-json"><pre>{
-  <span class="s2">"key"</span>: <span class="s2">"0123-4567-89ab-cdef"</span>,
-  <span class="s2">"status"</span>: <span class="s2">"working"</span>
+  <span class="pl-s1"><span class="pl-pds">"</span>key<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>0123-4567-89ab-cdef<span class="pl-pds">"</span></span>,
+  <span class="pl-s1"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>working<span class="pl-pds">"</span></span>
 }</pre></div>
 
 <h2>
@@ -502,7 +504,7 @@ Connection: Keep-Alive
 <li><strong>Corpo:</strong></li>
 </ul>
 
-<div class="highlight highlight-json"><pre>{ <span class="s2">"message"</span>: <span class="s2">"Invalid parameters."</span> }</pre></div>
+<div class="highlight highlight-json"><pre>{ <span class="pl-s1"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>Invalid parameters.<span class="pl-pds">"</span></span> }</pre></div>
 
 <h2>
 <a id="resposta-5xx-2" class="anchor" href="#resposta-5xx-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resposta 5XX</h2>
@@ -521,13 +523,13 @@ Connection: Keep-Alive
 <li><strong>Corpo:</strong></li>
 </ul>
 
-<div class="highlight highlight-json"><pre>{ <span class="s2">"message"</span>: <span class="s2">"Server error."</span> }</pre></div>
+<div class="highlight highlight-json"><pre>{ <span class="pl-s1"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>Server error.<span class="pl-pds">"</span></span> }</pre></div>
 
 <h1>
 <a id="criação-de-lista-de-assinatura" class="anchor" href="#cria%C3%A7%C3%A3o-de-lista-de-assinatura" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <a name="criacao-de-lista-de-assinatura"></a>Criação de lista de assinatura</h1>
 
-<p>É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação. Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, a mensagem e opcionalmente se deseja enviar e-mail para os signatários ou não.</p>
+<p>É possível criar uma lista de assinatura e enviá-la a outras pessoas em uma única ação.  Para isso, é necessário que estejam presentes os campos que especificam o documento, os signatários, a mensagem e opcionalmente se deseja enviar e-mail para os signatários ou não.</p>
 
 <ul>
 <li>
@@ -548,18 +550,18 @@ Connection: Keep-Alive
 <p><strong>Corpo:</strong></p>
 
 <div class="highlight highlight-json"><pre>{
-  <span class="s2">"signers"</span>: [
-    { <span class="s2">"email"</span>: <span class="s2">"foo@example.com"</span>, <span class="s2">"act"</span>: <span class="s2">"sign"</span> },
-    { <span class="s2">"email"</span>: <span class="s2">"bar@example.com"</span>, <span class="s2">"act"</span>: <span class="s2">"witness"</span> }
+  <span class="pl-s1"><span class="pl-pds">"</span>signers<span class="pl-pds">"</span></span>: [
+    { <span class="pl-s1"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>foo@example.com<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>act<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>sign<span class="pl-pds">"</span></span> },
+    { <span class="pl-s1"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>bar@example.com<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>act<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>witness<span class="pl-pds">"</span></span> }
   ],
 
-  <span class="s2">"message"</span>: <span class="s2">"Hi guys, please sign this document."</span>,
-  <span class="s2">"skip_email"</span>: <span class="kc">false</span>
+  <span class="pl-s1"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>Hi guys, please sign this document.<span class="pl-pds">"</span></span>,
+  <span class="pl-s1"><span class="pl-pds">"</span>skip_email<span class="pl-pds">"</span></span>: <span class="pl-c1">false</span>
 }</pre></div>
 </li>
 </ul>
 
-<p>Para criar uma lista de assinatura, adicionar signatários ao documento e iniciar o processo de assinatura automaticamente, deve-se adicionar um campo <code>signers</code> ao JSON. Caso não haja o campo <code>signers</code> ou ele seja <code>null</code>, o documento não possuirá lista de assinatura definida.</p>
+<p>Para criar uma lista de assinatura, adicionar signatários ao documento e iniciar o processo de assinatura automaticamente, deve-se adicionar um campo <code>signers</code> ao JSON.  Caso não haja o campo <code>signers</code> ou ele seja <code>null</code>, o documento não possuirá lista de assinatura definida.</p>
 
 <p>O campo <code>signers</code> deverá ser um <code>Array</code> contendo os signatários. Cada signatário é especificado através de e-mail e ação, sendo os respectivos campos <code>email</code> e <code>act</code>.</p>
 
@@ -577,7 +579,7 @@ Connection: Keep-Alive
 
 <p>A mensagem a ser enviada aos signatários é definida pelo campo <code>message</code>.</p>
 
-<p>Além disso também é possível especificar se deseja ao iniciar a lista de assinatura que seja enviado um e-mail para os signatários ou não, isso é feito através do parâmetro <code>skip_email</code> que recebe um boolean.</p>
+<p>Além disso também é possível especificar se deseja ao iniciar a lista de assinatura que seja enviado um e-mail para os signatários ou não, isso é feito através do parametro <code>skip_email</code> que recebe um boolean.</p>
 
 <p>Os possíveis valores de <code>skip_email</code> são:</p>
 
@@ -586,9 +588,65 @@ Connection: Keep-Alive
 <li>true</li>
 </ul>
 
-<p>Caso o parâmetro seja passado como <strong>true</strong> ao criar a lista de assinatura não será enviado nenhum e-mail para os signatários. É importante notar
-que caso seja fornecido o parâmetro <code>skip_email</code><code>como *true*, o parâmetro</code>message<code>se torna desnecessário dado que não será enviado nenhum e-mail. Também
-é importante observar que como o valor padrão desse parâmetro é</code>false` ele pode ser omitido do json que é enviado para o servidor caso você deseje enviar os e-mails normalmente.</p>
+<p>Caso o parametro seja passado como <strong>true</strong> ao criar a lista de assinatura não será enviado nenhum e-mail para os signatários. É importante notar
+que caso seja fornecido o parametro <code>skip_email</code><code>como *true*, o parametro</code>message<code>se torna desnecessário dado que não será enviado nenhum e-mail. Também
+é importante observar que como o valor padrão desse parametro é</code>false` ele pode ser omitido do json que é enviado para o servidor caso você deseje enviar os e-mails normalmente.</p>
+
+<h1>
+<a id="upload-e-criação-de-lista-de-assinatura" class="anchor" href="#upload-e-cria%C3%A7%C3%A3o-de-lista-de-assinatura" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+<a name="upload-e-criacao-de-lista-de-assinatura"></a>Upload e criação de lista de assinatura</h1>
+
+<p>É possível realizar o <em>upload</em> e a criação da lista de assinatura em uma única ação.  Basta enviar, além do documento, os parâmetros da lista de assinatura.  Todas as opções válidas em ambas chamadas continuam válidas aqui.  O retorno será conforme a chamada de <em>upload</em> de documento.</p>
+
+<ul>
+<li>
+<strong>Method:</strong> POST</li>
+<li>
+<strong>Path:</strong> /v1/documents
+
+<ul>
+<li>
+<strong>Accept</strong>: application/json</li>
+<li>
+<strong>Content-Type:</strong> multipart/form-data; boundary=700481</li>
+</ul>
+</li>
+<li>
+<p><strong>Corpo:</strong></p>
+
+<pre><code>--700481
+Content-Disposition: form-data; name="document[archive][original]"; filename="06pages.pdf"
+Content-Type: application/pdf
+...
+
+--700481
+Content-Disposition: form-data; name="signers[][email]"
+
+elefanta@example.org
+--700481
+Content-Disposition: form-data; name="signers[][act]"
+
+sign
+--700481
+Content-Disposition: form-data; name="signers[][email]"
+
+elefante@example.org
+--700481
+Content-Disposition: form-data; name="signers[][act]"
+
+sign
+--700481
+Content-Disposition: form-data; name="message"
+
+hello world
+--700481
+Content-Disposition: form-data; name="access_token"
+
+d76a22b82a7d0807d406fa64231fae97
+--700481--
+</code></pre>
+</li>
+</ul>
 
 <h1>
 <a id="download-de-documento" class="anchor" href="#download-de-documento" aria-hidden="true"><span class="octicon octicon-link"></span></a>
@@ -638,10 +696,10 @@ que caso seja fornecido o parâmetro <code>skip_email</code><code>como *true*, o
 <p><strong>Corpo:</strong></p>
 
 <div class="highlight highlight-json"><pre>{
-  <span class="s2">"keys"</span>: [
-    <span class="s2">"0b2ec469-6b49-42bb-809f-d978279baeeb"</span>,
-    <span class="s2">"db75a09b-6b30-48b9-b9f0-873951a050ed"</span>,
-    <span class="s2">"42334730-5a93-48ae-b5e4-e8e86d62610a"</span>
+  <span class="pl-s1"><span class="pl-pds">"</span>keys<span class="pl-pds">"</span></span>: [
+    <span class="pl-s1"><span class="pl-pds">"</span>0b2ec469-6b49-42bb-809f-d978279baeeb<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>db75a09b-6b30-48b9-b9f0-873951a050ed<span class="pl-pds">"</span></span>,
+    <span class="pl-s1"><span class="pl-pds">"</span>42334730-5a93-48ae-b5e4-e8e86d62610a<span class="pl-pds">"</span></span>
   ]
 }</pre></div>
 </li>
@@ -700,11 +758,11 @@ Content-Type:application/json
 </code></pre>
 
 <div class="highlight highlight-json"><pre>{
-  <span class="s2">"id"</span>:<span class="m">1</span>,
-  <span class="s2">"url"</span>:<span class="s2">"http://example.com"</span>,
-  <span class="s2">"document_id"</span>: <span class="m">1</span>,
-  <span class="s2">"created_at"</span>:<span class="s2">"2014-07-08T12:35:55.777-03:00"</span>,
-  <span class="s2">"updated_at"</span>:<span class="s2">"2014-07-08T12:35:55.777-03:00"</span>
+  <span class="pl-s1"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-c1">1</span>,
+  <span class="pl-s1"><span class="pl-pds">"</span>url<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>http://example.com<span class="pl-pds">"</span></span>,
+  <span class="pl-s1"><span class="pl-pds">"</span>document_id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>,
+  <span class="pl-s1"><span class="pl-pds">"</span>created_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-07-08T12:35:55.777-03:00<span class="pl-pds">"</span></span>,
+  <span class="pl-s1"><span class="pl-pds">"</span>updated_at<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>2014-07-08T12:35:55.777-03:00<span class="pl-pds">"</span></span>
 }</pre></div>
 
 <h2>
@@ -725,7 +783,7 @@ Content-Type:application/json
 <p><strong>Corpo:</strong></p>
 
 <div class="highlight highlight-json"><pre>{
-  <span class="s2">"message"</span>: <span class="s2">"Parâmetros inválidos."</span>
+  <span class="pl-s1"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>Parâmetros inválidos.<span class="pl-pds">"</span></span>
 }</pre></div>
 </li>
 </ul>
@@ -748,7 +806,7 @@ Content-Type:application/json
 <p><strong>Corpo:</strong></p>
 
 <div class="highlight highlight-json"><pre>{
-  <span class="s2">"message"</span>: <span class="s2">"Server error."</span>
+  <span class="pl-s1"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>Server error.<span class="pl-pds">"</span></span>
 }</pre></div>
 </li>
 </ul>
@@ -759,20 +817,20 @@ Content-Type:application/json
 
 <p>Os exemplos abaixo podem ser executados direto da linha de comando utilizando o cURL.</p>
 
-<div class="highlight highlight-bash"><pre><span class="k">export</span> DOMAIN=api.clicksign.com
-<span class="k">export</span> TOKEN=put-your-token-here
-<span class="k">export</span> DOCUMENT=/home/joe/document-de-exemplo.pdf
+<div class="highlight highlight-bash"><pre><span class="pl-s">export</span> DOMAIN=api.clicksign.com
+<span class="pl-s">export</span> TOKEN=put-your-token-here
+<span class="pl-s">export</span> DOCUMENT=/home/joe/document-de-exemplo.pdf
 
-<span class="c1"># Obter os documentos de uma determinada conta</span>
-curl -X GET -H <span class="s2">"Accept: application/json"</span> https://<span class="nv">$DOMAIN</span>/v1/documents/<span class="o">?</span>access_token=<span class="nv">$TOKEN</span>
+<span class="pl-c"># Obter os documentos de uma determinada conta</span>
+curl -X GET -H <span class="pl-s1"><span class="pl-pds">"</span>Accept: application/json<span class="pl-pds">"</span></span> https://<span class="pl-vo">$DOMAIN</span>/v1/documents/<span class="pl-k">?</span>access_token=<span class="pl-vo">$TOKEN</span>
 
-<span class="c1"># Realizar upload de um documento</span>
-curl -X POST -H <span class="s2">"Accept: application/json"</span> -F <span class="s2">"document[archive][original]=@<span class="nv">$DOCUMENT</span>"</span> https://<span class="nv">$DOMAIN</span>/v1/documents<span class="o">?</span>access_token=<span class="nv">$TOKEN</span>
+<span class="pl-c"># Realizar upload de um documento</span>
+curl -X POST -H <span class="pl-s1"><span class="pl-pds">"</span>Accept: application/json<span class="pl-pds">"</span></span> -F <span class="pl-s1"><span class="pl-pds">"</span>document[archive][original]=@<span class="pl-vo">$DOCUMENT</span><span class="pl-pds">"</span></span> https://<span class="pl-vo">$DOMAIN</span>/v1/documents<span class="pl-k">?</span>access_token=<span class="pl-vo">$TOKEN</span>
 
-<span class="k">export</span> KEY=ver-key-retornada-no-JSON
+<span class="pl-s">export</span> KEY=ver-key-retornada-no-JSON
 
-<span class="c1"># Criar uma lista de assinatura</span>
-curl -X POST -H <span class="s2">"Accept: application/json"</span> -H <span class="s2">"Content-type: application/json"</span> -d <span class="s1">'{"signers": [{ "email": "joe@example.com", "act": "sign" }]}'</span> https://<span class="nv">$DOMAIN</span>/v1/documents/<span class="nv">$KEY</span>/list<span class="o">?</span>access_token=<span class="nv">$TOKEN</span></pre></div>
+<span class="pl-c"># Criar uma lista de assinatura</span>
+curl -X POST -H <span class="pl-s1"><span class="pl-pds">"</span>Accept: application/json<span class="pl-pds">"</span></span> -H <span class="pl-s1"><span class="pl-pds">"</span>Content-type: application/json<span class="pl-pds">"</span></span> -d <span class="pl-s1"><span class="pl-pds">'</span>{"signers": [{ "email": "joe@example.com", "act": "sign" }]}<span class="pl-pds">'</span></span> https://<span class="pl-vo">$DOMAIN</span>/v1/documents/<span class="pl-vo">$KEY</span>/list<span class="pl-k">?</span>access_token=<span class="pl-vo">$TOKEN</span></pre></div>
       </section>
     </div>
 
