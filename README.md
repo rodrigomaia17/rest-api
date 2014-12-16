@@ -54,9 +54,7 @@ Qualquer linguagem de programação capaz de realizar requisições **HTTP / JSO
 
 Uma _REST API_ é composta, basicamente, por dois elementos: um **cliente** e um **servidor**. O cliente sempre inicia a comunicação mediante requisição HTTP. O servidor sempre finaliza a comunicação respondendo à requisição.
 
-<p align="center">
-  ![Cliente-Servidor](https://raw.github.com/clicksign/rest-api/master/images/client-server.png)
-</p>
+![Cliente-Servidor](https://raw.github.com/clicksign/rest-api/master/images/client-server.png)
 
 As mensagens HTTP são compostas por uma linha inicial, um conjunto de cabeçalhos e um corpo. A linha inicial difere nas requisições e nas respostas, o cabeçalho compartilha parâmetros em comum e parâmetros específicos, e o corpo é completamente dependente de cada mensagem, podendo até ser nulo.
 
@@ -192,9 +190,7 @@ _status_ e suas transições possíveis:
 - **completed**: documento completamente assinado
 - **declined**: documento assinado com aos menos uma declinação
 
-<p align="center">
-  ![Diagrama de estados](https://raw.github.com/clicksign/rest-api/master/images/state-diagram.png)
-</p>
+![Diagrama de estados](https://raw.github.com/clicksign/rest-api/master/images/state-diagram.png)
 
 Atributos da lista de assinatura:
 
