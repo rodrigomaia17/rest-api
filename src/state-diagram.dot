@@ -1,0 +1,11 @@
+digraph G {
+  compound=true;
+  working -> editing;
+  editing -> pending [lhead=cluster0];
+
+  subgraph cluster0 {
+    pending -> running;
+  }
+
+  running -> { completed declined } [ltail=cluster0];
+}

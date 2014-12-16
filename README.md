@@ -48,14 +48,14 @@ A Clicksign pode ser acessada em https://desk.clicksign.com.
 
 O propósito desta **REST API** é prover meios para que nossos clientes adequem a Clicksign aos seus processos e sistemas p. ex. automatizar tarefas, desenhar fluxos de assinatura, e definir _workflow_. 
 
-Qualquer linguagem de programação compativel com requisições **HTTP / JSON** cumpre os requisitos necessários para consumir os serviços desta API. Assim, com pouco esforço de programação é possível integrar desde scripts shell até sistemas de ERP.
+Qualquer linguagem de programação capaz de realizar requisições **HTTP / JSON** cumpre os requisitos necessários para consumir os serviços desta API. Assim, com pouco esforço de programação é possível integrar desde scripts shell até sistemas de ERP.
 
 # <a name="funcionamento-geral"></a>Funcionamento geral
 
 Uma _REST API_ é composta, basicamente, por dois elementos: um **cliente** e um **servidor**. O cliente sempre inicia a comunicação mediante requisição HTTP. O servidor sempre finaliza a comunicação respondendo à requisição.
 
 <p align="center">
-  <img src="https://raw.github.com/clicksign/rest-api-v2/master/images/client-server.png" />
+  ![Cliente-Servidor](https://raw.github.com/clicksign/rest-api/master/images/client-server.png)
 </p>
 
 As mensagens HTTP são compostas por uma linha inicial, um conjunto de cabeçalhos e um corpo. A linha inicial difere nas requisições e nas respostas, o cabeçalho compartilha parâmetros em comum e parâmetros específicos, e o corpo é completamente dependente de cada mensagem, podendo até ser nulo.
@@ -108,7 +108,7 @@ Connection: Keep-Alive
 - Status: 200
 - Mensagem: OK
 - Cabeçalhos: Content-Type, Connection
-- Corpo: [{...
+- Corpo: [{...}]
 
 
 # <a name="autenticacao"></a>Autenticação
@@ -118,7 +118,7 @@ A Clicksign utiliza duplo fator de autenticação para aumentar a segurança de 
 1. Conhecer uma _string_ de **identificação**
 1. Possuir um endereço **IP** específico
 
-A autenticação é feito através do parâmetro **access_token** que automaticamente determina um usuário e realiza sua autenticação. O parâmetro deve ser enviado no **caminho** da requisição. Portanto, toda requisição deverá conter no _path_ `?access_token=string-do-token`._
+A autenticação é feito através do parâmetro **access_token** que automaticamente determina um usuário e realiza sua autenticação. O parâmetro deve ser enviado no **caminho** da requisição. Portanto, toda requisição deverá conter no _path_ `?access_token=string-do-token`.
 
 **Atenção:** O parâmetro de autenticação deve ser enviado a cada requisição feita pelo cliente. Como esse parâmetro é comum a todas as funções da API, ele será omitido das documentações.
 
@@ -153,13 +153,13 @@ passado através do `HTTP HEADER` `Accept` seguido do **mime type** referente ao
 formato. Por exemplo, para que o formato de sua resposta seja em `JSON`, será
 necessário prover um header com o seguinte formato:
 
-```
+```http
 Accept: application/json
 ```
 
 Caso deseje receber o formato da resposta em `XML` basta passar dessa forma:
 
-```
+```http
 Accept: application/xml
 ```
 
@@ -169,6 +169,63 @@ em JSON, porém todos os exemplos também podem ter as respostas no formato `XML
 # <a name="listagem-de-documentos"></a>Listagem de documentos
 
 Você pode obter uma listagem de todos os documentos da conta além de informações extras pertinentes ao andamento da lista de assinatura. A listagem retornarár todos os documentos na conta, sem a necessidade de parâmetros de paginação ou busca.
+
+Os atributos do documento:
+
+- **key**: chave única dentro do sistema
+- **original_name**: nome do arquivo
+- **status**: estado do documento
+- **archive_id**: parâmetro interno
+- **created_at**: data de criação do documento
+- **updated_at**: data de última alteração no documento
+- **user_key**: chave do usuário que criou o documento
+- **list**: lista de assinatura
+
+O _status_ de um documento varia conforme a geração do _preview_, o estado da
+lista de assinatura e as próprias assinaturas.  Segue abaixo a descrição do
+_status_ e suas transições possíveis:
+
+- **working**: gerando _preview_ do documento
+- **editing**: lista de assinatura aberta para edição
+- **pending**: documento aguardando assinatura do usuário
+- **running**: documento aguardando assinatura
+- **completed**: documento completamente assinado
+- **declined**: documento assinado com aos menos uma declinação
+
+<p align="center">
+  ![Diagrama de estados](https://raw.github.com/clicksign/rest-api/master/images/state-diagram.png)
+</p>
+
+Atributos da lista de assinatura:
+
+- **locked**: parâmetro interno
+- **started_at**: data de início da lista de assinatura
+- **created_at**: data de criação da lista de assinatura
+- **updated_at**: data de última alteração na lista de assinatura
+- **user_key**: chave do usuário que criou a lista de assinatura
+- **signatures**: vetor de assinaturas
+
+Atributos da assinatura:
+
+- **display_name**: nome do signatário
+- **title**: cargo do signatário
+- **company_name**: empresa do signatário
+- **key**: chave do signatário
+- **act**: ação da assinatura
+- **decision**: estado da assinatura
+- **address**: ip do signatário
+- **email**: e-mail do signatário
+- **signed_at**: data da assinatura
+- **created_at**: data de criação da assinatura
+- **updated_at**: data de última alteração na assinatura
+
+Os possíveis valores para **decision** são:
+
+- **agreed**: assinatura aceita
+- **declined**: assinatura declinada
+- **null**: assinatura não realizada
+
+Segue abaixo a requisição para uma listagem de documentos.
 
 * **Method:** GET
 * **Path:** /v1/documents
@@ -187,7 +244,7 @@ Connection: Keep-Alive
   {
     "document": {
       "key": "1123-4567-89ab-cdef",
-      original_name: "document-2.pdf"
+      "original_name": "document-2.pdf"
       "status": "completed",
       "archive_id": 2,
       "created_at": "2014-06-18T09:55:16.873-03:00",
@@ -206,7 +263,7 @@ Connection: Keep-Alive
   {
     "document": {
       "key": "0123-4567-89ab-cdef",
-      original_name: "document-1.pdf"
+      "original_name": "document-1.pdf"
       "status": "completed",
       "archive_id": 1,
       "created_at": "2014-06-18T09:55:16.873-03:00",
