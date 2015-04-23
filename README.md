@@ -548,9 +548,9 @@ que caso seja fornecido o parametro ```skip_email```` como *true*, o parametro `
 
 # <a name="download-de-documento"></a>Download de documento
 
-Você pode realizar download de um arquivo.  O arquivo original empacotado com um arquivo de log e enviado em **formato ZIP**.  O empacotamento é realizado sob demanda e em _background_, para isso, o servidor não irá aguardar a conclusão do empacotamento para retornar a requisição, ao invés disso, ele irá retorna uma respota com _status_ 201 indicando o início do empacotamento.  Enquanto ocorre o empacotamento o servidor irá retornar a mesma resposta 201.  Quando o processo for concluído, a resposta será código 200 contendo em seu corpo o ZIP.
+Você pode realizar download de um arquivo.  O arquivo original empacotado com um arquivo de log e enviado em **formato ZIP**.  O empacotamento é realizado sob demanda e em _background_, para isso, o servidor não irá aguardar a conclusão do empacotamento para retornar a requisição, ao invés disso, ele irá retorna uma respota com _status_ 202 indicando o início do empacotamento.  Enquanto ocorre o empacotamento o servidor irá retornar a mesma resposta 202.  Quando o processo for concluído, a resposta será código 200 contendo em seu corpo o ZIP.
 
-Você deverá realizar uma espera ativa, efetuando diversas requisições e obtendo respostas 201 até obter um código 200.  O empacotamento ocorre em 2 ou 3 segundos no máximo, por isso, **recomendamos realizar uma requisição por segundo** até você obter um código 200, dessa forma em 2 ou 3 requisições você obterá o ZIP.
+Você deverá realizar uma espera ativa, efetuando diversas requisições e obtendo respostas 202 até obter um código 200.  O empacotamento ocorre em 2 ou 3 segundos no máximo, por isso, **recomendamos realizar uma requisição por segundo** até você obter um código 200, dessa forma em 2 ou 3 requisições você obterá o ZIP.
 
 * **Method:** GET
 * **Path:** /v1/documents/:key/download
